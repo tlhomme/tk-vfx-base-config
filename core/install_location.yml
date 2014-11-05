@@ -1,0 +1,10 @@
+# Shotgun Pipeline Toolkit configuration file
+# This file was automatically created by setup_project
+# This file reflects the paths in the primary pipeline
+# configuration defined for this project.
+
+Windows: ''
+Darwin: '/Volumes/Prods/shotgun_test/software/lap_test'
+Linux: '/s/prods/shotgun_test/software/lap_test'
+
+# End of file.
