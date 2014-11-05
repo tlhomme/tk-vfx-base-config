@@ -3,8 +3,8 @@
 # This file reflects the paths in the primary pipeline
 # configuration defined for this project.
 
-Windows: ''
-Darwin: '/Volumes/Prods/shotgun_test/software/lap_test'
-Linux: '/s/prods/shotgun_test/software/lap_test'
+Windows: 'None'
+Darwin: '/Volumes/Prods/shotgun_test/software/lap_test2'
+Linux: '/s/prods/shotgun_test/software/lap_test2'
 
 # End of file.

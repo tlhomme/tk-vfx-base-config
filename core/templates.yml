@@ -271,7 +271,7 @@ paths:
 
     # review output
     shot_quicktime_quick:   '@shot_root/images/_out_compo/{Sequence}_{Shot}-{name}-{cs_task_name}-v{version}/mov/quick/{Sequence}_{Shot}-{name}-{cs_task_name}-v{version}.{iteration}.mov'
-    nuke_shot_render_movie: '@shot_root/images/_out_compo/{Sequence}_{Shot}-{name}-{cs_task_name}-v{version}/mov/review/{Sequence}_{Shot}-{name}-{cs_task_name}-v{version}.{iteration}.mov'
+    nuke_shot_render_movie: '@shot_root/images/_out_compo/{Sequence}_{Shot}-{name}-{cs_task_name}-v{version}/mov/review/{Sequence}_{Shot}-{name}-{cs_task_name}-v{version}.mov'
 
     # #---------------------------------------------
     # #          Nuke Asset Config

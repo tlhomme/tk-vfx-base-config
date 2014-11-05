@@ -66,8 +66,7 @@ workfiles-mik:
   hook_scene_operation: default
   launch_at_startup: true
   launch_change_work_area_at_startup: false
-  location: {path: 'https://github.com/tlhomme/tk-multi-workfiles-mik.git', type: git,
-    version: v0.1.1}
+  location: {path: /datas/tlhomme/dev/sgtk/tk-multi-workfiles-mik, type: dev}
   saveas_default_name: base
   saveas_prefer_version_up: true
   sg_entity_type_extra_display_fields: {}
@@ -90,7 +89,7 @@ workfiles-mik-change-work:
   launch_at_startup: false
   launch_change_work_area_at_startup: true
   location: {path: 'https://github.com/tlhomme/tk-multi-workfiles-mik.git', type: git,
-    version: v0.1.1}
+    version: v0.1.2}
   saveas_default_name: base
   saveas_prefer_version_up: true
   sg_entity_type_extra_display_fields: {}
@@ -113,7 +112,7 @@ workfiles-mik-project:
   launch_at_startup: false
   launch_change_work_area_at_startup: true
   location: {path: 'https://github.com/tlhomme/tk-multi-workfiles-mik.git', type: git,
-    version: v0.1.1}
+    version: v0.1.2}
   saveas_default_name: base
   saveas_prefer_version_up: true
   sg_entity_type_extra_display_fields: {}

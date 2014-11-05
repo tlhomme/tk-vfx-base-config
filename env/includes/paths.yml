@@ -34,7 +34,7 @@ maya_linux: /s/prods/shotgun_test/software/maya2015
 #
 nuke_mac: ''
 nuke_windows: ''
-nuke_linux: /s/apps/lin/nuke/nuke7.0v9_sgtk
+nuke_linux: /s/apps/lin/nuke/nuke8.0v4_sgtk
 
 
 #
@@ -87,5 +87,5 @@ softimage_linux: XSI
 #
 rv_mac: /Applications/RV64.app
 rv_win: C:\Program Files\RV\RV64.exe
-rv_linux: rv
+rv_linux: /s/apps/lin/bin/rv
 
