@@ -12,7 +12,7 @@ engines:
           Maya Scene: [reference, import]
           Photoshop Image: [texture_node]
           Rendered Image: [texture_node]
-        actions_hook: '{self}/tk-maya_actions.py'
+        actions_hook: tk-maya_actions
         download_thumbnails: true
         entities:
         - caption: Assets
@@ -71,7 +71,7 @@ engines:
         template_work: maya_shot_work
       tk-multi-workfiles-mik: '@workfiles-mik'
     compatibility_dialog_min_version: 2015
-    debug_logging: false
+    debug_logging: true
     location: {name: tk-maya, type: app_store, version: v0.4.3}
     menu_favourites:
     - {app_instance: tk-multi-workfiles-mik, name: Shotgun File Manager...}

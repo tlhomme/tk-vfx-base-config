@@ -609,7 +609,6 @@ class PrimaryPublishHook(Hook):
         try:
             if os.path.exists(pub_link_name):
                 os.remove(pub_link_name)
-            os.link(publish_file_path, root_folder + os.sep +
-                    re.sub(r"-v\d{3}", "", publish_file_name))
+            os.link(publish_file_path, pub_link_name)
         except Exception, e:
             raise TankError(str(e))

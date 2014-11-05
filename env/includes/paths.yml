@@ -75,12 +75,6 @@ hiero_mac: /Applications/Hiero1.8v2/Hiero1.8v2.app
 hiero_win: C:\Program Files\The Foundry\Hiero1.8v2\hiero.exe
 hiero_linux: /s/apps/lin/hiero/hiero
 
-#
-# Softimage
-#
-
-softimage_windows: C:\Program Files\Autodesk\Softimage 2013\Application\bin\XSI.bat
-softimage_linux: XSI
 
 #
 # Tweak RV
