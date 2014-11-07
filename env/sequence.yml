@@ -28,9 +28,9 @@ engines:
     project_favourite_name: Shotgun Current Project
     use_sgtk_as_menu_name: false
   tk-shell:
-    apps: {tk-multi-launch3dsmax: '@launch_3dsmax', tk-multi-launchmaya: '@launch_maya',
-      tk-multi-launchmotionbuilder: '@launch_motionbuilder', tk-multi-launchnuke: '@launch_nuke',
-      tk-multi-launchphotoshop: '@launch_photoshop', tk-multi-launchsoftimage: '@launch_softimage',
+    apps: { tk-multi-launchmaya: '@launch_maya',
+      tk-multi-launchnuke: '@launch_nuke',
+      tk-multi-launchphotoshop: '@launch_photoshop',
       tk-multi-screeningroom: '@launch_screeningroom'}
     location: {name: tk-shell, type: app_store, version: v0.4.1}
 frameworks:
