@@ -83,3 +83,9 @@ rv_mac: /Applications/RV64.app
 rv_win: C:\Program Files\RV\RV64.exe
 rv_linux: /s/apps/lin/bin/rv
 
+#
+# Softimage
+#
+
+softimage_windows: C:\Program Files\Autodesk\Softimage 2013\Application\bin\XSI.bat
+softimage_linux: XSI
