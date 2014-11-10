@@ -95,7 +95,7 @@ workfiles-mik-change-work:
   saveas_prefer_version_up: true
   sg_entity_type_extra_display_fields: {}
   sg_entity_type_filters: {}
-  sg_entity_types: [Project, Shot, Asset]
+  sg_entity_types: [Shot, Asset]
   sg_task_filters: []
   task_extra_display_fields: []
   template_publish: hook:resolve_template_hook:publish
@@ -118,7 +118,7 @@ workfiles-mik-project:
   saveas_prefer_version_up: true
   sg_entity_type_extra_display_fields: {}
   sg_entity_type_filters: {}
-  sg_entity_types: [Project]
+  sg_entity_types: []
   sg_task_filters: []
   task_extra_display_fields: []
   template_publish: hook:resolve_template_hook:project_publish
