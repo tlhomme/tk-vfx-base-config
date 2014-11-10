@@ -4,7 +4,7 @@
 # configuration defined for this project.
 
 Windows: 'None'
-Darwin: '/Volumes/Prods/shotgun_test/software/lap_test2'
-Linux: '/s/prods/shotgun_test/software/lap_test2'
+Darwin: '/Volumes/Prods/shotgun_test/software/lap_test'
+Linux: '/s/prods/shotgun_test/software/lap_test'
 
 # End of file.
