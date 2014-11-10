@@ -97,7 +97,7 @@ engines:
         template_publish_area: hiero_project_publish_area
         template_work: hiero_project_work
         template_work_area: hiero_project_work_area
-      tk-multi-workfiles-mik: '@workfiles-mik-project'
+      tk-multi-workfiles-mik: '@workfiles-mik-change-work'
     bin_context_menu:
     - {app_instance: tk-multi-workfiles-mik, keep_in_menu: false, name: Shotgun Save
         As..., requires_selection: true}

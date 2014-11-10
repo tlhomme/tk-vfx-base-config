@@ -58,7 +58,7 @@ workfiles-launch-at-startup:
   template_work: null
   template_work_area: null
 workfiles-mik:
-  allow_task_creation: true
+  allow_task_creation: false
   file_extensions: []
   hook_copy_file: default
   hook_filter_publishes: default
@@ -66,8 +66,7 @@ workfiles-mik:
   hook_scene_operation: default
   launch_at_startup: true
   launch_change_work_area_at_startup: false
-  location: {path: 'https://github.com/tlhomme/tk-multi-workfiles-mik.git', type: git,
-    version: v0.1.2}
+  location: {path: '/datas/tlhomme/dev/sgtk/tk-multi-workfiles-mik', type: dev}
   saveas_default_name: base
   saveas_prefer_version_up: true
   sg_entity_type_extra_display_fields: {}
@@ -81,7 +80,7 @@ workfiles-mik:
   template_work_area: hook:resolve_template_hook:work_area
   wip_skip_fields: [version, cs_user_name, cs_publi_flag]
 workfiles-mik-change-work:
-  allow_task_creation: true
+  allow_task_creation: false
   file_extensions: []
   hook_copy_file: default
   hook_filter_publishes: default
@@ -101,27 +100,8 @@ workfiles-mik-change-work:
   template_publish_area: null
   template_work: null
   template_work_area: null
-  wip_skip_fields: [version, cs_user_name, cs_publi_flag, cs_task_name]
-workfiles-mik-project:
-  allow_task_creation: true
-  file_extensions: []
-  hook_copy_file: default
-  hook_filter_publishes: default
-  hook_filter_work_files: default
-  hook_scene_operation: default
-  launch_at_startup: true
-  launch_change_work_area_at_startup: false
-  location: {path: 'https://github.com/tlhomme/tk-multi-workfiles-mik.git', type: git,
-    version: v0.1.2}
-  saveas_default_name: base
-  saveas_prefer_version_up: true
-  sg_entity_type_extra_display_fields: {}
-  sg_entity_type_filters: {}
-  sg_entity_types: []
-  sg_task_filters: []
-  task_extra_display_fields: []
-  template_publish: hook:resolve_template_hook:project_publish
-  template_publish_area: hook:resolve_template_hook:publish_area:project_publish_area
-  template_work: hook:resolve_template_hook:project_work
-  template_work_area: hook:resolve_template_hook:project_work_area
-  wip_skip_fields: [version, cs_user_name, cs_publi_flag, cs_task_name]
+  wip_skip_fields: [version, cs_user_name, cs_publi_flag]
+
+
+# {path: 'https://github.com/tlhomme/tk-multi-workfiles-mik.git', type: git,
+#     version: v0.1.2}
