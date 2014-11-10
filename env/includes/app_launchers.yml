@@ -8,7 +8,7 @@ launch_3dsmax:
   icon: '{target_engine}/icon_256.png'
   linux_args: ''
   linux_path: ''
-  location: {name: tk-multi-launchapp, type: app_store, version: v0.5.4}
+  location: {disabled: true, name: tk-multi-launchapp, type: app_store, version: v0.5.4}
   mac_args: ''
   mac_path: ''
   menu_name: Launch 3DSMax
@@ -40,7 +40,7 @@ launch_houdini:
   icon: '{target_engine}/icon_256.png'
   linux_args: ''
   linux_path: '@houdini_linux'
-  location: {name: tk-multi-launchapp, type: app_store, version: v0.4.0}
+  location: {name: tk-multi-launchapp, type: app_store, version: v0.5.4}
   mac_args: ''
   mac_path: ''
   menu_name: Launch Houdini
@@ -56,7 +56,7 @@ launch_mari:
   icon: '{target_engine}/icon_256.png'
   linux_args: ''
   linux_path: '@mari_linux'
-  location: {name: tk-multi-launchapp, type: app_store, version: v0.5.4}
+  location: {disabled: true, name: tk-multi-launchapp, type: app_store, version: v0.5.4}
   mac_args: ''
   mac_path: '@mari_mac'
   menu_name: Launch Mari
@@ -88,7 +88,7 @@ launch_motionbuilder:
   icon: '{target_engine}/icon_256.png'
   linux_args: ''
   linux_path: ''
-  location: {name: tk-multi-launchapp, type: app_store, version: v0.5.4}
+  location: {disabled: true, name: tk-multi-launchapp, type: app_store, version: v0.5.4}
   mac_args: ''
   mac_path: ''
   menu_name: Launch MotionBuilder
@@ -143,7 +143,7 @@ launch_softimage:
   icon: '{target_engine}/icon_256.png'
   linux_args: ''
   linux_path: '@softimage_linux'
-  location: {name: tk-multi-launchapp, type: app_store, version: v0.5.4}
+  location: {disabled: true, name: tk-multi-launchapp, type: app_store, version: v0.5.4}
   mac_args: ''
   mac_path: ''
   menu_name: Launch Softimage
