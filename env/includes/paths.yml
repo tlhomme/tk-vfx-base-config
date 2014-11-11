@@ -34,8 +34,14 @@ maya_linux: /s/prods/shotgun_test/software/maya2015
 #
 nuke_mac: ''
 nuke_windows: ''
-nuke_linux: /s/apps/lin/nuke/nuke8.0v4_sgtk
+nuke_linux: /s/apps/lin/nuke/nuke8.0v6_sgtk
 
+#
+# nukex
+#
+nuke_mac: ''
+nuke_windows: ''
+nukex_linux: /s/apps/lin/nuke/nukeX8.0v6_sgtk
 
 #
 # motionbuilder

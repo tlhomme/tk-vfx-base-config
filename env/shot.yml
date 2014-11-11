@@ -31,7 +31,7 @@ engines:
     use_sgtk_as_menu_name: false
   tk-nuke:
     apps: {tk-multi-about: '@about', tk-multi-screeningroom: '@launch_screeningroom',
-      tk-multi-workfiles: '@workfiles', tk-multi-workfiles-mik: '@workfiles-mik-change-work'}
+      tk-multi-workfiles: '@workfiles', tk-multi-workfiles-mik: '@workfiles-mik'}
     compatibility_dialog_min_version: 9
     debug_logging: false
     favourite_directories: []
@@ -42,12 +42,12 @@ engines:
     use_sgtk_as_menu_name: false
   tk-photoshop:
     apps: {tk-multi-about: '@about', tk-multi-screeningroom: '@launch_screeningroom',
-      tk-multi-workfiles: '@workfiles', tk-multi-workfiles-mik: '@workfiles-mik-change-work'}
+      tk-multi-workfiles: '@workfiles', tk-multi-workfiles-mik: '@workfiles-mik'}
     debug_logging: false
     location: {name: tk-photoshop, type: app_store, version: v0.2.0}
   tk-shell:
     apps: {tk-multi-launch3dsmax: '@launch_3dsmax', tk-multi-launchmaya: '@launch_maya',
-      tk-multi-launchmotionbuilder: '@launch_motionbuilder', tk-multi-launchnuke: '@launch_nuke',
+      tk-multi-launchmotionbuilder: '@launch_motionbuilder', tk-multi-launchnuke: '@launch_nuke', tk-multi-launchnuke: '@launch_nukex',
       tk-multi-launchphotoshop: '@launch_photoshop', tk-multi-launchsoftimage: '@launch_softimage',
       tk-multi-screeningroom: '@launch_screeningroom'}
     location: {name: tk-shell, type: app_store, version: v0.4.1}

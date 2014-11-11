@@ -321,7 +321,29 @@ engines:
         template_publish_area: asset_publish_area_maya
         template_work: maya_asset_work
         template_work_area: asset_work_area_maya
-      tk-multi-workfiles-mik: '@workfiles-mik'
+      tk-multi-workfiles-mik:
+        allow_task_creation: false
+        file_extensions: []
+        hook_copy_file: default
+        hook_filter_publishes: default
+        hook_filter_work_files: default
+        hook_scene_operation: default
+        launch_at_startup: true
+        launch_change_work_area_at_startup: false
+        location: {path: 'https://github.com/tlhomme/tk-multi-workfiles-mik.git',
+          type: git, version: v0.1.4}
+        saveas_default_name: base
+        saveas_prefer_version_up: true
+        sg_entity_type_extra_display_fields: {}
+        sg_entity_type_filters: {}
+        sg_entity_types: [Shot, Asset]
+        sg_task_filters: []
+        task_extra_display_fields: []
+        template_publish: maya_asset_publish
+        template_publish_area: asset_publish_area_maya
+        template_work: maya_asset_work
+        template_work_area: asset_work_area_maya
+        wip_skip_fields: [version, cs_user_name, cs_publi_flag]
     compatibility_dialog_min_version: 2015
     debug_logging: false
     location: {name: tk-maya, type: app_store, version: v0.4.3}
@@ -524,6 +546,29 @@ engines:
         template_publish_area: asset_publish_area_nuke
         template_work: nuke_asset_work
         template_work_area: asset_work_area_nuke
+      tk-multi-workfiles-mik:
+        allow_task_creation: false
+        file_extensions: []
+        hook_copy_file: default
+        hook_filter_publishes: default
+        hook_filter_work_files: default
+        hook_scene_operation: default
+        launch_at_startup: false
+        launch_change_work_area_at_startup: false
+        location: {path: 'https://github.com/tlhomme/tk-multi-workfiles-mik.git',
+          type: git, version: v0.1.4}
+        saveas_default_name: base
+        saveas_prefer_version_up: true
+        sg_entity_type_extra_display_fields: {}
+        sg_entity_type_filters: {}
+        sg_entity_types: [Shot, Asset]
+        sg_task_filters: []
+        task_extra_display_fields: []
+        template_publish: nuke_asset_publish
+        template_publish_area: asset_publish_area_nuke
+        template_work: nuke_asset_work
+        template_work_area: asset_work_area_nuke
+        wip_skip_fields: [version, cs_user_name, cs_publi_flag]
       tk-nuke-breakdown:
         hook_multi_update: default
         hook_scan_scene: default
@@ -612,12 +657,35 @@ engines:
         template_publish_area: asset_publish_area_photoshop
         template_work: photoshop_asset_work
         template_work_area: asset_work_area_photoshop
+      tk-multi-workfiles-mik:
+        allow_task_creation: false
+        file_extensions: []
+        hook_copy_file: default
+        hook_filter_publishes: default
+        hook_filter_work_files: default
+        hook_scene_operation: default
+        launch_at_startup: false
+        launch_change_work_area_at_startup: false
+        location: {path: 'https://github.com/tlhomme/tk-multi-workfiles-mik.git',
+          type: git, version: v0.1.4}
+        saveas_default_name: base
+        saveas_prefer_version_up: true
+        sg_entity_type_extra_display_fields: {}
+        sg_entity_type_filters: {}
+        sg_entity_types: [Shot, Asset]
+        sg_task_filters: []
+        task_extra_display_fields: []
+        template_publish: photoshop_asset_publish
+        template_publish_area: asset_publish_area_photoshop
+        template_work: photoshop_asset_work
+        template_work_area: asset_work_area_photoshop
+        wip_skip_fields: [version, cs_user_name, cs_publi_flag]
     debug_logging: false
     location: {name: tk-photoshop, type: app_store, version: v0.2.0}
   tk-shell:
     apps: {tk-multi-launch3dsmax: '@launch_3dsmax', tk-multi-launchhoudini: '@launch_houdini',
       tk-multi-launchmari: '@launch_mari', tk-multi-launchmaya: '@launch_maya', tk-multi-launchmotionbuilder: '@launch_motionbuilder',
-      tk-multi-launchnuke: '@launch_nuke', tk-multi-launchphotoshop: '@launch_photoshop',
+      tk-multi-launchnuke: '@launch_nuke',  tk-multi-launchnuke: '@launch_nukex', tk-multi-launchphotoshop: '@launch_photoshop',
       tk-multi-launchsoftimage: '@launch_softimage', tk-multi-screeningroom: '@launch_screeningroom'}
     location: {name: tk-shell, type: app_store, version: v0.4.1}
   tk-softimage:

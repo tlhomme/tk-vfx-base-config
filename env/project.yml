@@ -8,7 +8,7 @@ engines:
   tk-desktop:
     apps: {tk-multi-launch3dsmax: '@launch_3dsmax', tk-multi-launchhiero: '@launch_hiero',
       tk-multi-launchmari: '@launch_mari', tk-multi-launchmaya: '@launch_maya', tk-multi-launchmotionbuilder: '@launch_motionbuilder',
-      tk-multi-launchnuke: '@launch_nuke', tk-multi-launchphotoshop: '@launch_photoshop',
+      tk-multi-launchnuke: '@launch_nuke',  tk-multi-launchnuke: '@launch_nukex', tk-multi-launchphotoshop: '@launch_photoshop',
       tk-multi-launchsoftimage: '@launch_softimage', tk-multi-screeningroom: '@launch_screeningroom'}
     collapse_rules:
     - {button_label: $app, match: Launch $app, menu_label: None}
@@ -35,7 +35,7 @@ engines:
         hook_translate_template: default
         hook_update_version_data: default
         hook_upload_thumbnail: default
-        location: {name: tk-hiero-export, type: app_store, version: v0.1.28}
+        location: {name: tk-hiero-export, type: app_store, version: v0.1.29}
         nuke_script_published_file_type: Nuke Script
         nuke_script_toolkit_write_nodes:
         - {channel: stereoexr32, name: 'Stereo Exr, 32 bit'}
@@ -166,7 +166,7 @@ engines:
     use_sgtk_as_menu_name: false
   tk-nuke:
     apps: {tk-multi-about: '@about', tk-multi-screeningroom: '@launch_screeningroom',
-      tk-multi-workfiles: '@workfiles', tk-multi-workfiles-mik: '@workfiles-mik-change-work'}
+      tk-multi-workfiles: '@workfiles', tk-multi-workfiles-mik: '@workfiles-mik'}
     compatibility_dialog_min_version: 9
     debug_logging: false
     favourite_directories: []
@@ -177,13 +177,13 @@ engines:
     use_sgtk_as_menu_name: false
   tk-photoshop:
     apps: {tk-multi-about: '@about', tk-multi-screeningroom: '@launch_screeningroom',
-      tk-multi-workfiles: '@workfiles', tk-multi-workfiles-mik: '@workfiles-mik-change-work'}
+      tk-multi-workfiles: '@workfiles', tk-multi-workfiles-mik: '@workfiles-mik'}
     debug_logging: false
     location: {name: tk-photoshop, type: app_store, version: v0.2.0}
   tk-shell:
     apps: {tk-multi-launch3dsmax: '@launch_3dsmax', tk-multi-launchhiero: '@launch_hiero',
       tk-multi-launchmari: '@launch_mari', tk-multi-launchmaya: '@launch_maya', tk-multi-launchmotionbuilder: '@launch_motionbuilder',
-      tk-multi-launchnuke: '@launch_nuke', tk-multi-launchphotoshop: '@launch_photoshop',
+      tk-multi-launchnuke: '@launch_nuke',  tk-multi-launchnuke: '@launch_nukex', tk-multi-launchphotoshop: '@launch_photoshop',
       tk-multi-launchsoftimage: '@launch_softimage', tk-multi-screeningroom: '@launch_screeningroom'}
     location: {name: tk-shell, type: app_store, version: v0.4.1}
   tk-softimage:
