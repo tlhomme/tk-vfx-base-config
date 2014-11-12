@@ -1,8 +1,3 @@
-tk-vfx-base-config
-==================
-
-vfx base config for mikros sgtk setup
-
 ## Config schema ( folder hierarchy )
 + **Prod Root**
  + _admin
@@ -20,6 +15,7 @@ vfx base config for mikros sgtk setup
            + pipeline_step
 
 ## Custom template paths
+### Custom Mapping with existing fields
 **project name**
 ```yaml
 cs_project:
@@ -44,6 +40,8 @@ cs_asset_type:
     shotgun_field_name: sg_asset_type
 ```
 
+### Custom Mapping with new fields
+
 **pipeline step short-name**
 ```yaml
 cs_step_short_name:
@@ -59,6 +57,7 @@ cs_task_name:
     shotgun_entity_type: Task
     shotgun_field_name: sg_task_code
 ```
+### Custom key, no fields : only for file naming
 
 **publi flag for wip files**
 ```yaml
