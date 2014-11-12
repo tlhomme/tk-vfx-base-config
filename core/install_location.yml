@@ -1,11 +1,10 @@
 # Shotgun Pipeline Toolkit configuration file
-# This file was automatically created by setup_project
-# This file reflects the paths in the primary pipeline
-# configuration defined for this project.
+# This file was automatically created by tank clone
+# This file reflects the paths in the pipeline configuration
+# entity which is associated with this location (Dev Env).
 
-Windows: 'None'
-Darwin: '/Volumes/Prods/shotgun_test/software/lap'
-Linux: '/s/prods/shotgun_test/software/lap'
-
+Windows: ''
+Darwin: '/Volumes/Prods/shotgun_test/software/lap_dev'
+Linux: '/s/prods/shotgun_test/software/lap_dev'
 
 # End of file.

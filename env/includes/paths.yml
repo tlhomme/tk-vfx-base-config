@@ -39,8 +39,8 @@ nuke_linux: /s/apps/lin/nuke/nuke8.0v6_sgtk
 #
 # nukex
 #
-nuke_mac: ''
-nuke_windows: ''
+nukex_mac: ''
+nukex_windows: ''
 nukex_linux: /s/apps/lin/nuke/nukeX8.0v6_sgtk
 
 #

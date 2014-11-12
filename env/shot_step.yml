@@ -84,7 +84,7 @@ engines:
         template_publish_area: shot_publish_area_max
         template_work: max_shot_work
         template_work_area: shot_work_area_max
-    debug_logging: fales
+    debug_logging: false
     location: {name: tk-3dsmax, type: app_store, version: v0.3.3}
   tk-houdini:
     apps:
