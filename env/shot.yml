@@ -47,7 +47,7 @@ engines:
     location: {name: tk-photoshop, type: app_store, version: v0.2.0}
   tk-shell:
     apps: {tk-multi-launch3dsmax: '@launch_3dsmax', tk-multi-launchmaya: '@launch_maya',
-      tk-multi-launchmotionbuilder: '@launch_motionbuilder', tk-multi-launchnuke: '@launch_nuke', tk-multi-launchnuke: '@launch_nukex',
+      tk-multi-launchmotionbuilder: '@launch_motionbuilder', tk-multi-launchnuke: '@launch_nuke', tk-multi-launchnukex: '@launch_nukex',
       tk-multi-launchphotoshop: '@launch_photoshop', tk-multi-launchsoftimage: '@launch_softimage',
       tk-multi-screeningroom: '@launch_screeningroom'}
     location: {name: tk-shell, type: app_store, version: v0.4.1}

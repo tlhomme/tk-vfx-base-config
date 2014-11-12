@@ -142,7 +142,7 @@ paths:
 
 
     shot_root: '{Sequence}/{Shot}'
-    asset_root: 'assets/{cs_asset_type}/{Asset}'
+    asset_root: 'assets/{Asset}'
     sequence_root: '/'
 
     ##########################################################################################
@@ -179,15 +179,15 @@ paths:
     #
 
     # The location of WIP files
-    photoshop_shot_work: '@shot_root/matte_pr/{cs_step_short_name}/wip/{cs_user_name}/{Sequence}_{Shot}-{name}-{cs_task_name}-v{version}[-{cs_publi_flag}].psd'
+    photoshop_shot_work: '@shot_root/matte_pr/{cs_step_short_name}/wip/{cs_user_name}/{cs_task_name}-{Shot}[--{name}]-v{version}[-{cs_publi_flag}].psd'
     shot_work_area_photoshop: '@shot_root/matte_pr/'
 
     # The location of backups of WIP files
-    photoshop_shot_snapshot: '@shot_root/matte_pr/{cs_step_short_name}/wip/{cs_user_name}/snapshots/{Sequence}_{Shot}-{name}-{cs_task_name}-v{version}.{timestamp}.psd'
+    photoshop_shot_snapshot: '@shot_root/matte_pr/{cs_step_short_name}/wip/{cs_user_name}/snapshots/{cs_task_name}-{Shot}[--{name}]-v{version}.{timestamp}.psd'
 
     # The location of published files
     shot_publish_area_photoshop: '@shot_root/matte_pr/{cs_step_short_name}/refOrig'
-    photoshop_shot_publish: '@shot_root/matte_pr/{cs_step_short_name}/refOrig/{Sequence}_{Shot}-{name}-{cs_task_name}-v{version}.psd'
+    photoshop_shot_publish: '@shot_root/matte_pr/{cs_step_short_name}/refOrig/{cs_task_name}-{Shot}[--{name}]-v{version}.psd'
 
     #
     # Maya
@@ -200,13 +200,13 @@ paths:
     shot_publish_area_maya: '@shot_root/3d_pr/scenes/{cs_step_short_name}/refOrig'
 
     # The location of WIP files
-    maya_shot_work: '@shot_root/3d_pr/scenes/{cs_step_short_name}/wip/{cs_user_name}/{Sequence}_{Shot}-{name}-{cs_task_name}-v{version}[-{cs_publi_flag}].ma'
+    maya_shot_work: '@shot_root/3d_pr/scenes/{cs_step_short_name}/wip/{cs_user_name}/{cs_task_name}-{Shot}[--{name}]-v{version}[-{cs_publi_flag}].ma'
 
     # The location of backups of WIP files
-    maya_shot_snapshot: '@shot_root/3d_pr/scenes/{cs_step_short_name}/wip/{cs_user_name}/snapshots/{Sequence}_{Shot}-{name}-{cs_task_name}-v{version}.{timestamp}.ma'
+    maya_shot_snapshot: '@shot_root/3d_pr/scenes/{cs_step_short_name}/wip/{cs_user_name}/snapshots/{cs_task_name}-{Shot}[--{name}]-v{version}.{timestamp}.ma'
 
     # The location of published maya files
-    maya_shot_publish: '@shot_root/3d_pr/scenes/{cs_step_short_name}/refOrig/{Sequence}_{Shot}-{name}-{cs_task_name}-v{version}.ma'
+    maya_shot_publish: '@shot_root/3d_pr/scenes/{cs_step_short_name}/refOrig/{cs_task_name}-{Shot}[--{name}]-v{version}.ma'
 
 
     #
@@ -285,27 +285,27 @@ paths:
     shot_publish_area_nuke: '@shot_root/compo_pr/{cs_step_short_name}/refOrig'
 
     # The location of WIP script files
-    nuke_shot_work: '@shot_root/compo_pr/{cs_step_short_name}/wip/{cs_user_name}/{Sequence}_{Shot}-{name}-{cs_task_name}-v{version}[-{cs_publi_flag}].nk'
+    nuke_shot_work: '@shot_root/compo_pr/{cs_step_short_name}/wip/{cs_user_name}/{cs_task_name}-{Shot}[--{name}]-v{version}[-{cs_publi_flag}].nk'
 
     # The location of backups of WIP files
-    nuke_shot_snapshot: '@shot_root/compo_pr/{cs_step_short_name}/wip/{cs_user_name}/snapshots/{Sequence}_{Shot}-{name}-{cs_task_name}-v{version}.{timestamp}.nk'
+    nuke_shot_snapshot: '@shot_root/compo_pr/{cs_step_short_name}/wip/{cs_user_name}/snapshots/{cs_task_name}-{Shot}[--{name}]-v{version}.{timestamp}.nk'
 
     # The location of published nuke script files
-    nuke_shot_publish: '@shot_root/compo_pr/{cs_step_short_name}/refOrig/{Sequence}_{Shot}-{name}-{cs_task_name}-v{version}.nk'
+    nuke_shot_publish: '@shot_root/compo_pr/{cs_step_short_name}/refOrig/{cs_task_name}-{Shot}[--{name}]-v{version}.nk'
 
     # write node outputs
-    nuke_shot_render_mono_dpx:            '@shot_root/images/_out_compo/{Sequence}_{Shot}-{name}-{cs_task_name}-v{version}/wip/{Sequence}_{Shot}-{name}-{cs_task_name}-v{version}.{SEQ}.dpx'
-    nuke_shot_render_pub_mono_dpx:        '@shot_root/images/_out_compo/{Sequence}_{Shot}-{name}-{cs_task_name}-v{version}/publi/{Sequence}_{Shot}-{name}-{cs_task_name}-v{version}.{SEQ}.dpx'
-    nuke_shot_render_stereo_dpx:            '@shot_root/images/_out_compo/{Sequence}_{Shot}-{name}-{cs_task_name}-v{version}/wip/{Sequence}_{Shot}-{name}-{cs_task_name}-v{version}_{eye}.{SEQ}.dpx'
-    nuke_shot_render_pub_stereo_dpx:        '@shot_root/images/_out_compo/{Sequence}_{Shot}-{name}-{cs_task_name}-v{version}/publi/{Sequence}_{Shot}-{name}-{cs_task_name}-v{version}_{eye}.{SEQ}.dpx'
-    nuke_shot_render_mono:            '@shot_root/images/_out_compo/{Sequence}_{Shot}-{name}-{cs_task_name}-v{version}/wip/{Sequence}_{Shot}-{name}-{cs_task_name}-v{version}.{SEQ}.exr'
-    nuke_shot_render_pub_mono:        '@shot_root/images/_out_compo/{Sequence}_{Shot}-{name}-{cs_task_name}-v{version}/publi/{Sequence}_{Shot}-{name}-{cs_task_name}-v{version}.{SEQ}.exr'
-    nuke_shot_render_stereo:            '@shot_root/images/_out_compo/{Sequence}_{Shot}-{name}-{cs_task_name}-v{version}/wip/{Sequence}_{Shot}-{name}-{cs_task_name}-v{version}_{eye}.{SEQ}.exr'
-    nuke_shot_render_pub_stereo:        '@shot_root/images/_out_compo/{Sequence}_{Shot}-{name}-{cs_task_name}-v{version}/publi/{Sequence}_{Shot}-{name}-{cs_task_name}-v{version}_{eye}.{SEQ}.exr'
+    nuke_shot_render_mono_dpx:            '@shot_root/images/_out_compo/{cs_task_name}-{Shot}[--{name}]-v{version}/wip/{cs_task_name}-{Shot}[--{name}]-v{version}.{SEQ}.dpx'
+    nuke_shot_render_pub_mono_dpx:        '@shot_root/images/_out_compo/{cs_task_name}-{Shot}[--{name}]-v{version}/publi/{cs_task_name}-{Shot}[--{name}]-v{version}.{SEQ}.dpx'
+    nuke_shot_render_stereo_dpx:            '@shot_root/images/_out_compo/{cs_task_name}-{Shot}[--{name}]-v{version}/wip/{cs_task_name}-{Shot}[--{name}]-v{version}_{eye}.{SEQ}.dpx'
+    nuke_shot_render_pub_stereo_dpx:        '@shot_root/images/_out_compo/{cs_task_name}-{Shot}[--{name}]-v{version}/publi/{cs_task_name}-{Shot}[--{name}]-v{version}_{eye}.{SEQ}.dpx'
+    nuke_shot_render_mono:            '@shot_root/images/_out_compo/{cs_task_name}-{Shot}[--{name}]-v{version}/wip/{cs_task_name}-{Shot}[--{name}]-v{version}.{SEQ}.exr'
+    nuke_shot_render_pub_mono:        '@shot_root/images/_out_compo/{cs_task_name}-{Shot}[--{name}]-v{version}/publi/{cs_task_name}-{Shot}[--{name}]-v{version}.{SEQ}.exr'
+    nuke_shot_render_stereo:            '@shot_root/images/_out_compo/{cs_task_name}-{Shot}[--{name}]-v{version}/wip/{cs_task_name}-{Shot}[--{name}]-v{version}_{eye}.{SEQ}.exr'
+    nuke_shot_render_pub_stereo:        '@shot_root/images/_out_compo/{cs_task_name}-{Shot}[--{name}]-v{version}/publi/{cs_task_name}-{Shot}[--{name}]-v{version}_{eye}.{SEQ}.exr'
 
     # review output
-    shot_quicktime_quick:   '@shot_root/images/_out_compo/{Sequence}_{Shot}-{name}-{cs_task_name}-v{version}/mov/quick/{Sequence}_{Shot}-{name}-{cs_task_name}-v{version}.{iteration}.mov'
-    nuke_shot_render_movie: '@shot_root/images/_out_compo/{Sequence}_{Shot}-{name}-{cs_task_name}-v{version}/mov/review/{Sequence}_{Shot}-{name}-{cs_task_name}-v{version}.mov'
+    shot_quicktime_quick:   '@shot_root/images/_out_compo/{cs_task_name}-{Shot}[--{name}]-v{version}/mov/quick/{cs_task_name}-{Shot}[--{name}]-v{version}.{iteration}.mov'
+    nuke_shot_render_movie: '@shot_root/images/_out_compo/{cs_task_name}-{Shot}[--{name}]-v{version}/mov/review/{cs_task_name}-{Shot}[--{name}]-v{version}.mov'
 
     #
     # Hiero
@@ -343,22 +343,22 @@ paths:
     # Alembic caches
     #
 
-    asset_alembic_cache: '@asset_root/3d_pr/caches/{cs_step_short_name}/{cs_asset_type}-{Asset}-{name}-{cs_task_name}.abc'
+    asset_alembic_cache: '@asset_root/3d_pr/caches/{cs_step_short_name}/{cs_task_name}-{Asset}[--{name}].abc'
 
     #
     # Photoshop
     #
 
     # The location of WIP files
-    photoshop_asset_work: '@asset_root/matte_pr/{cs_step_short_name}/wip/{cs_user_name}/{cs_asset_type}-{Asset}[-{name}]-{cs_task_name}-v{version}[-{cs_publi_flag}].psd'
+    photoshop_asset_work: '@asset_root/matte_pr/{cs_step_short_name}/wip/{cs_user_name}/{cs_task_name}-{Asset}[--{name}]-v{version}[-{cs_publi_flag}].psd'
     asset_work_area_photoshop: '@asset_root/matte_pr/'
 
     # The location of backups of WIP files
-    photoshop_asset_snapshot: '@asset_root/matte_pr/{cs_step_short_name}/wip/{cs_user_name}/snapshots/{cs_asset_type}-{Asset}[-{name}]-{cs_task_name}-v{version}.{timestamp}.psd'
+    photoshop_asset_snapshot: '@asset_root/matte_pr/{cs_step_short_name}/wip/{cs_user_name}/snapshots/{cs_task_name}-{Asset}[--{name}]-v{version}.{timestamp}.psd'
 
     # The location of published files
     asset_publish_area_photoshop: '@asset_root/matte_pr/{cs_step_short_name}/refOrig'
-    photoshop_asset_publish: '@asset_root/matte_pr/{cs_step_short_name}/refOrig/{cs_asset_type}-{Asset}[-{name}]-{cs_task_name}-v{version}.psd'
+    photoshop_asset_publish: '@asset_root/matte_pr/{cs_step_short_name}/refOrig/{cs_task_name}-{Asset}[--{name}]-v{version}.psd'
 
     #
     # Mari
@@ -378,13 +378,13 @@ paths:
     asset_publish_area_maya: '@asset_root/3d_pr/scenes/{cs_step_short_name}/refOrig'
 
     # The location of WIP files
-    maya_asset_work: '@asset_root/3d_pr/scenes/{cs_step_short_name}/wip/{cs_user_name}/{cs_asset_type}-{Asset}[-{name}]-{cs_task_name}-v{version}[-{cs_publi_flag}].ma'
+    maya_asset_work: '@asset_root/3d_pr/scenes/{cs_step_short_name}/wip/{cs_user_name}/{cs_task_name}-{Asset}[--{name}]-v{version}[-{cs_publi_flag}].ma'
 
     # The location of backups of WIP files
-    maya_asset_snapshot: '@asset_root/3d_pr/scenes/{cs_step_short_name}/wip/{cs_user_name}/snapshots/{cs_asset_type}-{Asset}[-{name}]-{cs_task_name}-v{version}.{timestamp}.ma'
+    maya_asset_snapshot: '@asset_root/3d_pr/scenes/{cs_step_short_name}/wip/{cs_user_name}/snapshots/{cs_task_name}-{Asset}[--{name}]-v{version}.{timestamp}.ma'
 
     # The location of published maya files
-    maya_asset_publish: '@asset_root/3d_pr/scenes/{cs_step_short_name}/refOrig/{cs_asset_type}-{Asset}[-{name}]-{cs_task_name}-v{version}.ma'
+    maya_asset_publish: '@asset_root/3d_pr/scenes/{cs_step_short_name}/refOrig/{cs_task_name}-{Asset}[--{name}]-v{version}.ma'
 
 
     #
@@ -462,21 +462,21 @@ paths:
     asset_publish_area_nuke: '@asset_root/compo_pr/{cs_step_short_name}/refOrig'
 
     # outputs from the Shotgun Write Node for assets
-    nuke_asset_render: '@asset_root/images/_out_compo/{cs_asset_type}-{Asset}[-{name}]-{cs_task_name}-v{version}/wip/{cs_asset_type}-{Asset}[-{name}]-{cs_task_name}-v{version}.{SEQ}.exr'
-    nuke_asset_render_pub: '@asset_root/images/_out_compo/{cs_asset_type}-{Asset}[-{name}]-{cs_task_name}-v{version}/publi/{cs_asset_type}-{Asset}[-{name}]-{cs_task_name}-v{version}.{SEQ}.exr'
+    nuke_asset_render: '@asset_root/images/_out_compo/{cs_task_name}-{Asset}[--{name}]-v{version}/wip/{cs_task_name}-{Asset}[--{name}]-v{version}.{SEQ}.exr'
+    nuke_asset_render_pub: '@asset_root/images/_out_compo/{cs_task_name}-{Asset}[--{name}]-v{version}/publi/{cs_task_name}-{Asset}[--{name}]-v{version}.{SEQ}.exr'
 
     # review output
     nuke_asset_render_movie: '@asset_root/review/{Asset}_{name}_{output}_v{version}.mov'
     asset_quicktime_quick:   '@asset_root/review/quickdaily/{Asset}_{name}_{iteration}.mov'
 
     # The location of WIP script files
-    nuke_asset_work: '@asset_root/compo_pr/{cs_step_short_name}/wip/{cs_user_name}/{cs_asset_type}-{Asset}[-{name}]-{cs_task_name}-v{version}[-{cs_publi_flag}].nk'
+    nuke_asset_work: '@asset_root/compo_pr/{cs_step_short_name}/wip/{cs_user_name}/{cs_task_name}-{Asset}[--{name}]-v{version}[-{cs_publi_flag}].nk'
 
     # The location of backups of WIP files
-    nuke_asset_snapshot: '@asset_root/compo_pr/{cs_step_short_name}/wip/{cs_user_name}/{cs_asset_type}-{Asset}[-{name}]-{cs_task_name}-v{version}.{timestamp}.nk'
+    nuke_asset_snapshot: '@asset_root/compo_pr/{cs_step_short_name}/wip/{cs_user_name}/{cs_task_name}-{Asset}[--{name}]-v{version}.{timestamp}.nk'
 
     # The location of published nuke script files
-    nuke_asset_publish: '@asset_root/compo_pr/{cs_step_short_name}/refOrig/{cs_asset_type}-{Asset}[-{name}]-{cs_task_name}-v{version}.nk'
+    nuke_asset_publish: '@asset_root/compo_pr/{cs_step_short_name}/refOrig/{cs_task_name}-{Asset}[--{name}]-v{version}.nk'
 
     #
     # Softimage

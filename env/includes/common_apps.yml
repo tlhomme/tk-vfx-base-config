@@ -67,8 +67,8 @@ workfiles-mik:
   launch_at_startup: false
   launch_change_work_area_at_startup: false
   location: {path: 'https://github.com/tlhomme/tk-multi-workfiles-mik.git', type: git,
-    version: v0.1.4}
-  saveas_default_name: base
+    version: v0.6.6}
+  saveas_default_name: ''
   saveas_prefer_version_up: true
   sg_entity_type_extra_display_fields: {}
   sg_entity_type_filters: {}
@@ -79,6 +79,7 @@ workfiles-mik:
   template_publish_area: null
   template_work: null
   template_work_area: null
+  version_compare_ignore_fields: []
   wip_skip_fields: [version, cs_user_name, cs_publi_flag]
 workfiles-mik-change-work:
   allow_task_creation: false
@@ -90,8 +91,8 @@ workfiles-mik-change-work:
   launch_at_startup: true
   launch_change_work_area_at_startup: false
   location: {path: 'https://github.com/tlhomme/tk-multi-workfiles-mik.git', type: git,
-    version: v0.1.4}
-  saveas_default_name: base
+    version: v0.6.6}
+  saveas_default_name: ''
   saveas_prefer_version_up: true
   sg_entity_type_extra_display_fields: {}
   sg_entity_type_filters: {}
@@ -102,4 +103,5 @@ workfiles-mik-change-work:
   template_publish_area: null
   template_work: null
   template_work_area: null
+  version_compare_ignore_fields: []
   wip_skip_fields: [version, cs_user_name, cs_publi_flag]

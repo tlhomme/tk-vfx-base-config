@@ -8,7 +8,7 @@ engines:
   tk-desktop:
     apps: {tk-multi-launch3dsmax: '@launch_3dsmax', tk-multi-launchhiero: '@launch_hiero',
       tk-multi-launchmari: '@launch_mari', tk-multi-launchmaya: '@launch_maya', tk-multi-launchmotionbuilder: '@launch_motionbuilder',
-      tk-multi-launchnuke: '@launch_nuke',  tk-multi-launchnuke: '@launch_nukex', tk-multi-launchphotoshop: '@launch_photoshop',
+      tk-multi-launchnuke: '@launch_nuke',  tk-multi-launchnukex: '@launch_nukex', tk-multi-launchphotoshop: '@launch_photoshop',
       tk-multi-launchsoftimage: '@launch_softimage', tk-multi-screeningroom: '@launch_screeningroom'}
     collapse_rules:
     - {button_label: $app, match: Launch $app, menu_label: None}
@@ -183,7 +183,7 @@ engines:
   tk-shell:
     apps: {tk-multi-launch3dsmax: '@launch_3dsmax', tk-multi-launchhiero: '@launch_hiero',
       tk-multi-launchmari: '@launch_mari', tk-multi-launchmaya: '@launch_maya', tk-multi-launchmotionbuilder: '@launch_motionbuilder',
-      tk-multi-launchnuke: '@launch_nuke',  tk-multi-launchnuke: '@launch_nukex', tk-multi-launchphotoshop: '@launch_photoshop',
+      tk-multi-launchnuke: '@launch_nuke',  tk-multi-launchnukex: '@launch_nukex', tk-multi-launchphotoshop: '@launch_photoshop',
       tk-multi-launchsoftimage: '@launch_softimage', tk-multi-screeningroom: '@launch_screeningroom'}
     location: {name: tk-shell, type: app_store, version: v0.4.1}
   tk-softimage:

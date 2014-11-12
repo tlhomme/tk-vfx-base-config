@@ -73,9 +73,6 @@ cs_publi_flag:
    * changed versionning to keep track of all work files across artists
 
 ## Custom Hooks:
-### core level:
-* **resolve-template-hook.py**: small hook that takes care of resolving the template name dynamically from context. _Only used in the tk-multi-workfiles-mik._
-
 ### apps level:
 * **tk-multi-publish**:
    * **primary_publish.py**: added changes to file versionning to mimic mikros existing vfx pipeline
