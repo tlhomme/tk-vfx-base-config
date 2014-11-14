@@ -23,7 +23,7 @@ engines:
         hook_scene_operation: default
         launch_at_startup: false
         launch_change_work_area_at_startup: false
-        location: {name: tk-multi-workfiles, type: app_store, version: v0.6.3}
+        location: {name: tk-multi-workfiles, type: app_store, version: v0.6.6}
         saveas_default_name: scene
         saveas_prefer_version_up: false
         sg_entity_type_extra_display_fields: {}
@@ -35,6 +35,7 @@ engines:
         template_publish_area: null
         template_work: null
         template_work_area: null
+        version_compare_ignore_fields: []
     compatibility_dialog_min_version: 2
     debug_logging: false
     location: {name: tk-mari, type: app_store, version: v1.0.1}
@@ -74,9 +75,10 @@ engines:
     location: {name: tk-photoshop, type: app_store, version: v0.2.0}
   tk-shell:
     apps: {tk-multi-launch3dsmax: '@launch_3dsmax', tk-multi-launchmaya: '@launch_maya',
-      tk-multi-launchmotionbuilder: '@launch_motionbuilder', tk-multi-launchnuke: '@launch_nuke', tk-multi-launchnukex: '@launch_nukex',
-      tk-multi-launchphotoshop: '@launch_photoshop', tk-multi-launchsoftimage: '@launch_softimage',
-      tk-multi-screeningroom: '@launch_screeningroom', tk-shotgun-launchmari: '@launch_mari'}
+      tk-multi-launchmotionbuilder: '@launch_motionbuilder', tk-multi-launchnuke: '@launch_nuke',
+      tk-multi-launchnukex: '@launch_nukex', tk-multi-launchphotoshop: '@launch_photoshop',
+      tk-multi-launchsoftimage: '@launch_softimage', tk-multi-screeningroom: '@launch_screeningroom',
+      tk-shotgun-launchmari: '@launch_mari'}
     location: {name: tk-shell, type: app_store, version: v0.4.1}
   tk-softimage:
     apps: {tk-multi-about: '@about', tk-multi-screeningroom: '@launch_screeningroom',
