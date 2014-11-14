@@ -34,7 +34,7 @@ maya_linux: /s/prods/shotgun_test/software/maya2015
 #
 nuke_mac: ''
 nuke_windows: ''
-nuke_linux: /s/apps/lin/nuke/nuke8.0v6_sgtk
+nuke_linux: /s/prods/lap/_admin/bin/nuke_lap.py
 
 #
 # nukex

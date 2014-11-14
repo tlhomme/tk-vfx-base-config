@@ -168,7 +168,7 @@ engines:
     apps: {tk-multi-about: '@about', tk-multi-screeningroom: '@launch_screeningroom',
       tk-multi-workfiles: '@workfiles', tk-multi-workfiles-mik: '@workfiles-mik'}
     compatibility_dialog_min_version: 9
-    debug_logging: false
+    debug_logging: true
     favourite_directories: []
     location: {name: tk-nuke, type: app_store, version: v0.2.23}
     menu_favourites:

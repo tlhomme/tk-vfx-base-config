@@ -331,7 +331,7 @@ engines:
         launch_at_startup: true
         launch_change_work_area_at_startup: false
         location: {path: 'https://github.com/tlhomme/tk-multi-workfiles-mik.git',
-          type: git, version: v0.6.6}
+          type: git, version: v0.6.6.1}
         saveas_default_name: ''
         saveas_prefer_version_up: true
         sg_entity_type_extra_display_fields: {}
@@ -343,8 +343,7 @@ engines:
         template_publish_area: asset_publish_area_maya
         template_work: maya_asset_work
         template_work_area: asset_work_area_maya
-        version_compare_ignore_fields: []
-        wip_skip_fields: [version, cs_user_name, cs_publi_flag]
+        version_compare_ignore_fields: [cs_user_name, cs_publi_flag]
     compatibility_dialog_min_version: 2015
     debug_logging: false
     location: {name: tk-maya, type: app_store, version: v0.4.3}
@@ -557,7 +556,7 @@ engines:
         launch_at_startup: false
         launch_change_work_area_at_startup: false
         location: {path: 'https://github.com/tlhomme/tk-multi-workfiles-mik.git',
-          type: git, version: v0.6.6}
+          type: git, version: v0.6.6.1}
         saveas_default_name: ''
         saveas_prefer_version_up: true
         sg_entity_type_extra_display_fields: {}
@@ -569,8 +568,7 @@ engines:
         template_publish_area: asset_publish_area_nuke
         template_work: nuke_asset_work
         template_work_area: asset_work_area_nuke
-        version_compare_ignore_fields: []
-        wip_skip_fields: [version, cs_user_name, cs_publi_flag]
+        version_compare_ignore_fields: [cs_user_name, cs_publi_flag]
       tk-nuke-breakdown:
         hook_multi_update: default
         hook_scan_scene: default
@@ -669,7 +667,7 @@ engines:
         launch_at_startup: false
         launch_change_work_area_at_startup: false
         location: {path: 'https://github.com/tlhomme/tk-multi-workfiles-mik.git',
-          type: git, version: v0.6.6}
+          type: git, version: v0.6.6.1}
         saveas_default_name: ''
         saveas_prefer_version_up: true
         sg_entity_type_extra_display_fields: {}
@@ -681,8 +679,7 @@ engines:
         template_publish_area: asset_publish_area_photoshop
         template_work: photoshop_asset_work
         template_work_area: asset_work_area_photoshop
-        version_compare_ignore_fields: []
-        wip_skip_fields: [version, cs_user_name, cs_publi_flag]
+        version_compare_ignore_fields: [cs_user_name, cs_publi_flag]
     debug_logging: false
     location: {name: tk-photoshop, type: app_store, version: v0.2.0}
   tk-shell:

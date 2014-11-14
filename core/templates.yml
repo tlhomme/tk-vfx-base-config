@@ -24,7 +24,7 @@
 #
 # The keys section contains the definitions for all the different keys that are being
 # used by Sgtk. A key is a magic token that is replaced by a value at runtime, for example
-# {Shot}. The section below tells Sgtk which data types and formats to expect for each key.
+# {Sequence}_{Shot}. The section below tells Sgtk which data types and formats to expect for each key.
 #
 keys:
     Sequence:
@@ -124,14 +124,14 @@ keys:
     cs_task_name:
         type: str
         shotgun_entity_type: Task
-        shotgun_field_name: sg_task_code
+        shotgun_field_name: sg_vfx_codes
     cs_publi_flag:
         type: str
 
 
 #
 # The paths section contains all the the key locations where files are to be stored
-# by Sgtk Apps. Each path is made up of several keys (like {version} or {shot}) and
+# by Sgtk Apps. Each path is made up of several keys (like {version} or {Sequence}_{Shot}) and
 # these are defined in the keys section above.
 #
 # Apps use these paths as part of their configuration to define where on disk
@@ -179,15 +179,15 @@ paths:
     #
 
     # The location of WIP files
-    photoshop_shot_work: '@shot_root/matte_pr/{cs_step_short_name}/wip/{cs_user_name}/{cs_task_name}-{Shot}[--{name}]-v{version}[-{cs_publi_flag}].psd'
+    photoshop_shot_work: '@shot_root/matte_pr/{cs_step_short_name}/wip/{cs_user_name}/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}[-{cs_publi_flag}].psd'
     shot_work_area_photoshop: '@shot_root/matte_pr/'
 
     # The location of backups of WIP files
-    photoshop_shot_snapshot: '@shot_root/matte_pr/{cs_step_short_name}/wip/{cs_user_name}/snapshots/{cs_task_name}-{Shot}[--{name}]-v{version}.{timestamp}.psd'
+    photoshop_shot_snapshot: '@shot_root/matte_pr/{cs_step_short_name}/wip/{cs_user_name}/snapshots/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.{timestamp}.psd'
 
     # The location of published files
     shot_publish_area_photoshop: '@shot_root/matte_pr/{cs_step_short_name}/refOrig'
-    photoshop_shot_publish: '@shot_root/matte_pr/{cs_step_short_name}/refOrig/{cs_task_name}-{Shot}[--{name}]-v{version}.psd'
+    photoshop_shot_publish: '@shot_root/matte_pr/{cs_step_short_name}/refOrig/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.psd'
 
     #
     # Maya
@@ -200,13 +200,13 @@ paths:
     shot_publish_area_maya: '@shot_root/3d_pr/scenes/{cs_step_short_name}/refOrig'
 
     # The location of WIP files
-    maya_shot_work: '@shot_root/3d_pr/scenes/{cs_step_short_name}/wip/{cs_user_name}/{cs_task_name}-{Shot}[--{name}]-v{version}[-{cs_publi_flag}].ma'
+    maya_shot_work: '@shot_root/3d_pr/scenes/{cs_step_short_name}/wip/{cs_user_name}/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}[-{cs_publi_flag}].ma'
 
     # The location of backups of WIP files
-    maya_shot_snapshot: '@shot_root/3d_pr/scenes/{cs_step_short_name}/wip/{cs_user_name}/snapshots/{cs_task_name}-{Shot}[--{name}]-v{version}.{timestamp}.ma'
+    maya_shot_snapshot: '@shot_root/3d_pr/scenes/{cs_step_short_name}/wip/{cs_user_name}/snapshots/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.{timestamp}.ma'
 
     # The location of published maya files
-    maya_shot_publish: '@shot_root/3d_pr/scenes/{cs_step_short_name}/refOrig/{cs_task_name}-{Shot}[--{name}]-v{version}.ma'
+    maya_shot_publish: '@shot_root/3d_pr/scenes/{cs_step_short_name}/refOrig/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.ma'
 
 
     #
@@ -229,10 +229,10 @@ paths:
     houdini_shot_publish: '@shot_root/publish/houdini/{name}.v{version}.hip'
 
     # Alembic caches
-    houdini_shot_work_alembic_cache: '@shot_root/work/houdini/cache/alembic/{name}/v{version}/{Shot}_{name}_v{version}_{node}.abc'
+    houdini_shot_work_alembic_cache: '@shot_root/work/houdini/cache/alembic/{name}/v{version}/{Sequence}_{Shot}_{name}_v{version}_{node}.abc'
 
     # Rendered images
-    houdini_shot_render: '@shot_root/work/images/{name}/v{version}/{width}x{height}/{Shot}_{name}_v{version}.{SEQ}.exr'
+    houdini_shot_render: '@shot_root/work/images/{name}/v{version}/{width}x{height}/{Sequence}_{Shot}_{name}_v{version}.{SEQ}.exr'
 
 
     #
@@ -285,35 +285,35 @@ paths:
     shot_publish_area_nuke: '@shot_root/compo_pr/{cs_step_short_name}/refOrig'
 
     # The location of WIP script files
-    nuke_shot_work: '@shot_root/compo_pr/{cs_step_short_name}/wip/{cs_user_name}/{cs_task_name}-{Shot}[--{name}]-v{version}[-{cs_publi_flag}].nk'
+    nuke_shot_work: '@shot_root/compo_pr/{cs_step_short_name}/wip/{cs_user_name}/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}[-{cs_publi_flag}].nk'
 
     # The location of backups of WIP files
-    nuke_shot_snapshot: '@shot_root/compo_pr/{cs_step_short_name}/wip/{cs_user_name}/snapshots/{cs_task_name}-{Shot}[--{name}]-v{version}.{timestamp}.nk'
+    nuke_shot_snapshot: '@shot_root/compo_pr/{cs_step_short_name}/wip/{cs_user_name}/snapshots/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.{timestamp}.nk'
 
     # The location of published nuke script files
-    nuke_shot_publish: '@shot_root/compo_pr/{cs_step_short_name}/refOrig/{cs_task_name}-{Shot}[--{name}]-v{version}.nk'
+    nuke_shot_publish: '@shot_root/compo_pr/{cs_step_short_name}/refOrig/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.nk'
 
     # write node outputs
-    nuke_shot_render_mono_dpx:            '@shot_root/images/_out_compo/{cs_task_name}-{Shot}[--{name}]-v{version}/wip/{cs_task_name}-{Shot}[--{name}]-v{version}.{SEQ}.dpx'
-    nuke_shot_render_pub_mono_dpx:        '@shot_root/images/_out_compo/{cs_task_name}-{Shot}[--{name}]-v{version}/publi/{cs_task_name}-{Shot}[--{name}]-v{version}.{SEQ}.dpx'
-    nuke_shot_render_stereo_dpx:            '@shot_root/images/_out_compo/{cs_task_name}-{Shot}[--{name}]-v{version}/wip/{cs_task_name}-{Shot}[--{name}]-v{version}_{eye}.{SEQ}.dpx'
-    nuke_shot_render_pub_stereo_dpx:        '@shot_root/images/_out_compo/{cs_task_name}-{Shot}[--{name}]-v{version}/publi/{cs_task_name}-{Shot}[--{name}]-v{version}_{eye}.{SEQ}.dpx'
-    nuke_shot_render_mono:            '@shot_root/images/_out_compo/{cs_task_name}-{Shot}[--{name}]-v{version}/wip/{cs_task_name}-{Shot}[--{name}]-v{version}.{SEQ}.exr'
-    nuke_shot_render_pub_mono:        '@shot_root/images/_out_compo/{cs_task_name}-{Shot}[--{name}]-v{version}/publi/{cs_task_name}-{Shot}[--{name}]-v{version}.{SEQ}.exr'
-    nuke_shot_render_stereo:            '@shot_root/images/_out_compo/{cs_task_name}-{Shot}[--{name}]-v{version}/wip/{cs_task_name}-{Shot}[--{name}]-v{version}_{eye}.{SEQ}.exr'
-    nuke_shot_render_pub_stereo:        '@shot_root/images/_out_compo/{cs_task_name}-{Shot}[--{name}]-v{version}/publi/{cs_task_name}-{Shot}[--{name}]-v{version}_{eye}.{SEQ}.exr'
+    nuke_shot_render_mono_dpx:            '@shot_root/images/_out_compo/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/wip/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.{SEQ}.dpx'
+    nuke_shot_render_pub_mono_dpx:        '@shot_root/images/_out_compo/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/publi/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.{SEQ}.dpx'
+    nuke_shot_render_stereo_dpx:            '@shot_root/images/_out_compo/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/wip/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}_{eye}.{SEQ}.dpx'
+    nuke_shot_render_pub_stereo_dpx:        '@shot_root/images/_out_compo/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/publi/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}_{eye}.{SEQ}.dpx'
+    nuke_shot_render_mono:            '@shot_root/images/_out_compo/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/wip/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.{SEQ}.exr'
+    nuke_shot_render_pub_mono:        '@shot_root/images/_out_compo/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/publi/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.{SEQ}.exr'
+    nuke_shot_render_stereo:            '@shot_root/images/_out_compo/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/wip/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}_{eye}.{SEQ}.exr'
+    nuke_shot_render_pub_stereo:        '@shot_root/images/_out_compo/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/publi/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}_{eye}.{SEQ}.exr'
 
     # review output
-    shot_quicktime_quick:   '@shot_root/images/_out_compo/{cs_task_name}-{Shot}[--{name}]-v{version}/mov/quick/{cs_task_name}-{Shot}[--{name}]-v{version}.{iteration}.mov'
-    nuke_shot_render_movie: '@shot_root/images/_out_compo/{cs_task_name}-{Shot}[--{name}]-v{version}/mov/review/{cs_task_name}-{Shot}[--{name}]-v{version}.mov'
+    shot_quicktime_quick:   '@shot_root/images/_out_compo/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/mov/quick/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.{iteration}.mov'
+    nuke_shot_render_movie: '@shot_root/images/_out_compo/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/mov/review/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.mov'
 
     #
     # Hiero
     #
 
     # export of shot asset data from hiero
-    hiero_plate_path:       '@shot_root/images/sources_vfx/{YYYY}_{MM}_{DD}/plates/{project}_{Shot}.mov'
-    hiero_render_path:      '@shot_root/images/sources_vfx/{YYYY}_{MM}_{DD}/renders/{project}_{Shot}.{SEQ}.dpx'
+    hiero_plate_path:       '@shot_root/images/sources_vfx/{YYYY}_{MM}_{DD}/plates/{project}_{Sequence}_{Shot}.mov'
+    hiero_render_path:      '@shot_root/images/sources_vfx/{YYYY}_{MM}_{DD}/renders/{project}_{Sequence}_{Shot}.{SEQ}.dpx'
 
 
     #
@@ -407,10 +407,10 @@ paths:
     houdini_asset_publish: '@asset_root/publish/houdini/{name}.v{version}.hip'
 
     # Alembic caches
-    houdini_asset_work_alembic_cache: '@asset_root/work/houdini/cache/alembic/{name}/v{version}/{Shot}_{name}_v{version}_{node}.abc'
+    houdini_asset_work_alembic_cache: '@asset_root/work/houdini/cache/alembic/{name}/v{version}/{Sequence}_{Shot}_{name}_v{version}_{node}.abc'
 
     # Rendered images
-    houdini_asset_render: '@asset_root/work/images/{name}/v{version}/{width}x{height}/{Shot}_{name}_v{version}.{SEQ}.exr'
+    houdini_asset_render: '@asset_root/work/images/{name}/v{version}/{width}x{height}/{Sequence}_{Shot}_{name}_v{version}.{SEQ}.exr'
 
 
     #
@@ -509,8 +509,8 @@ strings:
 
     # when a review version in shotgun is created inside of nuke, this is the
     # name that is being given to it (the code field)
-    nuke_shot_version_name: "{Shot}_{name}_{output}_v{version}.{iteration}"
-    nuke_quick_shot_version_name: "{Shot}_{name}_quick_{iteration}"
+    nuke_shot_version_name: "{Sequence}_{Shot}_{name}_{output}_v{version}.{iteration}"
+    nuke_quick_shot_version_name: "{Sequence}_{Shot}_{name}_quick_{iteration}"
 
     nuke_asset_version_name: "{Asset}_{name}_{output}_v{version}.{iteration}"
     nuke_quick_asset_version_name: "{Asset}_{name}_quick_{iteration}"
