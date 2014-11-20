@@ -180,7 +180,7 @@ paths:
 
     # The location of WIP files
     photoshop_shot_work: '@shot_root/matte_pr/{cs_step_short_name}/wip/{cs_user_name}/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}[-{cs_publi_flag}].psd'
-    shot_work_area_photoshop: '@shot_root/matte_pr/'
+    shot_work_area_photoshop: '@shot_root/matte_pr/{cs_step_short_name}/wip/{cs_user_name}/'
 
     # The location of backups of WIP files
     photoshop_shot_snapshot: '@shot_root/matte_pr/{cs_step_short_name}/wip/{cs_user_name}/snapshots/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.{timestamp}.psd'
@@ -194,7 +194,7 @@ paths:
     #
 
     # define the location of a work area
-    shot_work_area_maya: '@shot_root/3d_pr/scenes'
+    shot_work_area_maya: '@shot_root/3d_pr/scenes/{cs_step_short_name}/wip/{cs_user_name}/'
 
     # define the location of a publish area
     shot_publish_area_maya: '@shot_root/3d_pr/scenes/{cs_step_short_name}/refOrig'
@@ -279,7 +279,7 @@ paths:
     #
 
     # define the location of a work area
-    shot_work_area_nuke: '@shot_root/compo_pr'
+    shot_work_area_nuke: '@shot_root/compo_pr/{cs_step_short_name}/wip/{cs_user_name}'
 
     # define the location of a publish area
     shot_publish_area_nuke: '@shot_root/compo_pr/{cs_step_short_name}/refOrig'
@@ -296,6 +296,10 @@ paths:
     # write node outputs
     nuke_shot_render_mono_dpx:            '@shot_root/images/_out_compo/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/wip/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.{SEQ}.dpx'
     nuke_shot_render_pub_mono_dpx:        '@shot_root/images/_out_compo/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/publi/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.{SEQ}.dpx'
+
+    nuke_shot_render_mono_jpg:            '@shot_root/images/_out_compo/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/wip/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.{SEQ}.jpg'
+    nuke_shot_render_pub_mono_jpg:        '@shot_root/images/_out_compo/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/publi/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.{SEQ}.jpg'
+
     nuke_shot_render_stereo_dpx:            '@shot_root/images/_out_compo/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/wip/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}_{eye}.{SEQ}.dpx'
     nuke_shot_render_pub_stereo_dpx:        '@shot_root/images/_out_compo/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/publi/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}_{eye}.{SEQ}.dpx'
     nuke_shot_render_mono:            '@shot_root/images/_out_compo/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/wip/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.{SEQ}.exr'
@@ -351,7 +355,7 @@ paths:
 
     # The location of WIP files
     photoshop_asset_work: '@asset_root/matte_pr/{cs_step_short_name}/wip/{cs_user_name}/{cs_task_name}-{Asset}[--{name}]-v{version}[-{cs_publi_flag}].psd'
-    asset_work_area_photoshop: '@asset_root/matte_pr/'
+    asset_work_area_photoshop: '@asset_root/matte_pr/{cs_step_short_name}/wip/{cs_user_name}'
 
     # The location of backups of WIP files
     photoshop_asset_snapshot: '@asset_root/matte_pr/{cs_step_short_name}/wip/{cs_user_name}/snapshots/{cs_task_name}-{Asset}[--{name}]-v{version}.{timestamp}.psd'
@@ -372,7 +376,7 @@ paths:
     #
 
     # define the location of a work area
-    asset_work_area_maya: '@asset_root/3d_pr/scenes'
+    asset_work_area_maya: '@asset_root/3d_pr/scenes/{cs_step_short_name}/wip/{cs_user_name}'
 
     # define the location of a publish area
     asset_publish_area_maya: '@asset_root/3d_pr/scenes/{cs_step_short_name}/refOrig'
@@ -456,7 +460,7 @@ paths:
     #
 
     # define the location of a work area
-    asset_work_area_nuke: '@asset_root/compo_pr'
+    asset_work_area_nuke: '@asset_root/compo_pr/{cs_step_short_name}/wip/{cs_user_name}'
 
     # define the location of a publish area
     asset_publish_area_nuke: '@asset_root/compo_pr/{cs_step_short_name}/refOrig'

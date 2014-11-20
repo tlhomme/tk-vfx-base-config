@@ -10,7 +10,7 @@ engines:
     apps: {tk-multi-about: '@about', tk-multi-screeningroom: '@launch_screeningroom',
       tk-multi-workfiles: '@workfiles'}
     debug_logging: false
-    location: {name: tk-3dsmax, type: app_store, version: v0.3.3}
+    location: {name: tk-3dsmax, type: app_store, version: v0.3.5}
   tk-maya:
     apps: {tk-multi-about: '@about', tk-multi-screeningroom: '@launch_screeningroom',
       tk-multi-workfiles: '@workfiles-launch-at-startup', tk-multi-workfiles-mik: '@workfiles-mik-change-work'}
@@ -42,9 +42,9 @@ engines:
     use_sgtk_as_menu_name: false
   tk-shell:
     apps: {tk-multi-launch3dsmax: '@launch_3dsmax', tk-multi-launchmaya: '@launch_maya',
-      tk-multi-launchmotionbuilder: '@launch_motionbuilder', tk-multi-launchnuke: '@launch_nuke', tk-multi-launchnukex: '@launch_nukex',
-      tk-multi-launchphotoshop: '@launch_photoshop', tk-multi-launchsoftimage: '@launch_softimage',
-      tk-multi-screeningroom: '@launch_screeningroom'}
+      tk-multi-launchmotionbuilder: '@launch_motionbuilder', tk-multi-launchnuke: '@launch_nuke',
+      tk-multi-launchnukex: '@launch_nukex', tk-multi-launchphotoshop: '@launch_photoshop',
+      tk-multi-launchsoftimage: '@launch_softimage', tk-multi-screeningroom: '@launch_screeningroom'}
     location: {name: tk-shell, type: app_store, version: v0.4.1}
   tk-softimage:
     apps: {tk-multi-about: '@about', tk-multi-screeningroom: '@launch_screeningroom',

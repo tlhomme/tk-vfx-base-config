@@ -26,7 +26,7 @@ engines:
           - [project, is, '{context.project}']
           hierarchy: [entity, content]
         filter_publishes_hook: '{self}/filter_publishes.py'
-        location: {name: tk-multi-loader2, type: app_store, version: v1.3.2}
+        location: {name: tk-multi-loader2, type: app_store, version: v1.4.1}
         menu_name: Load
         publish_filters: []
         title_name: Loader
@@ -86,7 +86,7 @@ engines:
         template_work_area: shot_work_area_max
         version_compare_ignore_fields: []
     debug_logging: false
-    location: {name: tk-3dsmax, type: app_store, version: v0.3.3}
+    location: {name: tk-3dsmax, type: app_store, version: v0.3.5}
   tk-houdini:
     apps:
       tk-multi-about: '@about'
@@ -184,7 +184,7 @@ engines:
           - [project, is, '{context.project}']
           hierarchy: [entity, content]
         filter_publishes_hook: '{self}/filter_publishes.py'
-        location: {name: tk-multi-loader2, type: app_store, version: v1.3.2}
+        location: {name: tk-multi-loader2, type: app_store, version: v1.4.1}
         menu_name: Load
         publish_filters: []
         title_name: Loader
@@ -251,10 +251,12 @@ engines:
         launch_at_startup: true
         launch_change_work_area_at_startup: false
         location: {path: 'https://github.com/tlhomme/tk-multi-workfiles-mik.git',
-          type: git, version: v0.6.6.1}
+          type: git, version: v0.6.6.3}
         saveas_default_name: ''
         saveas_prefer_version_up: true
-        sg_entity_type_extra_display_fields: {}
+        sg_entity_type_extra_display_fields:
+          Asset: {Type: sg_asset_type}
+          Shot: {Sequence: sg_sequence.Sequence.code}
         sg_entity_type_filters: {}
         sg_entity_types: [Shot, Asset]
         sg_task_filters: []
@@ -269,8 +271,8 @@ engines:
     location: {name: tk-maya, type: app_store, version: v0.4.3}
     menu_favourites:
     - {app_instance: tk-multi-workfiles-mik, name: Shotgun File Manager...}
-    - {app_instance: tk-multi-snapshot, name: Snapshot...}
     - {app_instance: tk-multi-workfiles-mik, name: Shotgun Save As...}
+    - {app_instance: tk-multi-workfiles-mik, name: Version up Current Scene...}
     - {app_instance: tk-multi-publish, name: Publish...}
     template_project: shot_work_area_maya
     use_sgtk_as_menu_name: false
@@ -300,7 +302,7 @@ engines:
           - [project, is, '{context.project}']
           hierarchy: [entity, content]
         filter_publishes_hook: '{self}/filter_publishes.py'
-        location: {name: tk-multi-loader2, type: app_store, version: v1.3.2}
+        location: {name: tk-multi-loader2, type: app_store, version: v1.4.1}
         menu_name: Load
         publish_filters: []
         title_name: Loader
@@ -399,7 +401,7 @@ engines:
           - [project, is, '{context.project}']
           hierarchy: [entity, content]
         filter_publishes_hook: '{self}/filter_publishes.py'
-        location: {name: tk-multi-loader2, type: app_store, version: v1.3.2}
+        location: {name: tk-multi-loader2, type: app_store, version: v1.4.1}
         menu_name: Load
         publish_filters: []
         title_name: Loader
@@ -413,7 +415,7 @@ engines:
         hook_primary_publish: primary_publish
         hook_scan_scene: default
         hook_secondary_pre_publish: default
-        hook_secondary_publish: default
+        hook_secondary_publish: secondary_publish_tk-nuke
         hook_thumbnail: default
         location: {name: tk-multi-publish, type: app_store, version: v0.6.5}
         primary_description: Publishes and versions up the current Nuke script.
@@ -439,7 +441,7 @@ engines:
         movie_width: 1024
         new_version_status: rev
         slate_logo: icons/review_submit_logo.png
-        store_on_disk: true
+        store_on_disk: false
         upload_to_shotgun: true
         version_number_padding: 3
       tk-multi-screeningroom: '@launch_screeningroom'
@@ -465,7 +467,7 @@ engines:
         launch_change_work_area_at_startup: false
         location: {disabled: true, name: tk-multi-workfiles, type: app_store, version: v0.6.0}
         saveas_default_name: scene
-        saveas_prefer_version_up: false
+        saveas_prefer_version_up: true
         sg_entity_type_extra_display_fields: {}
         sg_entity_type_filters: {}
         sg_entity_types: [Shot, Asset]
@@ -475,7 +477,7 @@ engines:
         template_work: nuke_shot_work
         template_work_area: shot_work_area_nuke
       tk-multi-workfiles-mik:
-        allow_task_creation: true
+        allow_task_creation: false
         file_extensions: []
         hook_copy_file: default
         hook_filter_publishes: default
@@ -484,10 +486,12 @@ engines:
         launch_at_startup: false
         launch_change_work_area_at_startup: false
         location: {path: 'https://github.com/tlhomme/tk-multi-workfiles-mik.git',
-          type: git, version: v0.6.6.1}
-        saveas_default_name: scene
-        saveas_prefer_version_up: false
-        sg_entity_type_extra_display_fields: {}
+          type: git, version: v0.6.6.3}
+        saveas_default_name: ''
+        saveas_prefer_version_up: true
+        sg_entity_type_extra_display_fields:
+          Asset: {Type: sg_asset_type}
+          Shot: {Sequence: sg_sequence.Sequence.code}
         sg_entity_type_filters: {}
         sg_entity_types: [Shot, Asset]
         sg_task_filters: []
@@ -513,44 +517,8 @@ engines:
         location: {name: tk-nuke-writenode, type: app_store, version: v1.0.12}
         template_script_work: nuke_shot_work
         write_nodes:
-        - file_type: exr
-          name: Mono Exr, 32 bit
-          proxy_publish_template: null
-          proxy_render_template: null
-          publish_template: nuke_shot_render_pub_mono
-          render_template: nuke_shot_render_mono
-          settings: {datatype: 32 bit float}
-          tank_type: Rendered Image
-          tile_color: []
-        - file_type: exr
-          name: Mono Exr, 16 bit
-          proxy_publish_template: null
-          proxy_render_template: null
-          publish_template: nuke_shot_render_pub_mono
-          render_template: nuke_shot_render_mono
-          settings: {datatype: 16 bit half}
-          tank_type: Rendered Image
-          tile_color: []
-        - file_type: exr
-          name: Stereo Exr, 32 bit
-          proxy_publish_template: null
-          proxy_render_template: null
-          publish_template: nuke_shot_render_pub_stereo
-          render_template: nuke_shot_render_stereo
-          settings: {datatype: 32 bit float}
-          tank_type: Rendered Image
-          tile_color: []
-        - file_type: exr
-          name: Stereo Exr, 16 bit
-          proxy_publish_template: null
-          proxy_render_template: null
-          publish_template: nuke_shot_render_pub_stereo
-          render_template: nuke_shot_render_stereo
-          settings: {datatype: 16 bit half}
-          tank_type: Rendered Image
-          tile_color: []
         - file_type: dpx
-          name: Mono Dpx
+          name: Write DEF
           proxy_publish_template: null
           proxy_render_template: null
           publish_template: nuke_shot_render_pub_mono_dpx
@@ -558,23 +526,23 @@ engines:
           settings: {}
           tank_type: Rendered Image
           tile_color: []
-        - file_type: dpx
-          name: Stereo Dpx
+        - file_type: jpg
+          name: Write WIP
           proxy_publish_template: null
           proxy_render_template: null
-          publish_template: nuke_shot_render_pub_stereo_dpx
-          render_template: nuke_shot_render_stereo_dpx
+          publish_template: nuke_shot_render_pub_mono_jpg
+          render_template: nuke_shot_render_mono_jpg
           settings: {}
           tank_type: Rendered Image
           tile_color: []
     compatibility_dialog_min_version: 9
-    debug_logging: true
+    debug_logging: false
     favourite_directories: []
     location: {name: tk-nuke, type: app_store, version: v0.2.23}
     menu_favourites:
     - {app_instance: tk-multi-workfiles-mik, name: Shotgun File Manager...}
-    - {app_instance: tk-multi-snapshot, name: Snapshot...}
     - {app_instance: tk-multi-workfiles-mik, name: Shotgun Save As...}
+    - {app_instance: tk-multi-workfiles-mik, name: Version up Current Scene...}
     - {app_instance: tk-multi-publish, name: Publish...}
     project_favourite_name: Shotgun Current Project
     use_sgtk_as_menu_name: false

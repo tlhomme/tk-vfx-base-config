@@ -3,8 +3,8 @@
 # This file reflects the paths in the pipeline configuration
 # entity which is associated with this location (Dev Env).
 
-Windows: ''
-Darwin: '/Volumes/Prods/shotgun_test/software/lap_dev'
-Linux: '/s/prods/shotgun_test/software/lap_dev'
+Windows: 'Z:\shotgun_test\software\lap_test'
+Darwin: '/Volumes/Prods/shotgun_test/software/lap_test'
+Linux: '/s/prods/shotgun_test/software/lap_test'
 
 # End of file.

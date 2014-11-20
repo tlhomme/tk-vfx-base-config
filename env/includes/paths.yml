@@ -34,7 +34,7 @@ maya_linux: /s/prods/shotgun_test/software/maya2015
 #
 nuke_mac: ''
 nuke_windows: ''
-nuke_linux: /s/prods/lap/_admin/bin/nuke_lap.py
+nuke_linux: /s/prods/shotgun_test/projects/lap_test/_admin/bin/nuke_lap_test.py
 
 #
 # nukex
@@ -66,12 +66,12 @@ houdini_linux: '/opt/hfs13.0.498/bin/houdini'
 # photoshop CS6
 #
 photoshop_mac: /Applications/Adobe Photoshop CS6/Adobe Photoshop CS6.app
-photoshop_win: 'C:\Program Files\Adobe\Adobe Photoshop CS6 (64 Bit)\Photoshop.exe'
+photoshop_win: 'L:\Program Files\Adobe\Adobe Photoshop CS6 (64 Bit)\Photoshop.exe'
 photoshop_extras:
     mac_extension_manager_path: /Applications/Adobe Extension Manager CS6/Adobe Extension Manager CS6.app
     mac_python_path: /usr/bin/python
-    windows_extension_manager_path: 'C:\Program Files (x86)\Adobe\Adobe Extension Manager CS6\XManCommand.exe'
-    windows_python_path: 'C:\Python27\python.exe'
+    windows_extension_manager_path: 'L:\Program Files (x86)\Adobe\Adobe Extension Manager CS6\XManCommand.exe'
+    windows_python_path: 'L:\Python27\python.exe'
 
 
 #
@@ -87,7 +87,7 @@ hiero_linux: /s/apps/lin/hiero/hiero
 #
 rv_mac: /Applications/RV64.app
 rv_win: C:\Program Files\RV\RV64.exe
-rv_linux: /s/apps/lin/bin/rv
+rv_linux: /s/apps/lin/rv/rv4_sg
 
 #
 # Softimage
