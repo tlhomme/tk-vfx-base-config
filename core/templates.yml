@@ -294,22 +294,22 @@ paths:
     nuke_shot_publish: '@shot_root/compo_pr/{cs_step_short_name}/refOrig/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.nk'
 
     # write node outputs
-    nuke_shot_render_mono_dpx:            '@shot_root/images/_out_compo/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/wip/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.{SEQ}.dpx'
-    nuke_shot_render_pub_mono_dpx:        '@shot_root/images/_out_compo/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/publi/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.{SEQ}.dpx'
+    nuke_shot_render_mono_dpx:            '@shot_root/images/_out_compo/wip/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.{SEQ}.dpx'
+    nuke_shot_render_pub_mono_dpx:        '@shot_root/images/_out_compo/publi/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/publi/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.{SEQ}.dpx'
 
-    nuke_shot_render_mono_jpg:            '@shot_root/images/_out_compo/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/wip/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.{SEQ}.jpg'
-    nuke_shot_render_pub_mono_jpg:        '@shot_root/images/_out_compo/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/publi/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.{SEQ}.jpg'
+    nuke_shot_render_mono_jpg:            '@shot_root/images/_out_compo/wip/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.{SEQ}.jpg'
+    nuke_shot_render_pub_mono_jpg:        '@shot_root/images/_out_compo/publi/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.{SEQ}.jpg'
 
-    nuke_shot_render_stereo_dpx:            '@shot_root/images/_out_compo/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/wip/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}_{eye}.{SEQ}.dpx'
-    nuke_shot_render_pub_stereo_dpx:        '@shot_root/images/_out_compo/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/publi/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}_{eye}.{SEQ}.dpx'
-    nuke_shot_render_mono:            '@shot_root/images/_out_compo/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/wip/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.{SEQ}.exr'
-    nuke_shot_render_pub_mono:        '@shot_root/images/_out_compo/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/publi/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.{SEQ}.exr'
-    nuke_shot_render_stereo:            '@shot_root/images/_out_compo/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/wip/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}_{eye}.{SEQ}.exr'
-    nuke_shot_render_pub_stereo:        '@shot_root/images/_out_compo/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/publi/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}_{eye}.{SEQ}.exr'
+    nuke_shot_render_stereo_dpx:            '@shot_root/images/_out_compo/wip/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}_{eye}.{SEQ}.dpx'
+    nuke_shot_render_pub_stereo_dpx:        '@shot_root/images/_out_compo/publi/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}_{eye}.{SEQ}.dpx'
+    nuke_shot_render_mono:            '@shot_root/images/_out_compo/wip/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.{SEQ}.exr'
+    nuke_shot_render_pub_mono:        '@shot_root/images/_out_compo/publi/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.{SEQ}.exr'
+    nuke_shot_render_stereo:            '@shot_root/images/_out_compo/wip/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}_{eye}.{SEQ}.exr'
+    nuke_shot_render_pub_stereo:        '@shot_root/images/_out_compo/publi/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}_{eye}.{SEQ}.exr'
 
     # review output
-    shot_quicktime_quick:   '@shot_root/images/_out_compo/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/mov/quick/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.{iteration}.mov'
-    nuke_shot_render_movie: '@shot_root/images/_out_compo/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/mov/review/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.mov'
+    shot_quicktime_quick:   '@shot_root/images/_out_compo/mov/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/quick/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.{iteration}.mov'
+    nuke_shot_render_movie: '@shot_root/images/_out_compo/mov/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/review/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.mov'
 
     #
     # Hiero
@@ -466,8 +466,8 @@ paths:
     asset_publish_area_nuke: '@asset_root/compo_pr/{cs_step_short_name}/refOrig'
 
     # outputs from the Shotgun Write Node for assets
-    nuke_asset_render: '@asset_root/images/_out_compo/{cs_task_name}-{Asset}[--{name}]-v{version}/wip/{cs_task_name}-{Asset}[--{name}]-v{version}.{SEQ}.exr'
-    nuke_asset_render_pub: '@asset_root/images/_out_compo/{cs_task_name}-{Asset}[--{name}]-v{version}/publi/{cs_task_name}-{Asset}[--{name}]-v{version}.{SEQ}.exr'
+    nuke_asset_render: '@asset_root/images/_out_compo/wip/{cs_task_name}-{Asset}[--{name}]-v{version}/{cs_task_name}-{Asset}[--{name}]-v{version}.{SEQ}.exr'
+    nuke_asset_render_pub: '@asset_root/images/_out_compo/publi/{cs_task_name}-{Asset}[--{name}]-v{version}/{cs_task_name}-{Asset}[--{name}]-v{version}.{SEQ}.exr'
 
     # review output
     nuke_asset_render_movie: '@asset_root/review/{Asset}_{name}_{output}_v{version}.mov'
