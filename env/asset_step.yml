@@ -26,7 +26,7 @@ engines:
           - [project, is, '{context.project}']
           hierarchy: [entity, content]
         filter_publishes_hook: '{self}/filter_publishes.py'
-        location: {name: tk-multi-loader2, type: app_store, version: v1.4.1}
+        location: {name: tk-multi-loader2, type: app_store, version: v1.4.2}
         menu_name: Load
         publish_filters: []
         title_name: Loader
@@ -98,7 +98,7 @@ engines:
         hook_secondary_pre_publish: default
         hook_secondary_publish: default
         hook_thumbnail: default
-        location: {name: tk-multi-publish ,type: app_store, version: v0.6.5}
+        location: {name: tk-multi-publish, type: app_store, version: v0.6.5}
         primary_description: Publish and version up the current scene
         primary_display_name: Scene File Publish
         primary_icon: icons/publish_houdini_main.png
@@ -176,7 +176,7 @@ engines:
           hierarchy: [entity, content]
           publish_filters: []
         filter_publishes_hook: '{self}/filter_publishes.py'
-        location: {name: tk-multi-loader2, type: app_store, version: v1.4.1}
+        location: {name: tk-multi-loader2, type: app_store, version: v1.4.2}
         menu_name: Load
         publish_filters: []
         title_name: Import
@@ -233,7 +233,7 @@ engines:
         version_compare_ignore_fields: []
     compatibility_dialog_min_version: 2
     debug_logging: false
-    location: {name: tk-mari, type: app_store, version: v1.0.1}
+    location: {name: tk-mari, type: app_store, version: v1.0.2}
   tk-maya:
     apps:
       tk-maya-breakdown:
@@ -267,7 +267,7 @@ engines:
           - [project, is, '{context.project}']
           hierarchy: [entity, content]
         filter_publishes_hook: '{self}/filter_publishes.py'
-        location: {name: tk-multi-loader2, type: app_store, version: v1.4.1}
+        location: {name: tk-multi-loader2, type: app_store, version: v1.4.2}
         menu_name: Load
         publish_filters: []
         title_name: Loader
@@ -322,7 +322,7 @@ engines:
         task_extra_display_fields: []
         template_publish: maya_asset_publish
         template_publish_area: asset_publish_area_maya
-        template_work: maya_asset_work
+        template_work: maya_asset_work0
         template_work_area: asset_work_area_maya
       tk-multi-workfiles-mik:
         allow_task_creation: false
@@ -333,8 +333,8 @@ engines:
         hook_scene_operation: default
         launch_at_startup: true
         launch_change_work_area_at_startup: false
-        location: { path: '/datas/tlhomme/dev/sgtk/tk-multi-workfiles-mik',
-          type: dev}
+        location: {path: 'https://github.com/tlhomme/tk-multi-workfiles-mik.git',
+          type: git, version: v0.6.6.4}
         saveas_default_name: ''
         saveas_prefer_version_up: true
         sg_entity_type_extra_display_fields:
@@ -385,7 +385,7 @@ engines:
           - [project, is, '{context.project}']
           hierarchy: [entity, content]
         filter_publishes_hook: '{self}/filter_publishes.py'
-        location: {name: tk-multi-loader2, type: app_store, version: v1.4.1}
+        location: {name: tk-multi-loader2, type: app_store, version: v1.4.2}
         menu_name: Load
         publish_filters: []
         title_name: Loader
@@ -458,7 +458,7 @@ engines:
           - [project, is, '{context.project}']
           hierarchy: [entity, content]
         filter_publishes_hook: '{self}/filter_publishes.py'
-        location: {name: tk-multi-loader2, type: app_store, version: v1.4.1}
+        location: {name: tk-multi-loader2, type: app_store, version: v1.4.2}
         menu_name: Load
         publish_filters: []
         title_name: Loader
@@ -540,7 +540,7 @@ engines:
         launch_at_startup: false
         launch_change_work_area_at_startup: false
         location: {path: 'https://github.com/tlhomme/tk-multi-workfiles-mik.git',
-          type: git, version: v0.6.6.3}
+          type: git, version: v0.6.6.4}
         saveas_default_name: ''
         saveas_prefer_version_up: true
         sg_entity_type_extra_display_fields:
@@ -653,7 +653,7 @@ engines:
         launch_at_startup: false
         launch_change_work_area_at_startup: false
         location: {path: 'https://github.com/tlhomme/tk-multi-workfiles-mik.git',
-          type: git, version: v0.6.6.3}
+          type: git, version: v0.6.6.4}
         saveas_default_name: ''
         saveas_prefer_version_up: true
         sg_entity_type_extra_display_fields:

@@ -26,7 +26,7 @@ mari_windows: 'C:\Program Files\Mari2.6v2\Bundle\bin\Mari2.6v2.exe'
 #
 maya_windows: 'C:\Program Files\Autodesk\Maya2015\bin\maya.exe'
 maya_mac: /Applications/Autodesk/maya2015/Maya.app
-maya_linux: /s/prods/shotgun_test/software/maya2015
+maya_linux: /s/prods/lap_test/_admin/bin/maya_lap_test.py
 
 
 #

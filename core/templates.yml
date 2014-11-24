@@ -208,6 +208,9 @@ paths:
     # The location of published maya files
     maya_shot_publish: '@shot_root/3d_pr/scenes/{cs_step_short_name}/refOrig/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.ma'
 
+    maya_shot_render_mono_exr:            '@shot_root/images/3d/wip/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.{SEQ}.exr'
+    maya_shot_render_pub_mono_exr:        '@shot_root/images/3d/publi/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.{SEQ}.exr'
+
 
     #
     # Houdini
@@ -295,7 +298,7 @@ paths:
 
     # write node outputs
     nuke_shot_render_mono_dpx:            '@shot_root/images/_out_compo/wip/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.{SEQ}.dpx'
-    nuke_shot_render_pub_mono_dpx:        '@shot_root/images/_out_compo/publi/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/publi/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.{SEQ}.dpx'
+    nuke_shot_render_pub_mono_dpx:        '@shot_root/images/_out_compo/publi/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.{SEQ}.dpx'
 
     nuke_shot_render_mono_jpg:            '@shot_root/images/_out_compo/wip/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.{SEQ}.jpg'
     nuke_shot_render_pub_mono_jpg:        '@shot_root/images/_out_compo/publi/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.{SEQ}.jpg'
@@ -389,6 +392,9 @@ paths:
 
     # The location of published maya files
     maya_asset_publish: '@asset_root/3d_pr/scenes/{cs_step_short_name}/refOrig/{cs_task_name}-{Asset}[--{name}]-v{version}.ma'
+
+    maya_asset_render_mono_exr:            '@asset_root/images/anim/wip/{cs_task_name}-{Asset}[--{name}]-v{version}/{cs_task_name}-{Asset}[--{name}]-v{version}.{SEQ}.exr'
+    maya_asset_render_pub_mono_exr:        '@asset_root/images/anim/publi/{cs_task_name}-{Asset}[--{name}]-v{version}/{cs_task_name}-{Asset}[--{name}]-v{version}.{SEQ}.exr'
 
 
     #

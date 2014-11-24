@@ -26,7 +26,7 @@ engines:
           - [project, is, '{context.project}']
           hierarchy: [entity, content]
         filter_publishes_hook: '{self}/filter_publishes.py'
-        location: {name: tk-multi-loader2, type: app_store, version: v1.4.1}
+        location: {name: tk-multi-loader2, type: app_store, version: v1.4.2}
         menu_name: Load
         publish_filters: []
         title_name: Loader
@@ -184,7 +184,7 @@ engines:
           - [project, is, '{context.project}']
           hierarchy: [entity, content]
         filter_publishes_hook: '{self}/filter_publishes.py'
-        location: {name: tk-multi-loader2, type: app_store, version: v1.4.1}
+        location: {name: tk-multi-loader2, type: app_store, version: v1.4.2}
         menu_name: Load
         publish_filters: []
         title_name: Loader
@@ -251,7 +251,7 @@ engines:
         launch_at_startup: true
         launch_change_work_area_at_startup: false
         location: {path: 'https://github.com/tlhomme/tk-multi-workfiles-mik.git',
-          type: git, version: v0.6.6.3}
+          type: git, version: v0.6.6.4}
         saveas_default_name: ''
         saveas_prefer_version_up: true
         sg_entity_type_extra_display_fields:
@@ -302,7 +302,7 @@ engines:
           - [project, is, '{context.project}']
           hierarchy: [entity, content]
         filter_publishes_hook: '{self}/filter_publishes.py'
-        location: {name: tk-multi-loader2, type: app_store, version: v1.4.1}
+        location: {name: tk-multi-loader2, type: app_store, version: v1.4.2}
         menu_name: Load
         publish_filters: []
         title_name: Loader
@@ -401,7 +401,7 @@ engines:
           - [project, is, '{context.project}']
           hierarchy: [entity, content]
         filter_publishes_hook: '{self}/filter_publishes.py'
-        location: {name: tk-multi-loader2, type: app_store, version: v1.4.1}
+        location: {name: tk-multi-loader2, type: app_store, version: v1.4.2}
         menu_name: Load
         publish_filters: []
         title_name: Loader
@@ -486,7 +486,7 @@ engines:
         launch_at_startup: false
         launch_change_work_area_at_startup: false
         location: {path: 'https://github.com/tlhomme/tk-multi-workfiles-mik.git',
-          type: git, version: v0.6.6.3}
+          type: git, version: v0.6.6.4}
         saveas_default_name: ''
         saveas_prefer_version_up: true
         sg_entity_type_extra_display_fields:
