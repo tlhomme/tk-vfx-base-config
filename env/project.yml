@@ -146,7 +146,7 @@ engines:
         version_compare_ignore_fields: []
     compatibility_dialog_min_version: 2
     debug_logging: false
-    location: {name: tk-mari, type: app_store, version: v1.0.1}
+    location: {name: tk-mari, type: app_store, version: v1.0.2}
   tk-maya:
     apps: {tk-multi-about: '@about', tk-multi-screeningroom: '@launch_screeningroom',
       tk-multi-workfiles: '@workfiles-launch-at-startup', tk-multi-workfiles-mik: '@workfiles-mik-change-work'}

@@ -16,4 +16,4 @@ name: "short_name"
 
 filters: [ { "path": "short_name", "relation": "in", "values": [ "vfx_modeling","vfx_riging","vfx_surfacing"] } ]
 
-create_with_parent: false
+create_with_parent: true
