@@ -194,7 +194,7 @@ paths:
     #
 
     # define the location of a work area
-    shot_work_area_maya: '@shot_root/3d_pr/scenes/{cs_step_short_name}/wip/{cs_user_name}/'
+    shot_work_area_maya: '@shot_root/3d_pr/scenes/'
 
     # define the location of a publish area
     shot_publish_area_maya: '@shot_root/3d_pr/scenes/{cs_step_short_name}/refOrig'
@@ -268,7 +268,7 @@ paths:
     # The location of WIP files
     mobu_shot_work: '@shot_root/work/mobu/{name}.v{version}.fbx'
 
-    # The location of backups of WIP files
+    # The location of backups of asset_rootWIP files
     mobu_shot_snapshot: '@shot_root/work/mobu/snapshots/{name}.v{version}.{timestamp}.fbx'
 
     # The location of published maya files
@@ -376,7 +376,7 @@ paths:
     #
 
     # define the location of a work area
-    asset_work_area_maya: '@asset_root/3d_pr/scenes/{cs_step_short_name}/wip/{cs_user_name}'
+    asset_work_area_maya: '@asset_root/3d_pr/'
 
     # define the location of a publish area
     asset_publish_area_maya: '@asset_root/3d_pr/scenes/{cs_step_short_name}/refOrig'
