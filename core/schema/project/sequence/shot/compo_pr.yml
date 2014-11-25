@@ -1,6 +1,4 @@
 # the type of dynamic content
-type: "user_workspace"
-
-name: "login"
+type: "static"
 
 create_with_parent: true

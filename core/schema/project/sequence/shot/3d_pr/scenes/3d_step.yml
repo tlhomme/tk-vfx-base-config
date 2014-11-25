@@ -14,6 +14,6 @@ type: "shotgun_step"
 # the shotgun field to use for the folder name
 name: "short_name"
 
-filters: [ { "path": "short_name", "relation": "in", "values": [ "vfx_modeling","vfx_anim","vfx_tracking","vfx_lighting","vfx_fx","vfx_render"] } ]
+filters: [ { "path": "short_name", "relation": "in", "values": [ "modeling","anim","tracking","lighting","fx","render"] } ]
 
-create_with_parent: false
+create_with_parent: true

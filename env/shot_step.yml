@@ -267,7 +267,7 @@ engines:
         template_work_area: shot_work_area_maya
         version_compare_ignore_fields: [cs_user_name, cs_publi_flag]
     compatibility_dialog_min_version: 2015
-    debug_logging: false
+    debug_logging: true
     location: {name: tk-maya, type: app_store, version: v0.4.3}
     menu_favourites:
     - {app_instance: tk-multi-workfiles-mik, name: Shotgun File Manager...}
