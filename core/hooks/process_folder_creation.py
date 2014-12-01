@@ -108,6 +108,7 @@ class ProcessFolderCreation(Hook):
                 if action in ["entity_folder", "folder"]:
                     # folder creation
                     path = i.get("path")
+                    # print "entity_folder: %s"%path
                     if not os.path.exists(path):
                         if not preview_mode:
                             # create the folder using open permissions
@@ -142,6 +143,7 @@ class ProcessFolderCreation(Hook):
 
                 elif action == "symlink":
                     # symbolic link
+                    # print "symlink"
                     if sys.platform == "win32":
                         # no windows support
                         continue
@@ -158,6 +160,7 @@ class ProcessFolderCreation(Hook):
                     # a file copy
                     source_path = i.get("source_path")
                     target_path = i.get("target_path")
+                    # print "copy %s--->%s"%(source_path,target_path)
                     if not os.path.exists(target_path):
                         if not preview_mode:
                             # do a standard file copy
@@ -169,6 +172,7 @@ class ProcessFolderCreation(Hook):
                 elif action == "create_file":
                     # create a new file based on content
                     path = i.get("path")
+                    # print "create_file: %s"%path
                     parent_folder = os.path.dirname(path)
                     content = i.get("content")
                     if not os.path.exists(parent_folder) and not preview_mode:

@@ -1,0 +1,9 @@
+# the type of dynamic content
+type: "shotgun_step"
+
+# the shotgun field to use for the folder name
+name: "{short_name}_pr"
+
+filters: [ { "path": "short_name", "relation": "in", "values": [ "compo"] } ]
+
+create_with_parent: true

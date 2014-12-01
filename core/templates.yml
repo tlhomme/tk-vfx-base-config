@@ -117,18 +117,23 @@ keys:
         type: str
         shotgun_entity_type: Asset
         shotgun_field_name: sg_asset_type
-    cs_step_short_name:
+    Step:
         type: str
         shotgun_entity_type: Step
         shotgun_field_name: short_name
+    Task:
+        type: str
+        shotgun_entity_type: Task
+        shotgun_field_name: sg_task_code
     cs_task_name:
         type: str
         shotgun_entity_type: Task
         shotgun_field_name: sg_vfx_codes
     cs_publi_flag:
         type: str
-
-
+    cs_render_iteration:
+        type: int
+        format_spec: "03"
 #
 # The paths section contains all the the key locations where files are to be stored
 # by Sgtk Apps. Each path is made up of several keys (like {version} or {Sequence}_{Shot}) and
@@ -142,7 +147,7 @@ paths:
 
 
     shot_root: '{Sequence}/{Shot}'
-    asset_root: 'assets/{Asset}'
+    asset_root: '{cs_asset_type}/{Asset}'
     sequence_root: '/'
 
     ##########################################################################################
@@ -179,34 +184,34 @@ paths:
     #
 
     # The location of WIP files
-    photoshop_shot_work: '@shot_root/matte_pr/{cs_step_short_name}/wip/{cs_user_name}/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}[-{cs_publi_flag}].psd'
-    shot_work_area_photoshop: '@shot_root/matte_pr/{cs_step_short_name}/wip/{cs_user_name}/'
+    photoshop_shot_work: '@shot_root/matte_pr/wip/{cs_user_name}/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}[-{cs_publi_flag}].psd'
+    shot_work_area_photoshop: '@shot_root/matte_pr/wip/{cs_user_name}/'
 
     # The location of backups of WIP files
-    photoshop_shot_snapshot: '@shot_root/matte_pr/{cs_step_short_name}/wip/{cs_user_name}/snapshots/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.{timestamp}.psd'
+    photoshop_shot_snapshot: '@shot_root/matte_pr/wip/{cs_user_name}/snapshots/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.{timestamp}.psd'
 
     # The location of published files
-    shot_publish_area_photoshop: '@shot_root/matte_pr/{cs_step_short_name}/refOrig'
-    photoshop_shot_publish: '@shot_root/matte_pr/{cs_step_short_name}/refOrig/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.psd'
+    shot_publish_area_photoshop: '@shot_root/matte_pr/refOrig'
+    photoshop_shot_publish: '@shot_root/matte_pr/refOrig/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}[-{cs_publi_flag}].psd'
 
     #
     # Maya
     #
 
     # define the location of a work area
-    shot_work_area_maya: '@shot_root/3d_pr/scenes/'
+    shot_work_area_maya: '@shot_root/3d_pr/'
 
     # define the location of a publish area
-    shot_publish_area_maya: '@shot_root/3d_pr/scenes/{cs_step_short_name}/refOrig'
+    shot_publish_area_maya: '@shot_root/3d_pr/scenes/refOrig'
 
     # The location of WIP files
-    maya_shot_work: '@shot_root/3d_pr/scenes/{cs_step_short_name}/wip/{cs_user_name}/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}[-{cs_publi_flag}].ma'
+    maya_shot_work: '@shot_root/3d_pr/scenes/wip/{cs_user_name}/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}[-{cs_publi_flag}].ma'
 
     # The location of backups of WIP files
-    maya_shot_snapshot: '@shot_root/3d_pr/scenes/{cs_step_short_name}/wip/{cs_user_name}/snapshots/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.{timestamp}.ma'
+    maya_shot_snapshot: '@shot_root/3d_pr/scenes/wip/{cs_user_name}/snapshots/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.{timestamp}.ma'
 
     # The location of published maya files
-    maya_shot_publish: '@shot_root/3d_pr/scenes/{cs_step_short_name}/refOrig/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.ma'
+    maya_shot_publish: '@shot_root/3d_pr/scenes/refOrig/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}[-{cs_publi_flag}].ma'
 
     maya_shot_render_mono_exr:            '@shot_root/images/3d/wip/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.{SEQ}.exr'
     maya_shot_render_pub_mono_exr:        '@shot_root/images/3d/publi/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.{SEQ}.exr'
@@ -282,19 +287,20 @@ paths:
     #
 
     # define the location of a work area
-    shot_work_area_nuke: '@shot_root/compo_pr/{cs_step_short_name}/wip/{cs_user_name}'
+    shot_work_area_nuke: '@shot_root/{Step}_pr/{Task}/wip/{cs_user_name}'
 
     # define the location of a publish area
-    shot_publish_area_nuke: '@shot_root/compo_pr/{cs_step_short_name}/refOrig'
+    shot_publish_area_nuke: '@shot_root/{Task}_pr/{Task}/refOrig'
 
     # The location of WIP script files
-    nuke_shot_work: '@shot_root/compo_pr/{cs_step_short_name}/wip/{cs_user_name}/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}[-{cs_publi_flag}].nk'
+    nuke_shot_work: '@shot_root/{Step}_pr/{Task}/wip/{cs_user_name}/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}[-{cs_publi_flag}].nk'
+    nuke_shot_work_render: '@shot_root/{Step}_pr/{Task}/wip/{cs_user_name}/renders/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}[-{cs_publi_flag}]_r{cs_render_iteration}.nk'
 
     # The location of backups of WIP files
-    nuke_shot_snapshot: '@shot_root/compo_pr/{cs_step_short_name}/wip/{cs_user_name}/snapshots/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.{timestamp}.nk'
+    nuke_shot_snapshot: '@shot_root/{Step}_pr/{Task}/wip/{cs_user_name}/snapshots/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.{timestamp}.nk'
 
     # The location of published nuke script files
-    nuke_shot_publish: '@shot_root/compo_pr/{cs_step_short_name}/refOrig/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.nk'
+    nuke_shot_publish: '@shot_root/{Step}_pr/{Task}/refOrig/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}[-{cs_publi_flag}].nk'
 
     # write node outputs
     nuke_shot_render_mono_dpx:            '@shot_root/images/_out_compo/wip/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.{SEQ}.dpx'
@@ -350,22 +356,22 @@ paths:
     # Alembic caches
     #
 
-    asset_alembic_cache: '@asset_root/3d_pr/caches/{cs_step_short_name}/{cs_task_name}-{Asset}[--{name}].abc'
+    asset_alembic_cache: '@asset_root/3d_pr/cache/{cs_task_name}-{Asset}[--{name}].abc'
 
     #
     # Photoshop
     #
 
     # The location of WIP files
-    photoshop_asset_work: '@asset_root/matte_pr/{cs_step_short_name}/wip/{cs_user_name}/{cs_task_name}-{Asset}[--{name}]-v{version}[-{cs_publi_flag}].psd'
-    asset_work_area_photoshop: '@asset_root/matte_pr/{cs_step_short_name}/wip/{cs_user_name}'
+    photoshop_asset_work: '@asset_root/matte_pr/wip/{cs_user_name}/{cs_task_name}-{Asset}[--{name}]-v{version}[-{cs_publi_flag}].psd'
+    asset_work_area_photoshop: '@asset_root/matte_pr/wip/{cs_user_name}'
 
     # The location of backups of WIP files
-    photoshop_asset_snapshot: '@asset_root/matte_pr/{cs_step_short_name}/wip/{cs_user_name}/snapshots/{cs_task_name}-{Asset}[--{name}]-v{version}.{timestamp}.psd'
+    photoshop_asset_snapshot: '@asset_root/matte_pr/wip/{cs_user_name}/snapshots/{cs_task_name}-{Asset}[--{name}]-v{version}.{timestamp}.psd'
 
     # The location of published files
-    asset_publish_area_photoshop: '@asset_root/matte_pr/{cs_step_short_name}/refOrig'
-    photoshop_asset_publish: '@asset_root/matte_pr/{cs_step_short_name}/refOrig/{cs_task_name}-{Asset}[--{name}]-v{version}.psd'
+    asset_publish_area_photoshop: '@asset_root/matte_pr/refOrig'
+    photoshop_asset_publish: '@asset_root/matte_pr/refOrig/{cs_task_name}-{Asset}[--{name}]-v{version}[-{cs_publi_flag}].psd'
 
     #
     # Mari
@@ -382,16 +388,16 @@ paths:
     asset_work_area_maya: '@asset_root/3d_pr/'
 
     # define the location of a publish area
-    asset_publish_area_maya: '@asset_root/3d_pr/scenes/{cs_step_short_name}/refOrig'
+    asset_publish_area_maya: '@asset_root/3d_pr/scenes/refOrig'
 
     # The location of WIP files
-    maya_asset_work: '@asset_root/3d_pr/scenes/{cs_step_short_name}/wip/{cs_user_name}/{cs_task_name}-{Asset}[--{name}]-v{version}[-{cs_publi_flag}].ma'
+    maya_asset_work: '@asset_root/3d_pr/scenes/wip/{cs_user_name}/{cs_task_name}-{Asset}[--{name}]-v{version}[-{cs_publi_flag}].ma'
 
     # The location of backups of WIP files
-    maya_asset_snapshot: '@asset_root/3d_pr/scenes/{cs_step_short_name}/wip/{cs_user_name}/snapshots/{cs_task_name}-{Asset}[--{name}]-v{version}.{timestamp}.ma'
+    maya_asset_snapshot: '@asset_root/3d_pr/scenes/wip/{cs_user_name}/snapshots/{cs_task_name}-{Asset}[--{name}]-v{version}.{timestamp}.ma'
 
     # The location of published maya files
-    maya_asset_publish: '@asset_root/3d_pr/scenes/{cs_step_short_name}/refOrig/{cs_task_name}-{Asset}[--{name}]-v{version}.ma'
+    maya_asset_publish: '@asset_root/3d_pr/scenes/refOrig/{cs_task_name}-{Asset}[--{name}]-v{version}[-{cs_publi_flag}].ma'
 
     maya_asset_render_mono_exr:            '@asset_root/images/anim/wip/{cs_task_name}-{Asset}[--{name}]-v{version}/{cs_task_name}-{Asset}[--{name}]-v{version}.{SEQ}.exr'
     maya_asset_render_pub_mono_exr:        '@asset_root/images/anim/publi/{cs_task_name}-{Asset}[--{name}]-v{version}/{cs_task_name}-{Asset}[--{name}]-v{version}.{SEQ}.exr'
@@ -466,10 +472,10 @@ paths:
     #
 
     # define the location of a work area
-    asset_work_area_nuke: '@asset_root/compo_pr/{cs_step_short_name}/wip/{cs_user_name}'
+    asset_work_area_nuke: '@asset_root/{Step}_pr/{Task}/wip/{cs_user_name}'
 
     # define the location of a publish area
-    asset_publish_area_nuke: '@asset_root/compo_pr/{cs_step_short_name}/refOrig'
+    asset_publish_area_nuke: '@asset_root/{Step}_pr/{Task}/refOrig'
 
     # outputs from the Shotgun Write Node for assets
     nuke_asset_render: '@asset_root/images/_out_compo/wip/{cs_task_name}-{Asset}[--{name}]-v{version}/{cs_task_name}-{Asset}[--{name}]-v{version}.{SEQ}.exr'
@@ -480,13 +486,14 @@ paths:
     asset_quicktime_quick:   '@asset_root/review/quickdaily/{Asset}_{name}_{iteration}.mov'
 
     # The location of WIP script files
-    nuke_asset_work: '@asset_root/compo_pr/{cs_step_short_name}/wip/{cs_user_name}/{cs_task_name}-{Asset}[--{name}]-v{version}[-{cs_publi_flag}].nk'
+    nuke_asset_work: '@asset_root/{Step}_pr/{Step}/wip/{cs_user_name}/{cs_task_name}-{Asset}[--{name}]-v{version}[-{cs_publi_flag}].nk'
+    nuke_asset_work_render: '@asset_root/{Step}_pr/{Task}/wip/{cs_user_name}/renders/{cs_task_name}-{Asset}[--{name}]-v{version}[-{cs_publi_flag}]_r{cs_render_iteration}.nk'
 
     # The location of backups of WIP files
-    nuke_asset_snapshot: '@asset_root/compo_pr/{cs_step_short_name}/wip/{cs_user_name}/{cs_task_name}-{Asset}[--{name}]-v{version}.{timestamp}.nk'
+    nuke_asset_snapshot: '@asset_root/{Step}_pr/{Step}/wip/{cs_user_name}/{cs_task_name}-{Asset}[--{name}]-v{version}.{timestamp}.nk'
 
     # The location of published nuke script files
-    nuke_asset_publish: '@asset_root/compo_pr/{cs_step_short_name}/refOrig/{cs_task_name}-{Asset}[--{name}]-v{version}.nk'
+    nuke_asset_publish: '@asset_root/{Step}_pr/{Step}/refOrig/{cs_task_name}-{Asset}[--{name}]-v{version}[-{cs_publi_flag}].nk'
 
     #
     # Softimage
@@ -519,11 +526,11 @@ strings:
 
     # when a review version in shotgun is created inside of nuke, this is the
     # name that is being given to it (the code field)
-    nuke_shot_version_name: "{Sequence}_{Shot}_{name}_{output}_v{version}.{iteration}"
-    nuke_quick_shot_version_name: "{Sequence}_{Shot}_{name}_quick_{iteration}"
+    nuke_shot_version_name: "{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.{iteration}"
+    nuke_quick_shot_version_name: "{cs_task_name}-{Sequence}_{Shot}[--{name}]-quick-{iteration}"
 
-    nuke_asset_version_name: "{Asset}_{name}_{output}_v{version}.{iteration}"
-    nuke_quick_asset_version_name: "{Asset}_{name}_quick_{iteration}"
+    nuke_asset_version_name: "{cs_task_name}-{Asset}[--{name}]-v{version}.{iteration}"
+    nuke_quick_asset_version_name: "{cs_task_name}-{Asset}[--{name}]-quick-{iteration}"
 
     # Defines how the {tk_version} token in Hiero gets formatted back to tk.
     hiero_version: "{version}"

@@ -67,7 +67,7 @@ workfiles-mik:
   launch_at_startup: false
   launch_change_work_area_at_startup: false
   location: {path: 'https://github.com/tlhomme/tk-multi-workfiles-mik.git', type: git,
-    version: v0.6.6.4}
+    version: v0.6.6.6}
   saveas_default_name: ''
   saveas_prefer_version_up: true
   sg_entity_type_extra_display_fields:
@@ -92,7 +92,7 @@ workfiles-mik-change-work:
   launch_at_startup: true
   launch_change_work_area_at_startup: false
   location: {path: 'https://github.com/tlhomme/tk-multi-workfiles-mik.git', type: git,
-    version: v0.6.6.4}
+    version: v0.6.6.5}
   saveas_default_name: ''
   saveas_prefer_version_up: true
   sg_entity_type_extra_display_fields:
