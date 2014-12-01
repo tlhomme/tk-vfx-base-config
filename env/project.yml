@@ -32,11 +32,12 @@ engines:
         hook_get_extra_publish_data: default
         hook_get_quicktime_settings: default
         hook_get_shot: default
+        hook_pre_export: default
         hook_resolve_custom_strings: default
         hook_translate_template: default
         hook_update_version_data: default
         hook_upload_thumbnail: default
-        location: {name: tk-hiero-export, type: app_store, version: v0.1.29}
+        location: {name: tk-hiero-export, type: app_store, version: v0.1.30}
         nuke_script_published_file_type: Nuke Script
         nuke_script_toolkit_write_nodes:
         - {channel: stereoexr32, name: 'Stereo Exr, 32 bit'}
@@ -62,7 +63,7 @@ engines:
         hook_secondary_pre_publish: default
         hook_secondary_publish: default
         hook_thumbnail: default
-        location: {name: tk-multi-publish, type: app_store, version: v0.6.5}
+        location: {name: tk-multi-publish, type: app_store, version: v0.6.6}
         primary_description: Publish and version up the selected Hiero project
         primary_display_name: Hiero Publish
         primary_icon: icons/publish_hiero_main.png
@@ -131,7 +132,7 @@ engines:
         hook_scene_operation: default
         launch_at_startup: false
         launch_change_work_area_at_startup: false
-        location: {name: tk-multi-workfiles, type: app_store, version: v0.6.6}
+        location: {name: tk-multi-workfiles, type: app_store, version: v0.6.7}
         saveas_default_name: scene
         saveas_prefer_version_up: false
         sg_entity_type_extra_display_fields: {}
@@ -181,7 +182,7 @@ engines:
     apps: {tk-multi-about: '@about', tk-multi-screeningroom: '@launch_screeningroom',
       tk-multi-workfiles: '@workfiles', tk-multi-workfiles-mik: '@workfiles-mik'}
     debug_logging: false
-    location: {name: tk-photoshop, type: app_store, version: v0.2.0}
+    location: {name: tk-photoshop, type: app_store, version: v0.3.0}
   tk-shell:
     apps: {tk-multi-launch3dsmax: '@launch_3dsmax', tk-multi-launchhiero: '@launch_hiero',
       tk-multi-launchmari: '@launch_mari', tk-multi-launchmaya: '@launch_maya', tk-multi-launchmotionbuilder: '@launch_motionbuilder',

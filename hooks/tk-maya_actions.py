@@ -140,7 +140,6 @@ class MayaActions(HookBaseClass):
             raise Exception("File not found on disk - '%s'" % path)
 
         path = self._do_mik_path_cleanup(path)
-
         # make a name space out of entity name + publish name
         # e.g. bunny_upperbody
         namespace = "%s %s" % (sg_publish_data.get("entity").get("name"), sg_publish_data.get("name"))
@@ -156,8 +155,10 @@ class MayaActions(HookBaseClass):
         publish_folder, publish_file_name = os.path.split(publish_file_path)
         root_folder = os.path.dirname(publish_folder)
         self.parent.log_debug("root: %s" % root_folder)
-        pub_link_name = root_folder + os.sep + \
-            re.sub(r"-v\d{3}", "", publish_file_name)
+        proper_name = re.sub(r"-v\d{3}", "", publish_file_name)
+        proper_name = proper_name.replace("-publi","")
+        pub_link_name = root_folder + os.sep + proper_name
+
         self.parent.log_debug("pub_link_name: %s" % pub_link_name)
 
         return pub_link_name

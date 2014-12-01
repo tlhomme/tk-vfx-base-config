@@ -2,3 +2,5 @@
 type: "user_workspace"
 
 name: "login"
+
+create_with_parent: true
