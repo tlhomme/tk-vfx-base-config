@@ -213,7 +213,7 @@ class PostPublishHook(Hook):
         if len(selection) != 1:
             raise TankError("Please select a single Project!")
         if not isinstance(selection[0] , hiero.core.Bin):
-            raise Exception("Please select a Hiero Project!")
+            raise Exception("Please select a Hiero Project!")   
         project = selection[0].project()
         if project is None:
             # apparently bins can be without projects (child bins I think)
@@ -263,6 +263,7 @@ class PostPublishHook(Hook):
         # open  the file
         try:
             progress_cb(50, "Opening the scene file")
+            nuke.scriptClear()
             nuke.scriptOpen(to_open)
         except Exception, e:
             raise TankError("Could not open the original wip file %s, starting a new scene."%to_open)

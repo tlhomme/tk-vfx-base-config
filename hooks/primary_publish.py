@@ -287,7 +287,7 @@ class PrimaryPublishHook(Hook):
         :returns:               The path to the file that has been published
         """
         import nuke
-
+        self.infoNodeLib = InfoNodeLib(self.parent)
         progress_cb(0.0, "Finding dependencies", task)
         dependencies = self._nuke_find_script_dependencies()
 
@@ -325,12 +325,13 @@ class PrimaryPublishHook(Hook):
         progress_cb(20.0, "Saving the script")
         self.parent.log_debug("Saving the Script...")
         nuke.scriptSave(new_scene_path)
+        old_path = script_path
         script_path = new_scene_path
 
         #---------------------------------------------
         # STEP 2 :  Clean up processes
         #---------------------------------------------
-        self._do_nuke_scene_cleanup(script_path,work_template,fields)
+        self._do_nuke_scene_cleanup(script_path,old_path,work_template,fields)
 
         #---------------------------------------------
         # STEP 2 :  copy the file to pub folder
@@ -694,7 +695,10 @@ class PrimaryPublishHook(Hook):
         """
         @summary: do nuke scene clean up before publish
         """
-        pass
+        import nuke
+        nuke.root()["name"].setValue(scene_path)
+        self.infoNodeLib.nuke_check_mikinfo_node(self.parent.context,"",scene_path)
+        self.infoNodeLib.nuke_check_write_nodes()
 
     def _do_maya_modeling_cleanup(self,scene_path,old_path,work_template,fields):
         # ASSET CLEANUP
