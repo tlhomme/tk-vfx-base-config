@@ -79,7 +79,7 @@ class PostPublishHook(Hook):
         """
         import maya.cmds as cmds
 
-        progress_cb(0, "Versioning up the scene file")
+        progress_cb(0, "Opening the origin wip scene file")
 
         # get the current scene path:
         scene_path = os.path.abspath(cmds.file(query=True, sn=True))
@@ -387,10 +387,15 @@ class PostPublishHook(Hook):
         """
         Find the next available vesion for the specified work_file
         """
-        self.parent.log_debug("current_file:%s"%scene_path)
+        self.parent.log_debug("")
+        self.parent.log_debug("  +---> Get Current Work File Version From pub File")
+        self.parent.log_debug("  |")
+        self.parent.log_debug("  | current_file:%s"%scene_path)
         user = tank.util.get_current_user(self.parent.tank)
         path_to_wip = scene_path.replace("refOrig%s"%os.sep,"wip%s%s%s"%(os.sep,user['login'],os.sep))
-        self.parent.log_debug("path_to_wip:%s"%path_to_wip)
+        self.parent.log_debug("  | path_to_wip: %s"%path_to_wip)
+        self.parent.log_debug("  |")
+        self.parent.log_debug("  |---------------------------")
         return path_to_wip
 
 

@@ -16,6 +16,9 @@ import tank
 from tank import Hook
 from tank import TankError
 
+import sys
+
+
 class PrePublishHook(Hook):
     """
     Single hook that implements pre-publish functionality
@@ -86,6 +89,8 @@ class PrePublishHook(Hook):
             # pre-publish alembic_cache output
             if output["name"] == "alembic_cache":
                 errors.extend(self.__validate_item_for_alembic_cache_publish(item))
+            if output["name"] == "mik_cache":
+                errors.extend(self.__validate_item_for_mik_cache_publish(item))
             else:
                 # don't know how to publish this output types!
                 errors.append("Don't know how to publish this item!")
@@ -117,5 +122,18 @@ class PrePublishHook(Hook):
         if not cmds.ls(geometry=True, noIntermediate=True):
             errors.append("The scene does not contain any geometry!")
 
+        # finally return any errors
+        return errors
+
+    def __validate_item_for_mik_cache_publish(self, item):
+        """
+        Validate that the item is valid to be exported to an alembic cache
+
+        :param item:    The item to validate
+        :returns:       A list of any errors found during validation that should be reported
+                        to the artist
+        """
+        errors = []
+        # NOTHING TO CHECK
         # finally return any errors
         return errors

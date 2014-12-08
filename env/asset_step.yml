@@ -333,8 +333,7 @@ engines:
         hook_scene_operation: default
         launch_at_startup: true
         launch_change_work_area_at_startup: false
-        location: {path: 'https://github.com/tlhomme/tk-multi-workfiles-mik.git',
-          type: git, version: v0.6.6.6}
+        location: {path: '/datas/tlhomme/dev/sgtk/tk-multi-workfiles-mik',type: dev}
         saveas_default_name: ''
         saveas_prefer_version_up: true
         sg_entity_type_extra_display_fields:
@@ -350,7 +349,7 @@ engines:
         template_work_area: asset_work_area_maya
         version_compare_ignore_fields: [cs_user_name, cs_publi_flag]
     compatibility_dialog_min_version: 2015
-    debug_logging: false
+    debug_logging: true
     location: {name: tk-maya, type: app_store, version: v0.4.3}
     menu_favourites:
     - {app_instance: tk-multi-workfiles-mik, name: Shotgun File Manager...}

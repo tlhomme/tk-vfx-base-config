@@ -41,7 +41,7 @@ nuke_linux: /s/prods/lap_test/_admin/bin/nuke_lap_test.py
 #
 nukex_mac: ''
 nukex_windows: ''
-nukex_linux: /s/apps/lin/nuke/nukeX8.0v6_sgtk
+nukex_linux: /s/prods/lap_test/_admin/bin/nuke_lap_test.py -nukex
 
 #
 # motionbuilder
