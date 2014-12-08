@@ -17,6 +17,18 @@ import pymel.core as pm
 import maya.cmds as cmds
 import maya.mel as mel
 
+import sys
+
+LINUX_PATH = "/s/apps/common/python/luigi/infonodelib"
+WINDOWS_PATH = "V:\\apps\\common\\python\\luigi\\infonodelib"
+info_lib_path = {"linux2": LINUX_PATH,
+              "win32":  WINDOWS_PATH,
+              "darwin": "" }
+
+sys.path.append(info_lib_path[sys.platform])
+
+from infonodelib import InfoNodeLib
+
 HookBaseClass = sgtk.get_hook_baseclass()
 
 class MayaActions(HookBaseClass):
@@ -136,6 +148,7 @@ class MayaActions(HookBaseClass):
         :param path: Path to file.
         :param sg_publish_data: Shotgun data dictionary with all the standard publish fields.
         """
+        infoNodeLib = InfoNodeLib(self.parent)
         if not os.path.exists(path):
             raise Exception("File not found on disk - '%s'" % path)
 
@@ -149,6 +162,7 @@ class MayaActions(HookBaseClass):
                                   loadReferenceDepth= "all",
                                   mergeNamespacesOnClash=False,
                                   namespace=namespace)
+        infoNodeLib.maya_check_info_node()
 
     def _do_mik_path_cleanup(self,publish_file_path):
         import re

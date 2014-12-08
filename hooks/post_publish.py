@@ -79,7 +79,7 @@ class PostPublishHook(Hook):
         """
         import maya.cmds as cmds
 
-        progress_cb(0, "Versioning up the scene file")
+        progress_cb(0, "Opening the origin wip scene file")
 
         # get the current scene path:
         scene_path = os.path.abspath(cmds.file(query=True, sn=True))
@@ -213,7 +213,7 @@ class PostPublishHook(Hook):
         if len(selection) != 1:
             raise TankError("Please select a single Project!")
         if not isinstance(selection[0] , hiero.core.Bin):
-            raise Exception("Please select a Hiero Project!")
+            raise Exception("Please select a Hiero Project!")   
         project = selection[0].project()
         if project is None:
             # apparently bins can be without projects (child bins I think)
@@ -263,6 +263,7 @@ class PostPublishHook(Hook):
         # open  the file
         try:
             progress_cb(50, "Opening the scene file")
+            nuke.scriptClear()
             nuke.scriptOpen(to_open)
         except Exception, e:
             raise TankError("Could not open the original wip file %s, starting a new scene."%to_open)
@@ -387,10 +388,15 @@ class PostPublishHook(Hook):
         """
         Find the next available vesion for the specified work_file
         """
-        self.parent.log_debug("current_file:%s"%scene_path)
+        self.parent.log_debug("")
+        self.parent.log_debug("  +---> Get Current Work File Version From pub File")
+        self.parent.log_debug("  |")
+        self.parent.log_debug("  | current_file:%s"%scene_path)
         user = tank.util.get_current_user(self.parent.tank)
         path_to_wip = scene_path.replace("refOrig%s"%os.sep,"wip%s%s%s"%(os.sep,user['login'],os.sep))
-        self.parent.log_debug("path_to_wip:%s"%path_to_wip)
+        self.parent.log_debug("  | path_to_wip: %s"%path_to_wip)
+        self.parent.log_debug("  |")
+        self.parent.log_debug("  |---------------------------")
         return path_to_wip
 
 

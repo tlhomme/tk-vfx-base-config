@@ -16,9 +16,19 @@ import tank
 from tank import Hook
 from tank import TankError
 
+import sys
+
+LINUX_PATH = "/s/apps/common/python/luigi/infonodelib"
+WINDOWS_PATH = "V:\\apps\\common\\python\\luigi\\infonodelib"
+info_lib_path = {"linux2": LINUX_PATH,
+              "win32":  WINDOWS_PATH,
+              "darwin": "" }
+
+sys.path.append(info_lib_path[sys.platform])
+
+from infonodelib import InfoNodeLib
 
 class PrimaryPublishHook(Hook):
-
     """
     Single hook that implements publish of the primary task
     """
@@ -77,6 +87,7 @@ class PrimaryPublishHook(Hook):
         """
         # get the engine name from the parent object (app/engine/etc.)
         engine_name = self.parent.engine.name
+        
 
         # depending on engine:
         if engine_name == "tk-maya":
@@ -116,6 +127,8 @@ class PrimaryPublishHook(Hook):
                                 to the UI
         :returns:               The path to the file that has been published
         """
+        self.parent.log_debug(self.parent)
+        self.infoNodeLib = InfoNodeLib(self.parent)
         import maya.cmds as cmds
 
         progress_cb(0.0, "Finding scene dependencies", task)
@@ -157,12 +170,13 @@ class PrimaryPublishHook(Hook):
         self.parent.log_debug("Saving the scene...")
         cmds.file(rename=new_scene_path)
         cmds.file(save=True, force=True)
+        old_path = scene_path
         scene_path = new_scene_path
 
         #---------------------------------------------
         # STEP 2 :  Clean up processes
         #---------------------------------------------
-        self._do_maya_scene_cleanup(scene_path,work_template,fields)
+        self._do_maya_scene_cleanup(scene_path,old_path,work_template,fields)
 
         #---------------------------------------------
         # STEP 3 :  Save As published file
@@ -273,7 +287,7 @@ class PrimaryPublishHook(Hook):
         :returns:               The path to the file that has been published
         """
         import nuke
-
+        self.infoNodeLib = InfoNodeLib(self.parent)
         progress_cb(0.0, "Finding dependencies", task)
         dependencies = self._nuke_find_script_dependencies()
 
@@ -311,12 +325,13 @@ class PrimaryPublishHook(Hook):
         progress_cb(20.0, "Saving the script")
         self.parent.log_debug("Saving the Script...")
         nuke.scriptSave(new_scene_path)
+        old_path = script_path
         script_path = new_scene_path
 
         #---------------------------------------------
         # STEP 2 :  Clean up processes
         #---------------------------------------------
-        self._do_nuke_scene_cleanup(script_path,work_template,fields)
+        self._do_nuke_scene_cleanup(script_path,old_path,work_template,fields)
 
         #---------------------------------------------
         # STEP 2 :  copy the file to pub folder
@@ -612,7 +627,6 @@ class PrimaryPublishHook(Hook):
 
     def _hard_link_last_publish(self, progress_cb, publish_file_path, task):
         import re
-
         # hardlink file to root folder
         publish_folder, publish_file_name = os.path.split(publish_file_path)
         root_folder = os.path.dirname(publish_folder)
@@ -644,33 +658,91 @@ class PrimaryPublishHook(Hook):
         max_v_no = max(version_numbers)
         return max(curr_v_no, max_v_no) + 1
 
-    def _do_maya_scene_cleanup(self,scene_path,work_template,fields):
+    def _do_maya_scene_cleanup(self,scene_path,old_path,work_template,fields):
+        """
+        @summary: do maya scene clean up before publish
+        """
         self.parent.log_debug("#** Starting clean up **#")
         #Find which step we are in and execute according cleanups
         if "cs_task_name" in fields:
             short_code = fields['cs_task_name']
-            self.parent.log_debug("#---> Task: %s"%short_code)
+            self.parent.log_debug("#== Task: %s"%short_code)
             #dispatch clean up
             #MODELING
             if "MO" in short_code:
-                self.parent.log_debug("+---> Starting modeling Clean Up")
-                self._do_maya_modeling_cleanup(scene_path,work_template,fields)
+                self.parent.log_debug("#=> Starting modeling Clean Up")
+                self._do_maya_modeling_cleanup(scene_path,old_path,work_template,fields)
+            elif "SE" in short_code:
+                self.parent.log_debug("#=> Starting setup Clean Up")
+                self._do_maya_setup_cleanup(scene_path,old_path,work_template,fields)
+            elif "CO" in short_code:
+                self.parent.log_debug("#=> Starting color Clean Up")
+                self._do_maya_color_cleanup(scene_path,old_path,work_template,fields)
+            elif "LO" in short_code:
+                self.parent.log_debug("#=> Starting layout Clean Up")
+                self._do_maya_layout_cleanup(scene_path,old_path,work_template,fields)
+            elif "AN" in short_code:
+                self.parent.log_debug("#=> Starting animation Clean Up")
+                self._do_maya_animation_cleanup(scene_path,old_path,work_template,fields)
+            elif "LGT" in short_code:
+                self.parent.log_debug("#=> Starting lighting Clean Up")
+                self._do_maya_lighting_cleanup(scene_path,old_path,work_template,fields)
+            elif "TRK" in short_code:
+                self.parent.log_debug("#=> Starting tracking Clean Up")
+                self._do_maya_tracking_cleanup(scene_path,old_path,work_template,fields)
+                
+    def _do_nuke_scene_cleanup(self,scene_path,old_path,work_template,fields):
+        """
+        @summary: do nuke scene clean up before publish
+        """
+        import nuke
+        nuke.root()["name"].setValue(scene_path)
+        self.infoNodeLib.nuke_check_mikinfo_node(self.parent.context,"",scene_path)
+        self.infoNodeLib.nuke_check_write_nodes()
 
-    def _do_nuke_scene_cleanup(self,scene_path,work_template,fields):
-        pass
-
-    def _do_maya_modeling_cleanup(self,scene_path,work_template,fields):
+    def _do_maya_modeling_cleanup(self,scene_path,old_path,work_template,fields):
         # ASSET CLEANUP
         if "Asset" in fields.keys():
-            self.parent.log_debug(" +---> Cleaning Asset")
-            # self._do_maya_check_info_node()
+            self._do_maya_check_info_node(scene_path,old_path)
             self._do_maya_aovs_cleanup()
             self._do_maya_delete_group_cleanup()
             self._do_maya_shaders_cleanup()
 
+    def _do_maya_color_cleanup(self,scene_path,old_path,work_template,fields):
+        # ASSET CLEANUP
+        if "Asset" in fields.keys():
+            self._do_maya_check_info_node(scene_path,old_path)
+            self._do_maya_delete_group_cleanup()
+
+    def _do_maya_setup_cleanup(self,scene_path,old_path,work_template,fields):
+        # ASSET CLEANUP
+        if "Asset" in fields.keys():
+            self._do_maya_check_info_node(scene_path,old_path)
+            self._do_maya_delete_group_cleanup()
+
+    def _do_maya_layout_cleanup(self,scene_path,old_path,work_template,fields):
         # SHOT CLEANUP
+        if "Shot" in fields.keys():
+            self._do_maya_check_info_node(scene_path,old_path)
+            self._do_maya_delete_group_cleanup()
 
+    def _do_maya_tracking_cleanup(self,scene_path,old_path,work_template,fields):
+        # SHOT CLEANUP
+        if "Shot" in fields.keys():
+            self._do_maya_check_info_node(scene_path,old_path)
+            self._do_maya_delete_group_cleanup()
 
+    def _do_maya_animation_cleanup(self,scene_path,old_path,work_template,fields):
+        # SHOT CLEANUP
+        if "Shot" in fields.keys():
+            self._do_maya_check_info_node(scene_path,old_path)
+            self._do_maya_delete_group_cleanup()
+
+    def _do_maya_lighting_cleanup(self,scene_path,old_path,work_template,fields):
+        # SHOT CLEANUP
+        if "Shot" in fields.keys():
+            self._do_maya_check_info_node(scene_path,old_path)
+            self._do_maya_delete_group_cleanup()
 
     def _do_maya_aovs_cleanup(self):
         import maya.cmds as cmds
@@ -683,23 +755,29 @@ class PrimaryPublishHook(Hook):
             for AOV in activeAOVS:
                 if not AOV.count('default'):
                     cmds.delete(AOV)
-            self.parent.log_debug("   +---> Cleanup of active AOVs ok !")
+            self.parent.log_debug("  | > Cleanup of active AOVs ok !")
 
             # Active AOVs Filters CLEANUP
             activeFilters = cmds.ls(et='aiAOVFilter')
             for Filter in activeFilters:
                 if not Filter.count('default'):
                     cmds.delete(Filter)
-            self.parent.log_debug("   +---> Cleanup of active AOV Filters ok !")
+            self.parent.log_debug("  | > Cleanup of active AOV Filters ok !")
 
             # Active AOVs Drivers CLEANUP
             activeDrivers = cmds.ls(et='aiAOVDriver')
             for Driver in activeDrivers:
                 if not Driver.count('default'):
                     cmds.delete(Driver)
-            self.parent.log_debug("   +---> Cleanup of active AOV Drivers ok !")
+            self.parent.log_debug("  | > Cleanup of active AOV Drivers ok !")
+
+            self.parent.log_debug("  +---> Cleaning AOVs Complete  !")
+
         except Exception, e:
             self.parent.log_debug("Failed cleaning up AOVs: %s"%e)
+
+
+        self.parent.log_debug("")
 
     def _do_maya_delete_group_cleanup(self):
         import maya.cmds as cmds
@@ -709,10 +787,12 @@ class PrimaryPublishHook(Hook):
             nodeToDelete = 'To_delete'
             if cmds.objExists( nodeToDelete ):
                 cmds.lockNode(nodeToDelete, l=0  )
-                self.__delete_if_not_referenced(nodeToDelete)
-            self.parent.log_debug("   +---> Cleanup of To_delete Group ok !")
+                self.infoNodeLib.maya_delete_if_not_referenced(nodeToDelete)
+            self.parent.log_debug("  +---> Cleanup of To_delete Group ok  !")
+
         except Exception, e:
-            self.parent.log_debug("Failed cleaning up To_delete Group: %s"%e)
+            self.parent.log_debug("  | > !!! Failed cleaning up To_delete Group: %s"%e)
+        self.parent.log_debug("")
 
     def _do_maya_shaders_cleanup(self):
         import maya.cmds as cmds
@@ -726,7 +806,7 @@ class PrimaryPublishHook(Hook):
                     for con in allConn:
                         if cmds.objExists(con):
                             cmds.delete(con)
-                    self.parent.log_debug("   +---> Cleanup of \"%s\" ok !"%el)
+                    self.parent.log_debug("  | > Cleanup of \"%s\" ok !"%el)
                     cmds.delete(el)
             nodeName = 'lambert1'
             attrs = cmds.listAttr(nodeName,scalar=True, settable=True)
@@ -742,119 +822,27 @@ class PrimaryPublishHook(Hook):
             allUtility=cmds.ls( typ=('place2dTexture','place3dTexture','projection','blendColors','bump2d','bump3d','heightField','curveInfo','gammaCorrect','hsvToRgb','luminance','samplerInfo','stencil','surfaceInfo','imagePlane'))
             for u in allUtility:
                 if cmds.objExists(u):
-                    self.parent.log_debug("   +---> Cleanup of \"%s\" ok !"%u)
+                    self.parent.log_debug("  | > Cleanup of \"%s\" ok !"%u)
                     cmds.delete(u)
             allMeshes = cmds.ls( type='mesh')
             # DShader=cmds.shadingNode("lambert",asShader=True)
             shading_group= cmds.sets(renderable=True,noSurfaceShader=True,empty=True)
             cmds.connectAttr('%s.outColor' %nodeName ,'%s.surfaceShader' %shading_group)
             cmds.sets(allMeshes, e=True, forceElement=shading_group)
-            self.parent.log_debug("   +---> Relinked all meshed to default shaders ok !"%u)
+            self.parent.log_debug("  | > Relinked all meshed to default shaders ok !"%u)
+
+            self.parent.log_debug("  +---> Cleanup of Shaders ok  !")
         except Exception, e:
-            self.parent.log_debug("Failed cleaning up Shaders: %s"%e)
+            self.parent.log_debug("  | > !!! Failed cleaning up Shaders: %s"%e)
+        self.parent.log_debug("")
 
-    def __delete_if_not_referenced(self,nodeToDelete):
+    def _do_maya_check_info_node(self,scene_path,old_path):
         import maya.cmds as cmds
-        result = 0
-        if nodeToDelete in ['persp', 'top', 'front', 'side', '|persp', '|top', '|front', '|side', 'defaultLightset', 'defaultObjSet', 'defaultLayer']:
-            raise TankError("Problem during deletion of nodes")
-
-        if len(nodeToDelete) > 0  and cmds.objExists(nodeToDelete) and not cmds.referenceQuery(nodeToDelete, isNodeReferenced=True):
-            cmds.lockNode(nodeToDelete, l=False)
-            cmds.delete(nodeToDelete)
-            result = 1
-
-        if result == 0:
-            raise TankError("Problem during deletion of nodes")
-
-    # def _do_maya_check_info_node(self):
-    #     import maya.cmds as cmds
-    #     try:
-    #         # InfoNode  CLEANUP
-    #         self.parent.log_debug("  +---> Checking infoNode")
-    #         sel = cmds.ls( type=['container'] )
-    #         defaultNode =  "mikinfo"
-    #         self.cleanAllRef()
-
-    #         for elt in sel:
-    #             ## Skip other container objects and children objects
-    #             if re.compile(defaultNode).search(elt) and defaultNode != elt:
-    #                 infoNode.registerRef(elt)
-
-    #                 ## Referenced nodes are parented under default Maya Info
-    #                 if cmds.objExists( elt ) and  not cmds.container( elt, q=1, parentContainer=1 ):
-
-    #                     if cmds.ls( elt, ro=1 ) and not cmds.listRelatives( elt, parent=1 ) :
-    #                         miLogPublish("      Maya info node to parent under %s : %s" % (defaultNode, elt))
-
-    #                         if actionMode != 'I' and cmds.objExists(defaultNode):
-    #                             miLogPublish("Parent %s under %s" % (elt, defaultNode))
-    #                             cmds.container( defaultNode, edit=1, force=1, includeShapes=1, includeTransform=1, addNode=elt )
-
-    #                     ## Other Maya Info objects are deleted
-    #                     else:
-    #                         miLogPublish("      Maya info node to delete : %s" % elt)
-
-    #                         if actionMode != 'I':
-    #                             miLogPublish("Delete %s" % elt)
-    #                             mayaUtils.deleteIfNotReferenced(elt)
-    #         self.parent.log_debug("   +---> Check up of infoNode ok !")
-    #     except Exception, e:
-    #         self.parent.log_debug("Failed cleaning up To_delete Group: %s"%e)
-
-    # def __clean_all_ref(self):
-    #     import maya.cmds as cmds
-    #     if cmds.objExists("mikInfo"):
-    #         cmds.select("mikInfo",replace=True)
-    #         refList = [key for key in cmds.listAttr() if re.compile('^ref_').search(key)]
-    #         if not refList:
-    #             return
-
-    #         nodeName = self.getNodeName()
-    #         print 'Clean references in  Maya Info object %s' % nodeName
-
-    #         for elt in refList:
-    #             self.info.pop(elt)
-
-    #             if cmds.objExists( '%s.%s' % (nodeName, elt) ):
-    #                 try:
-    #                     if DEBUG: print "Delete '%s.%s" % (nodeName, elt)
-    #                     cmds.deleteAttr( '%s.%s' % (nodeName, elt) )
-    #                 except:
-    #                     print("Can't delete '%s.%s" % (nodeName, elt))
-
-    # def __register_ref(self, elt):
-    #     import maya.cmds as cmds
-    #     DEBUG = 0
-    #     ## Don't register multiple-leveled references
-    #     if re.compile('.*\:.*:.*').search(elt):
-    #         if DEBUG : print("\nWarning ! Element is not a direct reference : %s" % elt)
-    #         return
-
-    #     if not cmds.ls( elt, ro=1 ):
-    #         if DEBUG : print("\nWarning ! Element is not in reference : %s" % elt)
-    #         return
-
-    #     refMayaInfo = updateFromMaya(elt)
-    #     namespace = re.compile('^([^:]+)').search(elt).group(1)
-
-    #     if not namespace:
-    #         if DEBUG : print("Warning ! Couldn't find any namespace on %s to register reference" % elt)
-    #         return
-
-    #     refNode = mayaUtils.referenceNodeFromNamespace(namespace)
-
-    #     if not refNode:
-    #         if DEBUG : print("Warning ! Couldn't find any reference node associated with %s for %s to register reference" % (namespace, elt))
-    #         return
-
-    #     file = os.path.basename(os.path.splitext(cmds.referenceQuery( refNode, filename=1 ))[0])
-
-    #     if not refMayaInfo:
-    #         if DEBUG : print("Warning ! Couldn't determine refMayaInfo for %s to register reference" % (elt))
-    #         return
-
-    #     version = refMayaInfo.getVersion()
-
-    #     key = 'ref_%s' % re.compile('-').sub('_', file)
-    #     self.info[key] = version
+        context = self.parent.context
+        if cmds.objExists( "mikInfo" ) :
+            self.parent.log_debug("Found mikinfo node .. ")
+        else:
+            self.parent.log_debug("Creating mikinfo node .. ")
+            self.infoNodeLib.maya_create_mikinfo_node(context)
+        self.infoNodeLib.maya_update_mikinfo_node(context,old_path,scene_path)
+        self.infoNodeLib.maya_check_info_node()

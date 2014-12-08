@@ -72,7 +72,7 @@ engines:
         hook_scene_operation: default
         launch_at_startup: false
         launch_change_work_area_at_startup: false
-        location: {name: tk-multi-workfiles, type: app_store, version: v0.6.7}
+        location: {name: tk-multi-workfiles, type: app_store, version: v0.6.8}
         saveas_default_name: scene
         saveas_prefer_version_up: false
         sg_entity_type_extra_display_fields: {}
@@ -132,7 +132,7 @@ engines:
         hook_scene_operation: default
         launch_at_startup: false
         launch_change_work_area_at_startup: false
-        location: {name: tk-multi-workfiles, type: app_store, version: v0.6.7}
+        location: {name: tk-multi-workfiles, type: app_store, version: v0.6.8}
         saveas_default_name: scene
         saveas_prefer_version_up: false
         sg_entity_type_extra_display_fields: {}
@@ -196,18 +196,27 @@ engines:
         hook_post_publish: post_publish
         hook_primary_pre_publish: primary_pre_publish
         hook_primary_publish: primary_publish
-        hook_scan_scene: default
-        hook_secondary_pre_publish: default
-        hook_secondary_publish: default
+        hook_scan_scene: scan_scene_tk-maya
+        hook_secondary_pre_publish: secondary_pre_publish_tk-maya
+        hook_secondary_publish: secondary_publish_tk-maya
         hook_thumbnail: default
         location: {name: tk-multi-publish, type: app_store, version: v0.6.6}
-        primary_description: Publish and version up the current Maya scene
+        primary_description: Publish and version up the currednt Maya scene
         primary_display_name: Maya Publish
         primary_icon: icons/publish_maya_main.png
         primary_publish_template: maya_shot_publish
         primary_scene_item_type: work_file
         primary_tank_type: Maya Scene
-        secondary_outputs: []
+        secondary_outputs:
+        - {description: Publish Mikros Geo Caches From Animation, display_group: Caches
+            Caches, display_name: Maya Caches, icon: icons/mikros_geocache_publish.png,
+          name: mik_cache, publish_template: maya_shot_geo_cache_publish_area, required: false,
+          scene_item_type: mik_cache, selected: false, tank_type: Maya Cache}
+        - {description: Publish Mikros RealFlow Caches From Fx, display_group: Caches
+            Caches, display_name: RealFlow Caches, icon: icons/mikros_realflow_publish.png,
+          name: mik_fx_cache, publish_template: maya_shot_geo_cache_publish_area,
+          required: false, scene_item_type: mik_fx_cache, selected: false, tank_type: RealFlow
+            Cache}
         template_work: maya_shot_work
       tk-multi-screeningroom: '@launch_screeningroom'
       tk-multi-setframerange:
@@ -251,7 +260,7 @@ engines:
         launch_at_startup: true
         launch_change_work_area_at_startup: false
         location: {path: 'https://github.com/tlhomme/tk-multi-workfiles-mik.git',
-          type: git, version: v0.6.6.6}
+          type: git, version: v0.6.8.1}
         saveas_default_name: ''
         saveas_prefer_version_up: true
         sg_entity_type_extra_display_fields:
@@ -267,8 +276,8 @@ engines:
         template_work_area: shot_work_area_maya
         version_compare_ignore_fields: [cs_user_name, cs_publi_flag]
     compatibility_dialog_min_version: 2015
-    debug_logging: false
-    location: {name: tk-maya, type: app_store, version: v0.4.3}
+    debug_logging: true
+    location: {name: tk-maya, type: app_store, version: v0.4.4}
     menu_favourites:
     - {app_instance: tk-multi-workfiles-mik, name: Shotgun File Manager...}
     - {app_instance: tk-multi-workfiles-mik, name: Shotgun Save As...}
@@ -353,7 +362,7 @@ engines:
         hook_scene_operation: default
         launch_at_startup: false
         launch_change_work_area_at_startup: false
-        location: {name: tk-multi-workfiles, type: app_store, version: v0.6.7}
+        location: {name: tk-multi-workfiles, type: app_store, version: v0.6.8}
         saveas_default_name: scene
         saveas_prefer_version_up: false
         sg_entity_type_extra_display_fields: {}
@@ -485,7 +494,8 @@ engines:
         hook_scene_operation: default
         launch_at_startup: false
         launch_change_work_area_at_startup: false
-        location: {path: /datas/tlhomme/dev/sgtk/tk-multi-workfiles-mik, type: dev}
+        location: {path: 'https://github.com/tlhomme/tk-multi-workfiles-mik.git',
+          type: git, version: v0.6.8.1}
         saveas_default_name: ''
         saveas_prefer_version_up: true
         sg_entity_type_extra_display_fields:
@@ -652,7 +662,7 @@ engines:
         hook_scene_operation: default
         launch_at_startup: false
         launch_change_work_area_at_startup: false
-        location: {name: tk-multi-workfiles, type: app_store, version: v0.6.7}
+        location: {name: tk-multi-workfiles, type: app_store, version: v0.6.8}
         saveas_default_name: scene
         saveas_prefer_version_up: false
         sg_entity_type_extra_display_fields: {}
