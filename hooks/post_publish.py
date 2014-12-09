@@ -15,6 +15,18 @@ import tank
 from tank import Hook
 from tank import TankError
 
+import sys
+
+LINUX_PATH = "/s/apps/common/python/luigi/infonodelib"
+WINDOWS_PATH = "V:\\apps\\common\\python\\luigi\\infonodelib"
+info_lib_path = {"linux2": LINUX_PATH,
+              "win32":  WINDOWS_PATH,
+              "darwin": "" }
+
+sys.path.append(info_lib_path[sys.platform])
+
+from infonodelib import InfoNodeLib
+
 class PostPublishHook(Hook):
     """
     Single hook that implements post-publish functionality
@@ -247,27 +259,43 @@ class PostPublishHook(Hook):
         :param progress_cb:     Callback to be used when reporting progress
         """
         import nuke
-
-        progress_cb(0, "")
+        self.infoNodeLib = InfoNodeLib(self.parent)
+        progress_cb(0, "Versioning up the script")
 
         # get the current script path:
-        scene_path = nuke.root()["name"].getValue()
-        to_open = self._get_current_work_file_version(scene_path)
+        original_path = nuke.root().name()
+        script_path = os.path.abspath(original_path.replace("/", os.path.sep))
 
         # increment version and construct new name:
-        progress_cb(25, "Finding Scene to reopen")
+        progress_cb(25, "Finding next version number")
+        fields = work_template.get_fields(script_path)
+        next_version = self._get_next_work_file_version(work_template, fields)
+        fields["version"] = next_version
+        new_path = work_template.apply_fields(fields)
 
         # log info
-        self.parent.log_debug("Opening the scene file %s..." % ( to_open))
+        self.parent.log_debug("Version up work file %s --> %s..." % (script_path, new_path))
 
-        # open  the file
-        try:
-            progress_cb(50, "Opening the scene file")
-            nuke.scriptClear()
-            nuke.scriptOpen(to_open)
-        except Exception, e:
-            raise TankError("Could not open the original wip file %s, starting a new scene."%to_open)
-            nuke.scriptNew()
+        # rename script:
+        nuke.root()["name"].setValue(new_path)
+
+        # update write nodes:
+        write_node_app = tank.platform.current_engine().apps.get("tk-nuke-writenode")
+        if write_node_app:
+            # only need to forceably reset the write node render paths if the app version
+            # is less than or equal to v0.1.11
+            from distutils.version import LooseVersion
+            if (write_node_app.version != "Undefined"
+                and LooseVersion(write_node_app.version) <= LooseVersion("v0.1.11")):
+                progress_cb(50, "Resetting render paths for write nodes")
+                # reset render paths for all write nodes:
+                for wn in write_node_app.get_write_nodes():
+                    write_node_app.reset_node_render_path(wn)
+        #CLean up info nodes:
+        self._do_nuke_scene_cleanup()
+        # save the script:
+        progress_cb(75, "Saving the scene file")
+        nuke.scriptSaveAs(new_path.replace(os.path.sep, "/"))
 
         progress_cb(100)
 
@@ -399,9 +427,29 @@ class PostPublishHook(Hook):
         self.parent.log_debug("  |---------------------------")
         return path_to_wip
 
+    def _get_next_work_file_version(self, work_template, fields):
+        """
+        Find the next available version for the specified work_file
+        """
+        # self.parent.log_debug("work_template: %s"%work_template)
+        # self.parent.log_debug("fields: %s"%fields)
+        existing_versions = self.parent.tank.paths_from_template(work_template, fields, ["version","cs_user_name","cs_publi_flag"])
+        # self.parent.log_debug("existing_versions: %s" % existing_versions)
 
+        version_numbers = [work_template.get_fields(v).get("version") for v in existing_versions]
+        self.parent.log_debug("existing_versions: %s" % version_numbers)
 
+        curr_v_no = fields["version"]
+        max_v_no = max(version_numbers)
+        return max(curr_v_no, max_v_no) + 1
 
+    def _do_nuke_scene_cleanup(self):
+        """
+        @summary: do nuke scene clean up before publish
+        """
+        import nuke
+        self.infoNodeLib.nuke_check_mikinfo_node(self.parent.context,"",nuke.root()["name"].getValue())
+        self.infoNodeLib.nuke_check_write_nodes()
 
 
 

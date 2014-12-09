@@ -284,97 +284,65 @@ class PrimaryPublishHook(Hook):
         :param sg_task:         The Shotgun task that this publish should be associated with
         :param progress_cb:     A callback to use when reporting any progress
                                 to the UI
-        :returns:               The path to the file that has been published
+        :returns:               The path to the file that has been published        
         """
         import nuke
-        self.infoNodeLib = InfoNodeLib(self.parent)
+        
         progress_cb(0.0, "Finding dependencies", task)
         dependencies = self._nuke_find_script_dependencies()
-
+        
         # get scene path
         script_path = nuke.root().name().replace("/", os.path.sep)
         if script_path == "Root":
             script_path = ""
         script_path = os.path.abspath(script_path)
-
+        
         if not work_template.validate(script_path):
-            raise TankError(
-                "File '%s' is not a valid work path, unable to publish!" % script_path)
-
+            raise TankError("File '%s' is not a valid work path, unable to publish!" % script_path)
+        
         # use templates to convert to publish path:
         output = task["output"]
         fields = work_template.get_fields(script_path)
         fields["TankType"] = output["tank_type"]
         publish_template = output["publish_template"]
-
-
-        #---------------------------------------------
-        # STEP 1 :  Save the current scene
-        #---------------------------------------------
-        next_version = self._get_next_work_file_version(work_template, fields)
-        fields['cs_publi_flag'] = "publi"
-        fields["version"] = next_version
-
         publish_path = publish_template.apply_fields(fields)
-
+        
         if os.path.exists(publish_path):
-            raise TankError(
-                "The published file named '%s' already exists!" % publish_path)
-
-        new_scene_path = work_template.apply_fields(fields)
-        progress_cb(20.0, "Saving the script")
+            raise TankError("The published file named '%s' already exists!" % publish_path)
+        
+        # save the scene:
+        progress_cb(25.0, "Saving the script")
         self.parent.log_debug("Saving the Script...")
-        nuke.scriptSave(new_scene_path)
-        old_path = script_path
-        script_path = new_scene_path
-
-        #---------------------------------------------
-        # STEP 2 :  Clean up processes
-        #---------------------------------------------
-        self._do_nuke_scene_cleanup(script_path,old_path,work_template,fields)
-
-        #---------------------------------------------
-        # STEP 2 :  copy the file to pub folder
-        #---------------------------------------------
-        progress_cb(60.0, "Saving Publish file")
+        nuke.scriptSave()
+        
+        # copy the file:
+        progress_cb(50.0, "Copying the file")
         try:
             publish_folder = os.path.dirname(publish_path)
             self.parent.ensure_folder_exists(publish_folder)
-            self.parent.log_debug(
-                "Saving %s --> %s..." % (script_path, publish_path))
-            nuke.scriptSave(publish_path)
+            self.parent.log_debug("Copying %s --> %s..." % (script_path, publish_path))
+            self.parent.copy_file(script_path, publish_path, task)
         except Exception, e:
-            raise TankError(
-                "Failed to save file from to %s - %s" % (publish_path, e))
+            raise TankError("Failed to copy file from %s to %s - %s" % (script_path, publish_path, e))
 
-        #---------------------------------------------
-        # STEP 3 : hard_link last version to root folder
-        #---------------------------------------------
-        self._hard_link_last_publish(
-            progress_cb, publish_path,  task)
+        # work out name for publish:
+        publish_name = self._get_publish_name(publish_path, publish_template, fields)
 
-        #---------------------------------------------
-        # STEP 4 : get publish name
-        #---------------------------------------------
-        publish_name = self._get_publish_name(
-            publish_path, publish_template, fields)
-
-        #---------------------------------------------
-        # STEP 5 : register the publish
-        #---------------------------------------------
+        # finally, register the publish:
         progress_cb(75.0, "Registering the publish")
-        self._register_publish(publish_path,
-                               publish_name,
-                               sg_task,
-                               fields["version"],
+        self._register_publish(publish_path, 
+                               publish_name, 
+                               sg_task, 
+                               fields["version"], 
                                output["tank_type"],
                                comment,
-                               thumbnail_path,
+                               thumbnail_path, 
                                dependencies)
-
+        
         progress_cb(100)
-
+        
         return publish_path
+        
 
     def _nuke_find_script_dependencies(self):
         """
@@ -691,15 +659,6 @@ class PrimaryPublishHook(Hook):
                 self.parent.log_debug("#=> Starting tracking Clean Up")
                 self._do_maya_tracking_cleanup(scene_path,old_path,work_template,fields)
                 
-    def _do_nuke_scene_cleanup(self,scene_path,old_path,work_template,fields):
-        """
-        @summary: do nuke scene clean up before publish
-        """
-        import nuke
-        nuke.root()["name"].setValue(scene_path)
-        self.infoNodeLib.nuke_check_mikinfo_node(self.parent.context,"",scene_path)
-        self.infoNodeLib.nuke_check_write_nodes()
-
     def _do_maya_modeling_cleanup(self,scene_path,old_path,work_template,fields):
         # ASSET CLEANUP
         if "Asset" in fields.keys():

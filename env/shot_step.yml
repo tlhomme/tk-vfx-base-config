@@ -422,7 +422,7 @@ engines:
         hook_post_publish: post_publish
         hook_primary_pre_publish: primary_pre_publish
         hook_primary_publish: primary_publish
-        hook_scan_scene: default
+        hook_scan_scene: scan_scene_tk-nuke
         hook_secondary_pre_publish: default
         hook_secondary_publish: secondary_publish_tk-nuke
         hook_thumbnail: default
@@ -450,7 +450,7 @@ engines:
         movie_width: 1024
         new_version_status: rev
         slate_logo: icons/review_submit_logo.png
-        store_on_disk: false
+        store_on_disk: true
         upload_to_shotgun: true
         version_number_padding: 3
       tk-multi-screeningroom: '@launch_screeningroom'
@@ -494,8 +494,8 @@ engines:
         hook_scene_operation: default
         launch_at_startup: false
         launch_change_work_area_at_startup: false
-        location: {path: 'https://github.com/tlhomme/tk-multi-workfiles-mik.git',
-          type: git, version: v0.6.8.1}
+        location: {path: '/datas/tlhomme/dev/sgtk/tk-multi-workfiles-mik',
+          type: dev}
         saveas_default_name: ''
         saveas_prefer_version_up: true
         sg_entity_type_extra_display_fields:
