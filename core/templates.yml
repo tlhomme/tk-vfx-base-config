@@ -294,7 +294,7 @@ paths:
     shot_work_area_nuke: '@shot_root/{Step}_pr/{Task}/wip/{cs_user_name}'
 
     # define the location of a publish area
-    shot_publish_area_nuke: '@shot_root/{Task}_pr/{Task}/refOrig'
+    shot_publish_area_nuke: '@shot_root/{Task}_pr/{Task}/publi'
 
     # The location of WIP script files
     nuke_shot_work: '@shot_root/{Step}_pr/{Task}/wip/{cs_user_name}/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}[-{cs_publi_flag}].nk'
@@ -304,7 +304,7 @@ paths:
     nuke_shot_snapshot: '@shot_root/{Step}_pr/{Task}/wip/{cs_user_name}/snapshots/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.{timestamp}.nk'
 
     # The location of published nuke script files
-    nuke_shot_publish: '@shot_root/{Step}_pr/{Task}/refOrig/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}[-{cs_publi_flag}].nk'
+    nuke_shot_publish: '@shot_root/{Step}_pr/{Task}/publi/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}[-{cs_publi_flag}].nk'
 
     # write node outputs
     nuke_shot_render_mono_dpx:            '@shot_root/images/_out_compo/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.{SEQ}.dpx'
