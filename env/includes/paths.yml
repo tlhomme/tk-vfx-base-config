@@ -26,7 +26,7 @@ mari_windows: 'C:\Program Files\Mari2.6v2\Bundle\bin\Mari2.6v2.exe'
 #
 maya_windows: 'L:\Program Files\Autodesk\Maya2013\bin\maya.exe'
 maya_mac: /Applications/Autodesk/maya2015/Maya.app
-maya_linux: /s/prods/lap_test/_admin/bin/maya_lap_test.py
+maya_linux: /s/prods/$PROD/_admin/bin/maya_$PROD.py
 
 
 #
@@ -34,14 +34,14 @@ maya_linux: /s/prods/lap_test/_admin/bin/maya_lap_test.py
 #
 nuke_mac: ''
 nuke_windows: ''
-nuke_linux: /s/prods/lap_test/_admin/bin/nuke_lap_test.py
+nuke_linux: /s/prods/$PROD/_admin/bin/nuke_$PROD.py
 
 #
 # nukex
 #
 nukex_mac: ''
 nukex_windows: ''
-nukex_linux: /s/prods/lap_test/_admin/bin/nuke_lap_test.py -nukex
+nukex_linux: /s/prods/$PROD/_admin/bin/nuke_$PROD.py -nukex
 
 #
 # motionbuilder
