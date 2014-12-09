@@ -307,13 +307,13 @@ paths:
     nuke_shot_publish: '@shot_root/{Step}_pr/{Task}/refOrig/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}[-{cs_publi_flag}].nk'
 
     # write node outputs
-    nuke_shot_render_mono_dpx:            '@shot_root/images/_out_compo/wip/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.{SEQ}.dpx'
+    nuke_shot_render_mono_dpx:            '@shot_root/images/_out_compo/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.{SEQ}.dpx'
     nuke_shot_render_pub_mono_dpx:        '@shot_root/images/_out_compo/publi/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.{SEQ}.dpx'
 
     nuke_shot_render_mono_jpg:            '@shot_root/images/_out_compo/wip/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.{SEQ}.jpg'
     nuke_shot_render_pub_mono_jpg:        '@shot_root/images/_out_compo/publi/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.{SEQ}.jpg'
 
-    nuke_shot_render_stereo_dpx:            '@shot_root/images/_out_compo/wip/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}_{eye}.{SEQ}.dpx'
+    nuke_shot_render_stereo_dpx:            '@shot_root/images/_out_compo/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}_{eye}.{SEQ}.dpx'
     nuke_shot_render_pub_stereo_dpx:        '@shot_root/images/_out_compo/publi/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}_{eye}.{SEQ}.dpx'
     nuke_shot_render_mono:            '@shot_root/images/_out_compo/wip/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.{SEQ}.exr'
     nuke_shot_render_pub_mono:        '@shot_root/images/_out_compo/publi/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.{SEQ}.exr'
