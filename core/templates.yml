@@ -209,6 +209,7 @@ paths:
 
     # The location of WIP files
     maya_shot_work: '@shot_root/3d_pr/scenes/wip/{cs_user_name}/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}[-{cs_publi_flag}].ma'
+    maya_shot_work_render: '@shot_root/3d_pr/scenes/wip/{cs_user_name}/renders/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}[-{cs_publi_flag}]_r{cs_render_iteration}.mb'
 
     # The location of backups of WIP files
     maya_shot_snapshot: '@shot_root/3d_pr/scenes/wip/{cs_user_name}/snapshots/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.{timestamp}.ma'
