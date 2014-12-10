@@ -445,9 +445,9 @@ engines:
         template_work: nuke_shot_work
       tk-multi-reviewsubmission:
         location: {name: tk-multi-reviewsubmission, type: app_store, version: v0.1.10}
-        movie_height: 540
+        movie_height: 1080
         movie_path_template: nuke_shot_render_movie
-        movie_width: 1024
+        movie_width: 1920
         new_version_status: rev
         slate_logo: icons/review_submit_logo.png
         store_on_disk: true
