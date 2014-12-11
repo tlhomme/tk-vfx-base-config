@@ -16,6 +16,7 @@ import tank
 from tank import Hook
 from tank import TankError
 
+
 class PublishHook(Hook):
     """
     Single hook that implements publish functionality for secondary tasks
@@ -154,6 +155,8 @@ class PublishHook(Hook):
 
                     # publish write-node rendered sequence
                     try:
+                        #generate DnxHD for edit on the farm
+                        self._generate_dnxhd(write_node)
                         (sg_publish, thumbnail_path) = self._publish_write_node_render(task,
                                                                                        write_node,
                                                                                        primary_publish_path,
@@ -163,6 +166,7 @@ class PublishHook(Hook):
 
                         # keep track of our publish data so that we can pick it up later in review
                         render_publishes[ write_node.name() ] = (sg_publish, thumbnail_path)
+                       
                     except Exception, e:
                         errors.append("Publish failed - %s" % e)
 
@@ -208,6 +212,57 @@ class PublishHook(Hook):
 
         return results
 
+    def _generate_dnxhd(self,write_node):
+        #Try Spawn a dnxHD render on the farm
+        try:
+            from utilities import pulisubmitter
+            import datetime
+            import time
+            self.parent.log_debug("")
+            self.parent.log_debug("-----------------------------------------------")
+            self.parent.log_debug("-Spawning job to generate DnxHD-----")
+            #Prep up command
+            qtmake = "/s/apps/common/python/utilities/tools/tuttleburner/qtdo.py"
+            
+            render_path = self.__write_node_app.get_node_render_path(write_node)
+            render_template = self.__write_node_app.get_node_render_template(write_node)
+            render_path_fields = render_template.get_fields(render_path)
+            job_name_template = self.parent.tank.templates["nuke_dnxhd_job_name"]
+            movie_edit_template = self.parent.tank.templates["nuke_shot_render_movie_edit"]
+            edit_path_template = self.parent.tank.templates["edit_dnx_folder"]
+
+            ts = time.time()
+            timestamp = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d')
+
+            render_path_fields["cs_timestamp"] = timestamp
+            edit_first_path_link = edit_path_template.apply_fields(render_path_fields)
+            edit_second_path_link = movie_edit_template.apply_fields(render_path_fields)
+            movie_name = os.path.basename(edit_first_path_link)
+            job_name = job_name_template.apply_fields(render_path_fields)
+
+            rootName = nuke.Root().name()
+            rootBaseName = os.path.splitext(os.path.dirname(rootName))[0]
+            node_name = write_node.name()
+            name=job_name + '_' + node_name + ' [DnxHD]'
+            
+            try:
+                edit_folder_path = os.path.split(edit_first_path_link)[0]
+                edit_folder_path_2 = os.path.split(edit_second_path_link)[0]
+
+                self.parent.log_debug("creating - %s" % edit_folder_path)
+                self.parent.ensure_folder_exists(edit_folder_path)
+                self.parent.log_debug("creating - %s" % edit_folder_path_2)
+                self.parent.ensure_folder_exists(edit_folder_path_2)
+                cmd = "export LC_ALL=\"en_US.UTF-8\";python %s -o %s --outmovname %s %s -d --customtext %s --burn_counter --burn_counter_offset 90 --framerate 23.976 --font_size 30;ln -s %s %s"%(qtmake,edit_folder_path,movie_name,render_path,movie_name.replace(".mov",""),edit_first_path_link,edit_second_path_link)
+                
+                self.parent.log_debug(cmd)
+                pulisubmitter.sendSimpleJob(name=name,cmd=cmd, poolName="test", user=tank.util.get_current_user(self.parent.tank)['login'], priority=2)
+                self.parent.log_debug("-----------------------------------------------")
+                self.parent.log_debug("")
+            except Exception, e:
+                self.parent.log_debug("DnxHD could not create target folders - %s" % e)
+        except Exception, e:
+            self.parent.log_debug("DnxHD Launch Failed - %s" % e)
 
     def _send_to_screening_room(self, write_node, sg_publish, sg_task, comment, thumbnail_path, progress_cb):
         """
