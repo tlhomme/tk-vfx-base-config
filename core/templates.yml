@@ -138,6 +138,8 @@ keys:
         type: str
     cs_cache_name:
         type: str
+    cs_timestamp:
+        type: str
 # The paths section contains all the the key locations where files are to be stored
 # by Sgtk Apps. Each path is made up of several keys (like {version} or {Sequence}_{Shot}) and
 # these are defined in the keys section above.
@@ -287,6 +289,11 @@ paths:
     # The location of published maya files
     mobu_shot_publish: '@shot_root/publish/mobu/{name}.v{version}.fbx'
 
+    # 
+    # edit
+    # 
+    edit_dnx_folder: '_editorial/dnx/{cs_timestamp}/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.mov'
+
     #
     # Nuke
     #
@@ -324,7 +331,8 @@ paths:
     # review output
     shot_quicktime_quick:   '@shot_root/images/_out_compo/mov/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/quick/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.{iteration}.mov'
     nuke_shot_render_movie: '@shot_root/images/_out_compo/mov/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/review/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.mov'
-
+    nuke_shot_render_movie_edit: '@shot_root/images/_out_compo/publi/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/edit/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.mov'
+    # 
     #
     # Hiero
     #
@@ -536,6 +544,8 @@ strings:
 
     nuke_asset_version_name: "{cs_task_name}-{Asset}[--{name}]-v{version}.{iteration}"
     nuke_quick_asset_version_name: "{cs_task_name}-{Asset}[--{name}]-quick-{iteration}"
+
+    nuke_dnxhd_job_name: "{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}"
 
     # Defines how the {tk_version} token in Hiero gets formatted back to tk.
     hiero_version: "{version}"
