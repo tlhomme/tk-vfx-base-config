@@ -217,6 +217,14 @@ engines:
           name: mik_fx_cache, publish_template: maya_shot_geo_cache_publish_area,
           required: false, scene_item_type: mik_fx_cache, selected: false, tank_type: RealFlow
             Cache}
+        - {description: Copies renders from work area to publish area., display_group: Lighting
+            Renders, display_name: Publish Renders, icon: icons/publish_nuke_writenode.png,
+          name: render, publish_template: null, required: false, scene_item_type: lgt_renders,
+          selected: true, tank_type: Rendered Image}
+        - {description: Create quicktime and send to Screening Room, display_group: Lighting
+            Renders, display_name: Send to Screening Room, icon: icons/publish_nuke_review.png,
+          name: quicktime, publish_template: null, required: false, scene_item_type: lgt_renders,
+          selected: true, tank_type: Quicktime}
         template_work: maya_shot_work
       tk-multi-screeningroom: '@launch_screeningroom'
       tk-multi-setframerange:

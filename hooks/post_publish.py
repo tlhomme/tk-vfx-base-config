@@ -95,6 +95,15 @@ class PostPublishHook(Hook):
 
         # get the current scene path:
         scene_path = os.path.abspath(cmds.file(query=True, sn=True))
+        if "LGT"in scene_path:
+            self._do_maya_lighting_post_publish(scene_path, work_template, progress_cb)
+        else:
+            self._do_maya_generic_post_publish(scene_path, work_template, progress_cb)
+
+        progress_cb(100)
+
+    def _do_maya_generic_post_publish(self,scene_path, work_template, progress_cb):
+        import maya.cmds as cmds
         to_open = self._get_current_work_file_version(scene_path)
         # increment version and construct new file name:
         progress_cb(25, "Finding Scene to reopen")
@@ -110,7 +119,31 @@ class PostPublishHook(Hook):
             raise TankError("Could not open the original wip file %s, starting a new scene."%to_open)
             cmds.file(new=True,force=True)
 
-        progress_cb(100)
+    def _do_maya_lighting_post_publish(self,scene_path, work_template, progress_cb):
+        import maya.cmds as cmds
+        to_open = self._get_current_work_file_version(scene_path)
+        # increment version and construct new file name:
+        progress_cb(25, "Finding Scene to reopen")
+
+        # log info
+        self.parent.log_debug("Opening the scene file %s..." % ( to_open))
+
+        lighting_pub_template = self.parent.tank.templates['maya_shot_publish_lgt']
+
+        # open  the file
+        fields = lighting_pub_template.get_fields(scene_path)
+        fields['cs_user_name'] = user = tank.util.get_current_user(self.parent.tank)['login']
+        next_version = self._get_next_work_file_version(work_template, fields)
+        fields["version"] = next_version 
+        new_scene_path = work_template.apply_fields(fields)
+        
+        # log info
+        self.parent.log_debug("Version up work file %s --> %s..." % (scene_path, new_scene_path))
+        
+        # rename and save the file
+        progress_cb(50, "Saving the scene file")
+        cmds.file(rename=new_scene_path)
+        cmds.file(save=True)
 
     def _do_motionbuilder_post_publish(self, work_template, progress_cb):
         """

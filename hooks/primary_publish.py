@@ -149,8 +149,20 @@ class PrimaryPublishHook(Hook):
 
         fields = work_template.get_fields(scene_path)
         fields["TankType"] = output["tank_type"]
-        publish_template = output["publish_template"]
+        if "LGT" in fields['cs_task_name']:
+            publish_path = self._do_maya_lighting_publish(task, work_template, fields, dependencies, scene_path, comment, thumbnail_path, sg_task, progress_cb)
+        else:
+            publish_path = self._do_maya_generic_publish(task, work_template, fields, dependencies, scene_path, comment, thumbnail_path, sg_task, progress_cb)
 
+        progress_cb(100)
+
+        return publish_path
+
+    def _do_maya_generic_publish(self,task, work_template, fields, dependencies, scene_path, comment, thumbnail_path, sg_task, progress_cb):
+        import maya.cmds as cmds
+        output = task["output"]
+        publish_template = output["publish_template"]
+        publish_path = ""
 
         #---------------------------------------------
         # STEP 1 :  Prep up path and Save the current scene
@@ -193,8 +205,6 @@ class PrimaryPublishHook(Hook):
         except Exception, e:
             raise TankError(
                 "Failed to save file from to %s - %s" % (publish_path, e))
-
-
         #---------------------------------------------
         # STEP 4 : hard_link last version to root folder
         #---------------------------------------------
@@ -219,8 +229,72 @@ class PrimaryPublishHook(Hook):
                                comment,
                                thumbnail_path,
                                dependencies)
+        return publish_path
+    
+    def _do_maya_lighting_publish(self,task, work_template, fields, dependencies, scene_path, comment, thumbnail_path, sg_task, progress_cb):
+        import maya.cmds as cmds
+        output = task["output"]
+        publish_template = self.parent.tank.templates['maya_shot_publish_lgt']
+        publish_path = ""
+        #---------------------------------------------
+        # STEP 1 :  Prep up path and Save the current scene
+        #---------------------------------------------
+        fields['cs_publi_flag'] = "publi"
 
-        progress_cb(100)
+        publish_path = publish_template.apply_fields(fields)
+
+        if os.path.exists(publish_path):
+                raise TankError(
+                    "The published file named '%s' already exists!" % publish_path)
+
+        new_scene_path = work_template.apply_fields(fields)
+        progress_cb(20.0, "Saving the scene")
+        self.parent.log_debug("Saving the scene...")
+        cmds.file(rename=new_scene_path)
+        cmds.file(save=True, force=True)
+        old_path = scene_path
+        scene_path = new_scene_path
+
+        #---------------------------------------------
+        # STEP 2 :  Clean up processes
+        #---------------------------------------------
+        self._do_maya_scene_cleanup(scene_path,old_path,work_template,fields)
+
+        #---------------------------------------------
+        # STEP 3 :  Save As published file
+        #---------------------------------------------
+        progress_cb(60.0, "Saving Publish file")
+        try:
+            publish_folder = os.path.dirname(publish_path)
+            self.parent.ensure_folder_exists(publish_folder)
+            self.parent.log_debug(
+                "Saving %s --> %s..." % (scene_path, publish_path))
+            cmds.file(rename=publish_path)
+            cmds.file(save=True, force=True)
+            # self.parent.copy_file(scene_path, publish_path, task)
+        except Exception, e:
+            raise TankError(
+                "Failed to save file from to %s - %s" % (publish_path, e))
+
+
+        #---------------------------------------------
+        # STEP 5 : get publish name
+        #---------------------------------------------
+        publish_name = self._get_publish_name(
+            publish_path, publish_template, fields)
+
+        #---------------------------------------------
+        # STEP 6 : register the publish
+        #---------------------------------------------
+        progress_cb(75.0, "Registering the publish")
+        self._register_publish(publish_path,
+                               publish_name,
+                               sg_task,
+                               fields["version"],
+                               output["tank_type"],
+                               comment,
+                               thumbnail_path,
+                               dependencies)
 
         return publish_path
 
