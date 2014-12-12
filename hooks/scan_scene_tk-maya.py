@@ -85,4 +85,28 @@ class ScanSceneHook(Hook):
                 baseDir = cmds.getAttr("%s.cachePath"%cache)
                 baseName = cmds.getAttr("%s.cacheName"%cache)
                 items.append({"type":"mik_cache", "name":"<b style='color:yellow;'>%s </b>"%cache,"baseDir":baseDir,"baseName":baseName,"nodeName":cache})
+        
+        if "LGT" in scene_path:
+            lgt_template = self.parent.tank.templates['maya_shot_render_mono_exr']
+            work_template = self.parent.tank.templates['maya_shot_work']
+            fields = work_template.get_fields(scene_path)
+
+            lgt_renders = lgt_template.apply_fields(fields)
+            baseName = os.path.basename(lgt_renders)
+            dirName = os.path.dirname(lgt_renders)
+            if os.path.exists(dirName):
+                files = os.listdir(dirName)
+                self.parent.log_debug("dirname : %s"%dirName)
+                for i,myFile in enumerate(files):
+                    if i>4:
+                        self.parent.log_debug("f: %s ... and more"%myFile)
+                        break
+                    self.parent.log_debug("f: %s"%myFile)
+
+                if  len(files)>0:
+                    newFiles = ["%s%s%s"%(dirName,os.sep,f) for f in files]
+                    items.append({"name":"Lighting Renders Node: %s" % dirName,
+                                          "type":"lgt_renders",
+                                          "description":"Renders for shot: %s" % dirName,"renderFolder":dirName,"lgt_renders":lgt_renders,"files":newFiles})
+                 
         return items
