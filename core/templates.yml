@@ -218,10 +218,12 @@ paths:
 
     # The location of published maya files
     maya_shot_publish: '@shot_root/3d_pr/scenes/refOrig/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}[-{cs_publi_flag}].ma'
+    maya_shot_publish_lgt: '@shot_root/3d_pr/scenes/publi/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}[-{cs_publi_flag}].ma'    
     maya_shot_geo_cache_publish_area: '@shot_root/3d_pr/data/_publish/v{version}/{cs_cache_type}/{cs_cache_name}/'
 
-    maya_shot_render_mono_exr:            '@shot_root/images/3d/wip/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.{SEQ}.exr'
-    maya_shot_render_pub_mono_exr:        '@shot_root/images/3d/publi/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.{SEQ}.exr'
+    maya_shot_render_mono_exr: '@shot_root/images/3d/wip/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.{SEQ}.exr'
+    maya_shot_render_pub_mono_exr: '@shot_root/images/3d/publi/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.{SEQ}.exr'
+    maya_shot_render_movie: '@shot_root/images/3d/publi/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/review/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.mov'
 
 
     #
@@ -292,7 +294,7 @@ paths:
     # 
     # edit
     # 
-    edit_dnx_folder: '_editorial/dnx/{cs_timestamp}/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.mov'
+
 
     #
     # Nuke
@@ -330,7 +332,11 @@ paths:
 
     # review output
     shot_quicktime_quick:   '@shot_root/images/_out_compo/mov/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/quick/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.{iteration}.mov'
-    nuke_shot_render_movie: '@shot_root/images/_out_compo/mov/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/review/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.mov'
+
+
+    nuke_shot_render_movie: '@shot_root/images/_out_compo/publi/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/review/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.mov'
+
+    edit_dnx_folder: '_editorial/dnx/{cs_timestamp}/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.mov'
     nuke_shot_render_movie_edit: '@shot_root/images/_out_compo/publi/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/edit/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.mov'
     # 
     #

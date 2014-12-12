@@ -102,52 +102,104 @@ class PublishHook(Hook):
                                         }
         """
         results = []
-        
-        # publish all tasks:
+        output_order = ["render", "quicktime"]
+        tasks_by_output = {}
         for task in tasks:
-            item = task["item"]
-            output = task["output"]
-            errors = []
+            output_name = task["output"]["name"]
+            tasks_by_output.setdefault(output_name, list()).append(task)
+            if output_name not in output_order:
+                output_order.append(output_name)
 
-            # report progress:
-            progress_cb(0, "Publishing", task)
-        
-            # publish alembic_cache output
-            if output["name"] == "alembic_cache":
-                try:
-                   self.__publish_alembic_cache(item, output, work_template, primary_publish_path, 
-                                                         sg_task, comment, thumbnail_path, progress_cb)
-                except Exception, e:
-                   errors.append("Publish failed - %s" % e)
-            elif output["name"] == "mik_cache":
-                try:
-                   self.__publish_mikros_cache(item, output, work_template, primary_publish_path, 
-                                                         sg_task, comment, thumbnail_path, progress_cb)
-                except Exception, e:
-                   errors.append("Publish failed - %s" % e)
-            elif output["name"] == "mik_fx_cache":
-                try:
-                   self.__publish_mikros_fx_cache(item, output, work_template, primary_publish_path, 
-                                                         sg_task, comment, thumbnail_path, progress_cb)
-                except Exception, e:
-                   errors.append("Publish failed - %s" % e)
-            else:
-                # don't know how to publish this output types!
-                errors.append("Don't know how to publish this item!")
+        render_publishes = {}
 
-            # if there is anything to report then add to result
-            if len(errors) > 0:
-                # add result:
-                self.parent.log_debug("")
-                self.parent.log_debug("ERRORS: %s"%errors)
-                self.parent.log_debug("")
-                results.append({"task":task, "errors":errors})
-             
-            progress_cb(100)
-             
+                # process outputs in order:
+        for output_name in output_order:
+
+            # process each task for this output:
+            for task in tasks_by_output.get(output_name, []):
+                output = task["output"]
+                # keep track of our errors for this task
+                errors = []
+
+                # report progress:
+                progress_cb(0.0, "Publishing", task)
+
+                if output_name == "render":
+                    # Publish the rendered output for a Shotgun Write Node
+                    # publish write-node rendered sequence
+                    try:
+                        (sg_publish) = self._publish_lgt_render(task,
+                                                                                       primary_publish_path,
+                                                                                       sg_task,
+                                                                                       comment,
+                                                                                       progress_cb)
+
+                        # keep track of our publish data so that we can pick it up later in review
+                        render_publishes[output_name] = (sg_publish)
+                       
+                    except Exception, e:
+                        errors.append("Publish failed - %s" % e)
+                elif output_name == "quicktime":
+                    # Publish the reviewable quicktime movie for a Shotgun Write Node
+
+                    # each publish task is connected to a nuke write node
+                    # this value was populated via the scan scene hook
+                    pass
+                    # write_node = task["item"].get("other_params", dict()).get("node")
+                    # if not write_node:
+                    #     raise TankError("Could not determine nuke write node for item '%s'!" % str(task))
+
+                    # # Submit published sequence to Screening Room
+                    # try:
+                    #     # pick up sg data from the render dict we are maintianing
+                    #     # note: we assume that the rendering tasks always happen
+                    #     # before the review tasks inside the publish...
+                    #     (sg_publish, thumbnail_path) = render_publishes[ write_node.name() ]
+
+                    #     self._send_to_screening_room (
+                    #         write_node,
+                    #         sg_publish,
+                    #         sg_task,
+                    #         comment,
+                    #         thumbnail_path,
+                    #         progress_cb
+                    #     )
+                elif output_name == "alembic_cache":
+                    try:
+                        self.__publish_alembic_cache(task, output, work_template, primary_publish_path, 
+                                                             sg_task, comment, thumbnail_path, progress_cb)
+                    except Exception, e:
+                        errors.append("Publish failed - %s" % e)
+                elif output_name == "mik_cache":
+                    try:
+                       self.__publish_mikros_cache(task, output, work_template, primary_publish_path, 
+                                                             sg_task, comment, thumbnail_path, progress_cb)
+                    except Exception, e:
+                        errors.append("Publish failed - %s" % e)
+                elif output_name == "mik_fx_cache":
+                    try:
+                       self.__publish_mikros_fx_cache(task, output, work_template, primary_publish_path, 
+                                                             sg_task, comment, thumbnail_path, progress_cb)
+                    except Exception, e:
+                        errors.append("Publish failed - %s" % e)
+                else:
+                    # unhandled output type!
+                    errors.append("Don't know how to publish this item!")
+
+                # if there is anything to report then add to result
+                if len(errors) > 0:
+                    # add result:
+                    self.parent.log_debug("")
+                    self.parent.log_debug("ERRORS: %s"%errors)
+                    self.parent.log_debug("")
+                    results.append({"task":task, "errors":errors})
+
+                # task is finished
+                progress_cb(100)
+
         return results
 
-    def __publish_alembic_cache(self, item, output, work_template, primary_publish_path, 
+    def __publish_alembic_cache(self, task, work_template, primary_publish_path, 
                                         sg_task, comment, thumbnail_path, progress_cb):
         """
         Publish an Alembic cache file for the scene and publish it to Shotgun.
@@ -164,7 +216,8 @@ class PublishHook(Hook):
         # determine the publish info to use
         #
         progress_cb(10, "Determining publish details")
-
+        item = task['item']
+        output = task["output"]
         # get the current scene path and extract fields from it
         # using the work template:
         scene_path = os.path.abspath(cmds.file(query=True, sn=True))
@@ -255,11 +308,12 @@ class PublishHook(Hook):
         
         return (start, end)
 
-    def __publish_mikros_cache(self, item, output, work_template, primary_publish_path, 
+    def __publish_mikros_cache(self, task, work_template, primary_publish_path, 
                                         sg_task, comment, thumbnail_path, progress_cb):
         infoNodeLib = InfoNodeLib(self.parent.engine)
         progress_cb(10, "Determining publish details")
-
+        item = task['item']
+        output = task["output"]
         # get the current scene path and extract fields from it
         # using the work template:
         scene_path = os.path.abspath(cmds.file(query=True, sn=True))
@@ -347,11 +401,12 @@ class PublishHook(Hook):
         self.parent.log_debug("  |")
         self.parent.log_debug("  |---------------------------")
 
-    def __publish_mikros_fx_cache(self, item, output, work_template, primary_publish_path, 
+    def __publish_mikros_fx_cache(self, task, work_template, primary_publish_path, 
                                         sg_task, comment, thumbnail_path, progress_cb):
         infoNodeLib = InfoNodeLib(self.parent.engine)
         progress_cb(10, "Determining publish details")
-
+        item = task['item']
+        output = task["output"]
         # get the current scene path and extract fields from it
         # using the work template:
         scene_path = os.path.abspath(cmds.file(query=True, sn=True))
@@ -438,3 +493,101 @@ class PublishHook(Hook):
         self.parent.log_debug("  |")
         self.parent.log_debug("  |---------------------------")
         return path_to_wip
+
+    def _publish_lgt_render(self, task, published_script_path, sg_task, comment, progress_cb):
+        """
+        Publish render output for lighting task
+        """
+        progress_cb(10, "Finding renders")
+        item = task['item']
+        output = task["output"]
+        # get info we need in order to do the publish:
+        render_path = item['files'][0]
+        render_files = item['files']
+        tank_type = output["tank_type"]
+        render_template = self.parent.tank.templates['maya_shot_render_mono_exr']
+        publish_template = self.parent.tank.templates['maya_shot_render_pub_mono_exr']
+
+
+        # publish (copy files):
+
+        progress_cb(25, "Copying files")
+
+        for fi, rf in enumerate(render_files):
+            self.parent.log_debug("pub_file: %s"%rf)
+            progress_cb(25 + (50*(len(render_files)/(fi+1))))
+
+            # construct the publish path:
+            fields = render_template.get_fields(rf)
+            fields["TankType"] = tank_type
+            target_path = publish_template.apply_fields(fields)
+
+            # copy the file
+            try:
+                target_folder = os.path.dirname(target_path)
+                self.parent.ensure_folder_exists(target_folder)
+                self._hardl_link_file(rf, target_path)
+            except Exception, e:
+                raise TankError("Failed to hard link file from %s to %s - %s" % (rf, target_path, e))
+
+        progress_cb(40, "Publishing to Shotgun")
+
+        # use the render path to work out the publish 'file' and name:
+        render_path_fields = render_template.get_fields(render_path)
+        render_path_fields["TankType"] = tank_type
+        publish_path = publish_template.apply_fields(render_path_fields)
+
+        # construct publish name:
+        publish_name = ""
+        rp_name = render_path_fields.get("name")
+        rp_channel = render_path_fields.get("channel")
+        if not rp_name and not rp_channel:
+            publish_name = "Publish"
+        elif not rp_name:
+            publish_name = "Channel %s" % rp_channel
+        elif not rp_channel:
+            publish_name = rp_name
+        else:
+            publish_name = "%s, Channel %s" % (rp_name, rp_channel)
+
+        publish_version = render_path_fields["version"]
+
+
+        # register the publish:
+        sg_publish = self._register_publish(publish_path,
+                                            publish_name,
+                                            sg_task,
+                                            publish_version,
+                                            tank_type,
+                                            comment,
+                                            [published_script_path])
+
+        return sg_publish
+
+    def _register_publish(self, path, name, sg_task, publish_version, tank_type, comment, dependency_paths):
+        """
+        Helper method to register publish using the
+        specified publish info.
+        """
+        # construct args:
+        args = {
+            "tk": self.parent.tank,
+            "context": self.parent.context,
+            "comment": comment,
+            "path": path,
+            "name": name,
+            "version_number": publish_version,
+            "task": sg_task,
+            "dependency_paths": dependency_paths,
+            "published_file_type":tank_type,
+        }
+
+        # register publish;
+        sg_data = tank.util.register_publish(**args)
+
+        return sg_data
+    def _hardl_link_file(self,source,target):
+        try:
+            os.link(source, target)
+        except Exception, e:
+            raise TankError(str(e))
