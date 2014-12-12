@@ -168,8 +168,33 @@ engines:
     template_project: null
     use_sgtk_as_menu_name: false
   tk-nuke:
-    apps: {tk-multi-about: '@about', tk-multi-screeningroom: '@launch_screeningroom',
-      tk-multi-workfiles: '@workfiles', tk-multi-workfiles-mik: '@workfiles-mik'}
+    apps:
+      tk-multi-about: '@about'
+      tk-multi-screeningroom: '@launch_screeningroom'
+      tk-multi-workfiles: '@workfiles'
+      tk-multi-workfiles-mik: '@workfiles-mik'
+      tk-nuke-writenode:
+        location: {name: tk-nuke-writenode, type: app_store, version: v1.0.12}
+        template_script_work: nuke_shot_work
+        write_nodes:
+        - file_type: dpx
+          name: Write DEF
+          proxy_publish_template: null
+          proxy_render_template: null
+          publish_template: nuke_shot_render_pub_mono_dpx
+          render_template: nuke_shot_render_mono_dpx
+          settings: {colorspace: srgb}
+          tank_type: Rendered Image
+          tile_color: []
+        - file_type: jpeg
+          name: Write WIP
+          proxy_publish_template: null
+          proxy_render_template: null
+          publish_template: nuke_shot_render_pub_mono_jpg
+          render_template: nuke_shot_render_mono_jpg
+          settings: {}
+          tank_type: Rendered Image
+          tile_color: []
     compatibility_dialog_min_version: 9
     debug_logging: false
     favourite_directories: []

@@ -256,7 +256,7 @@ class PublishHook(Hook):
                 cmd = "export LC_ALL=\"en_US.UTF-8\";python %s -o %s --outmovname %s %s -d --customtext %s --burn_counter --burn_counter_offset 90 --framerate 23.976 --font_size 30;ln -s %s %s"%(qtmake,edit_folder_path,movie_name,render_path,movie_name.replace(".mov",""),edit_first_path_link,edit_second_path_link)
                 
                 self.parent.log_debug(cmd)
-                pulisubmitter.sendSimpleJob(name=name,cmd=cmd, poolName="test", user=tank.util.get_current_user(self.parent.tank)['login'], priority=2)
+                pulisubmitter.sendSimpleJob(name=name,cmd=cmd, shot="%s_%s"%(render_path_fields['Sequence'],render_path_fields['Shot']),poolName="mik_vfx", user=tank.util.get_current_user(self.parent.tank)['login'], priority=2)
                 self.parent.log_debug("-----------------------------------------------")
                 self.parent.log_debug("")
             except Exception, e:
