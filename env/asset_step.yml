@@ -493,10 +493,10 @@ engines:
           selected: true, tank_type: Quicktime}
         template_work: nuke_asset_work
       tk-multi-reviewsubmission:
-        location: {name: tk-multi-reviewsubmission, type: app_store, version: v0.1.10}
-        movie_height: 540
-        movie_path_template: nuke_asset_render_movie
-        movie_width: 1024
+        location: {path: 'https://github.com/tlhomme/tk-multi-reviewsubmission.git', type: git, version: v0.1.9.2}
+        movie_height: 1080
+        movie_path_template: nuke_shot_render_movie
+        movie_width: 1920
         new_version_status: rev
         slate_logo: icons/review_submit_logo.png
         store_on_disk: true
