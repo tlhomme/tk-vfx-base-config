@@ -540,7 +540,7 @@ engines:
           proxy_render_template: null
           publish_template: nuke_shot_render_pub_mono_dpx
           render_template: nuke_shot_render_mono_dpx
-          settings: {colorspace: srgb}
+          settings: {colorspace: cineon,}
           tank_type: Rendered Image
           tile_color: []
         - file_type: jpeg
