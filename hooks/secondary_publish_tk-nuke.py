@@ -281,7 +281,21 @@ class PublishHook(Hook):
         publish_template = self.__write_node_app.get_node_publish_template(write_node)
         render_path_fields = render_template.get_fields(render_path)
 
-        if hasattr(self.__review_submission_app, "render_and_submit_version"):
+        if hasattr(self.__review_submission_app,"render_and_submit_version_threaded"):
+            colorspace = self._get_node_colorspace(write_node)
+            self.__review_submission_app.render_and_submit_version_threaded(
+                publish_template,
+                render_path_fields,
+                int(nuke.root()["first_frame"].value()),
+                int(nuke.root()["last_frame"].value()),
+                [sg_publish],
+                sg_task,
+                comment,
+                thumbnail_path,
+                progress_cb,
+                colorspace
+            )
+        elif hasattr(self.__review_submission_app, "render_and_submit_version"):
             # this is a recent version of the review submission app that contains
             # the new method that also accepts a colorspace argument.
             colorspace = self._get_node_colorspace(write_node)

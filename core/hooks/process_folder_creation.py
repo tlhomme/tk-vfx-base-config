@@ -102,7 +102,6 @@ class ProcessFolderCreation(Hook):
 
             # loop through our list of items
             for i in items:
-
                 action = i.get("action")
 
                 if action in ["entity_folder", "folder"]:
@@ -113,7 +112,9 @@ class ProcessFolderCreation(Hook):
                         if not preview_mode:
                             # create the folder using open permissions
                             os.makedirs(path, 0770)
+                            self.run_post_jobs(i)
                         folders.append(path)
+
 
                 elif action == "remote_entity_folder":
                     # Remote folder creation
@@ -193,3 +194,45 @@ class ProcessFolderCreation(Hook):
             os.umask(old_umask)
 
         return folders
+
+    def run_post_jobs(self,item):
+        entity = item.get("entity")
+        if entity is not None:
+            if entity['type'] == "Task":
+                if entity["name"] == "tracking":
+                    self.tracking_post_job(item)
+
+    def tracking_post_job(self,item):
+        # Creating project
+        print "-------------- Init Pftrack Project: --------------"
+        entity = item.get("entity")
+        path_to_folder =item.get("path")
+        prod_name = os.environ['PROD']
+        split_path=path_to_folder.split(os.sep)
+        shot,seq = split_path[-2],split_path[-3]
+        project_name = "%s-%s_%s-TRACK"%(prod_name,seq,shot)
+        project_path = path_to_folder + os.sep + project_name
+        if not os.path.lexists(project_path):
+            cmd = "pftrack -new_project %s -exit"%project_path
+            os.system(cmd)
+
+        # Editing project file
+        import xml.etree.ElementTree as ET
+        import getpass
+
+        project_settings_path = project_path + os.sep + project_name + ".pfmp"
+        tree = ET.parse(project_settings_path)
+        root = tree.getroot()
+        for defaultFrameRate in root.findall('defaultFrameRate'):
+            rate = 23.976
+            defaultFrameRate.text = str(rate)
+            print "Updated Frame Rate: %s"%defaultFrameRate.text
+
+        for cache in root.findall('cache'):
+            new_cache =  os.sep + "datas" + os.sep + getpass.getuser() + os.sep + "cache"
+            cache.text = str(new_cache)
+            print cache.text
+
+        tree.write(project_settings_path)
+
+

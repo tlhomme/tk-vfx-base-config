@@ -83,5 +83,14 @@ class ScanSceneHook(Hook):
                                   "description":"Render Profile: %s" % profile_name,
                                   "selected":not is_disabled,
                                   "other_params":{"node":write_node}})
-                 
+                if name == "WriteWIP":
+                    profile_name = app.get_node_profile_name(write_node)
+                    is_disabled = write_node.knob("disable").value()
+
+                    items.append({"name":"Shotgun Write Node: %s" % name,
+                                  "type":"write_node",
+                                  "description":"Render Profile: %s" % profile_name,
+                                  "selected":not is_disabled,
+                                  "other_params":{"node":write_node}})
+
         return items

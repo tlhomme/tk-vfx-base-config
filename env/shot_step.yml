@@ -452,7 +452,7 @@ engines:
           selected: true, tank_type: Quicktime}
         template_work: nuke_shot_work
       tk-multi-reviewsubmission:
-        location: {path: 'https://github.com/tlhomme/tk-multi-reviewsubmission.git', type: git, version: v0.1.9.2}
+        location: {path: /datas/tlhomme/dev/sgtk/tk-multi-reviewsubmission, type: dev}
         movie_height: 1080
         movie_path_template: nuke_shot_render_movie
         movie_width: 1920
