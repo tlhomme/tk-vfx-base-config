@@ -1,4 +1,12 @@
 # the type of dynamic content
-type: "static"
+# the type of dynamic content
+type: "shotgun_task"
+
+# the shotgun field to use for the folder name
+name: "{sg_task_code}_pr"
+
+filters: [ { "path": "sg_task_code", "relation": "in", "values": [ "track"] } ]
 
 create_with_parent: true
+
+associated_entity_type: Shot
