@@ -112,8 +112,9 @@ class ProcessFolderCreation(Hook):
                         if not preview_mode:
                             # create the folder using open permissions
                             os.makedirs(path, 0770)
+                            self.run_post_jobs(i)
                         folders.append(path)
-                        self.run_post_jobs(i)
+
 
                 elif action == "remote_entity_folder":
                     # Remote folder creation
@@ -196,12 +197,12 @@ class ProcessFolderCreation(Hook):
 
     def run_post_jobs(self,item):
         entity = item.get("entity")
-        if entity['type'] == "Task":
-            if entity["name"] == "tracking":
-                self.tracking_post_job(item)
+        if entity is not None:
+            if entity['type'] == "Task":
+                if entity["name"] == "tracking":
+                    self.tracking_post_job(item)
 
     def tracking_post_job(self,item):
-
         # Creating project
         print "-------------- Init Pftrack Project: --------------"
         entity = item.get("entity")
@@ -233,4 +234,5 @@ class ProcessFolderCreation(Hook):
             print cache.text
 
         tree.write(project_settings_path)
+
 
