@@ -209,7 +209,7 @@ class ProcessFolderCreation(Hook):
         path_to_folder =item.get("path")
         prod_name = os.environ['PROD']
         split_path=path_to_folder.split(os.sep)
-        seq,shot = split_path[-2],split_path[-3]
+        shot,seq = split_path[-2],split_path[-3]
         project_name = "%s-%s_%s-TRACK"%(prod_name,seq,shot)
         project_path = path_to_folder + os.sep + project_name
         if not os.path.lexists(project_path):
