@@ -540,7 +540,7 @@ engines:
           proxy_render_template: null
           publish_template: nuke_shot_render_pub_mono_dpx
           render_template: nuke_shot_render_mono_dpx
-          settings: {colorspace: cineon,}
+          settings: {colorspace: Cineon, datatype: '10 bit'}
           tank_type: Rendered Image
           tile_color: []
         - file_type: jpeg
@@ -549,7 +549,7 @@ engines:
           proxy_render_template: null
           publish_template: nuke_shot_render_pub_mono_jpg
           render_template: nuke_shot_render_mono_jpg
-          settings: {}
+          settings: {colorspace: sRGB}
           tank_type: Rendered Image
           tile_color: []
     compatibility_dialog_min_version: 9
