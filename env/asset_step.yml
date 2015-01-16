@@ -68,7 +68,7 @@ engines:
         hook_scene_operation: default
         launch_at_startup: false
         launch_change_work_area_at_startup: false
-        location: {name: tk-multi-workfiles, type: app_store, version: v0.6.8}
+        location: {name: tk-multi-workfiles, type: app_store, version: v0.6.11}
         saveas_default_name: scene
         saveas_prefer_version_up: false
         sg_entity_type_extra_display_fields: {}
@@ -124,7 +124,7 @@ engines:
         hook_scene_operation: default
         launch_at_startup: false
         launch_change_work_area_at_startup: false
-        location: {name: tk-multi-workfiles, type: app_store, version: v0.6.8}
+        location: {name: tk-multi-workfiles, type: app_store, version: v0.6.11}
         saveas_default_name: scene
         saveas_prefer_version_up: false
         sg_entity_type_extra_display_fields: {}
@@ -138,7 +138,7 @@ engines:
         template_work_area: asset_work_area_houdini
         version_compare_ignore_fields: []
     debug_logging: false
-    location: {name: tk-houdini, type: app_store, version: v0.2.1}
+    location: {name: tk-houdini, type: app_store, version: v0.2.2}
     menu_favourites:
     - {app_instance: tk-multi-workfiles, name: Shotgun File Manager...}
     - {app_instance: tk-multi-snapshot, name: Snapshot...}
@@ -155,7 +155,7 @@ engines:
       tk-multi-about: '@about'
       tk-multi-breakdown:
         hook_scene_operations: '{self}/tk-mari_scene_operations.py'
-        location: {name: tk-multi-breakdown, type: app_store, version: v1.1.1}
+        location: {name: tk-multi-breakdown, type: app_store, version: v1.2.0}
       tk-multi-loader2:
         action_mappings:
           Alembic Cache: [geometry_import]
@@ -218,7 +218,7 @@ engines:
         hook_scene_operation: default
         launch_at_startup: false
         launch_change_work_area_at_startup: false
-        location: {name: tk-multi-workfiles, type: app_store, version: v0.6.8}
+        location: {name: tk-multi-workfiles, type: app_store, version: v0.6.11}
         saveas_default_name: scene
         saveas_prefer_version_up: false
         sg_entity_type_extra_display_fields: {}
@@ -334,7 +334,7 @@ engines:
         launch_at_startup: true
         launch_change_work_area_at_startup: false
         location: {path: 'https://github.com/tlhomme/tk-multi-workfiles-mik.git',
-          type: git, version: v0.6.8.1}
+          type: git, version: v0.6.8.3}
         saveas_default_name: ''
         saveas_prefer_version_up: true
         sg_entity_type_extra_display_fields:
@@ -493,7 +493,8 @@ engines:
           selected: true, tank_type: Quicktime}
         template_work: nuke_asset_work
       tk-multi-reviewsubmission:
-        location: {path: 'https://github.com/tlhomme/tk-multi-reviewsubmission.git', type: git, version: v0.1.9.2}
+        location: {path: 'https://github.com/tlhomme/tk-multi-reviewsubmission.git',
+          type: git, version: v0.1.9.2}
         movie_height: 1080
         movie_path_template: nuke_shot_render_movie
         movie_width: 1920
@@ -540,7 +541,7 @@ engines:
         launch_at_startup: false
         launch_change_work_area_at_startup: false
         location: {path: 'https://github.com/tlhomme/tk-multi-workfiles-mik.git',
-          type: git, version: v0.6.8.1}
+          type: git, version: v0.6.8.3}
         saveas_default_name: ''
         saveas_prefer_version_up: true
         sg_entity_type_extra_display_fields:
@@ -653,7 +654,7 @@ engines:
         launch_at_startup: false
         launch_change_work_area_at_startup: false
         location: {path: 'https://github.com/tlhomme/tk-multi-workfiles-mik.git',
-          type: git, version: v0.6.8.1}
+          type: git, version: v0.6.8.3}
         saveas_default_name: ''
         saveas_prefer_version_up: true
         sg_entity_type_extra_display_fields:
@@ -718,7 +719,7 @@ engines:
         hook_scene_operation: default
         launch_at_startup: false
         launch_change_work_area_at_startup: false
-        location: {name: tk-multi-workfiles, type: app_store, version: v0.6.8}
+        location: {name: tk-multi-workfiles, type: app_store, version: v0.6.11}
         saveas_default_name: scene
         saveas_prefer_version_up: false
         sg_entity_type_extra_display_fields: {}
