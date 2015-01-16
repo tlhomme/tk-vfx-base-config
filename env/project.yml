@@ -20,7 +20,7 @@ engines:
         '*Photoshop*', '*Softimage*']
       name: Creative Tools
     hook_launch_python: default
-    location: {name: tk-desktop, type: app_store, version: v1.0.5}
+    location: {name: tk-desktop, type: app_store, version: v1.0.8}
     show_recents: true
   tk-hiero:
     apps:
@@ -132,7 +132,7 @@ engines:
         hook_scene_operation: default
         launch_at_startup: false
         launch_change_work_area_at_startup: false
-        location: {name: tk-multi-workfiles, type: app_store, version: v0.6.8}
+        location: {name: tk-multi-workfiles, type: app_store, version: v0.6.11}
         saveas_default_name: scene
         saveas_prefer_version_up: false
         sg_entity_type_extra_display_fields: {}
@@ -225,9 +225,9 @@ engines:
     template_project: null
 frameworks:
   tk-framework-adminui_v0.x.x:
-    location: {name: tk-framework-adminui, type: app_store, version: v0.0.15}
+    location: {name: tk-framework-adminui, type: app_store, version: v0.1.0}
   tk-framework-login_v1.x.x:
-    location: {name: tk-framework-login, type: app_store, version: v1.0.2}
+    location: {name: tk-framework-login, type: app_store, version: v1.0.6}
   tk-framework-softimageqt_v1.0.1:
     location: {name: tk-framework-softimageqt, type: app_store, version: v1.0.1}
   tk-framework-widget_v0.1.16:

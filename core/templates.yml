@@ -505,7 +505,7 @@ paths:
     asset_quicktime_quick:   '@asset_root/review/quickdaily/{Asset}_{name}_{iteration}.mov'
 
     # The location of WIP script files
-    nuke_asset_work: '@asset_root/{Step}_pr/{Step}/wip/{cs_user_name}/{cs_task_name}-{Asset}[--{name}]-v{version}[-{cs_publi_flag}].nk'
+    nuke_asset_work: '@asset_root/{Step}_pr/{Task}/wip/{cs_user_name}/{cs_task_name}-{Asset}[--{name}]-v{version}[-{cs_publi_flag}].nk'
     nuke_asset_work_render: '@asset_root/{Step}_pr/{Task}/wip/{cs_user_name}/renders/{cs_task_name}-{Asset}[--{name}]-v{version}[-{cs_publi_flag}]_r{cs_render_iteration}.nk'
 
     # The location of backups of WIP files
