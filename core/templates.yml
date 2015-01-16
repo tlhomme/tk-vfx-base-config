@@ -337,6 +337,9 @@ paths:
     nuke_shot_render_movie: '@shot_root/images/_out_compo/publi/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/review/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.mov'
 
     edit_dnx_folder: '_editorial/dnx/{cs_timestamp}/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.mov'
+
+    nuke_shot_render_dailies: '_presentation/{cs_timestamp}/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.{SEQ}.jpg'
+
     nuke_shot_render_movie_edit: '@shot_root/images/_out_compo/publi/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/edit/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.mov'
     # 
     #

@@ -156,7 +156,7 @@ class PublishHook(Hook):
                     # publish write-node rendered sequence
                     try:
                         #generate DnxHD for edit on the farm
-                        self._generate_dnxhd(write_node)
+                        # self._generate_dnxhd(write_node)
                         (sg_publish, thumbnail_path) = self._publish_write_node_render(task,
                                                                                        write_node,
                                                                                        primary_publish_path,
@@ -280,38 +280,40 @@ class PublishHook(Hook):
         render_template = self.__write_node_app.get_node_render_template(write_node)
         publish_template = self.__write_node_app.get_node_publish_template(write_node)
         render_path_fields = render_template.get_fields(render_path)
-
-        if hasattr(self.__review_submission_app, "render_and_submit_version"):
-            # this is a recent version of the review submission app that contains
-            # the new method that also accepts a colorspace argument.
-            colorspace = self._get_node_colorspace(write_node)
-            self.__review_submission_app.render_and_submit_version(
-                publish_template,
-                render_path_fields,
-                int(nuke.root()["first_frame"].value()),
-                int(nuke.root()["last_frame"].value()),
-                [sg_publish],
-                sg_task,
-                comment,
-                thumbnail_path,
-                progress_cb,
-                colorspace
-            )
-        else:
-            # This is an older version of the app so fall back to the legacy
-            # method - this may mean the colorspace of the rendered movie is
-            # inconsistent/wrong!
-            self.__review_submission_app.render_and_submit(
-                publish_template,
-                render_path_fields,
-                int(nuke.root()["first_frame"].value()),
-                int(nuke.root()["last_frame"].value()),
-                [sg_publish],
-                sg_task,
-                comment,
-                thumbnail_path,
-                progress_cb
-            )
+        try:
+            if hasattr(self.__review_submission_app, "render_and_submit_version"):
+                # this is a recent version of the review submission app that contains
+                # the new method that also accepts a colorspace argument.
+                colorspace = self._get_node_colorspace(write_node)
+                self.__review_submission_app.render_and_submit_version(
+                    publish_template,
+                    render_path_fields,
+                    int(nuke.root()["first_frame"].value()),
+                    int(nuke.root()["last_frame"].value()),
+                    [sg_publish],
+                    sg_task,
+                    comment,
+                    thumbnail_path,
+                    progress_cb,
+                    colorspace
+                )
+            else:
+                # This is an older version of the app so fall back to the legacy
+                # method - this may mean the colorspace of the rendered movie is
+                # inconsistent/wrong!
+                self.__review_submission_app.render_and_submit(
+                    publish_template,
+                    render_path_fields,
+                    int(nuke.root()["first_frame"].value()),
+                    int(nuke.root()["last_frame"].value()),
+                    [sg_publish],
+                    sg_task,
+                    comment,
+                    thumbnail_path,
+                    progress_cb
+                )
+        except Exception, e:
+             self.parent.log_debug("Submit to Screening Room failed - %s" % e)
 
     def _get_node_colorspace(self, node):
         """
@@ -347,27 +349,37 @@ class PublishHook(Hook):
         render_template = self.__write_node_app.get_node_render_template(write_node)
         publish_template = self.__write_node_app.get_node_publish_template(write_node)
         tank_type = self.__write_node_app.get_node_tank_type(write_node)
+        dailies_template = self.parent.tank.templates["nuke_shot_render_dailies"]
+        targets = []
+        targets.append(publish_template)
+        targets.append(dailies_template)
 
         # publish (copy files):
+        import datetime
+        import time
+        
+        ts = time.time()
+        timestamp = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d')
 
         progress_cb(25, "Copying files")
+        for template in targets:
+            for fi, rf in enumerate(target_path):
 
-        for fi, rf in enumerate(render_files):
+                progress_cb(25 + (50*(len(render_files)/(fi*len(targets)+1))),target_path)
 
-            progress_cb(25 + (50*(len(render_files)/(fi+1))))
-
-            # construct the publish path:
-            fields = render_template.get_fields(rf)
-            fields["TankType"] = tank_type
-            target_path = publish_template.apply_fields(fields)
-
-            # copy the file
-            try:
-                target_folder = os.path.dirname(target_path)
-                self.parent.ensure_folder_exists(target_folder)
-                self._hardl_link_file(rf, target_path)
-            except Exception, e:
-                raise TankError("Failed to hard link file from %s to %s - %s" % (rf, target_path, e))
+                # construct the publish path:
+                fields = render_template.get_fields(rf)
+                fields["TankType"] = tank_type
+                fields["cs_timestamp"] = timestamp
+                target_path = template.apply_fields(fields)
+                self.parent.log_debug("target_path - %s" % target_path)
+                # copy the file
+                try:
+                    target_folder = os.path.dirname(target_path)
+                    self.parent.ensure_folder_exists(target_folder)
+                    self._hardl_link_file(rf, target_path)
+                except Exception, e:
+                    raise TankError("Failed to hard link file from %s to %s - %s" % (rf, target_path, e))
 
         progress_cb(40, "Publishing to Shotgun")
 
