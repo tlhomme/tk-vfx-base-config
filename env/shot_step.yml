@@ -267,7 +267,7 @@ engines:
         hook_scene_operation: default
         launch_at_startup: true
         launch_change_work_area_at_startup: false
-        location: {path: 'https://github.com/tlhomme/tk-multi-workfiles-mik.git',
+        location: {path: 'https://github.com/mikrosimageca/tk-multi-workfiles-mik.git',
           type: git, version: v0.6.8.3}
         saveas_default_name: ''
         saveas_prefer_version_up: true
@@ -502,7 +502,7 @@ engines:
         hook_scene_operation: default
         launch_at_startup: false
         launch_change_work_area_at_startup: false
-        location: {path: 'https://github.com/tlhomme/tk-multi-workfiles-mik.git',
+        location: {path: 'https://github.com/mikrosimageca/tk-multi-workfiles-mik.git',
           type: git, version: v0.6.8.3}
         saveas_default_name: ''
         saveas_prefer_version_up: true
