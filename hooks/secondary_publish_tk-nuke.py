@@ -363,9 +363,9 @@ class PublishHook(Hook):
 
         progress_cb(25, "Copying files")
         for template in targets:
-            for fi, rf in enumerate(target_path):
+            for fi, rf in enumerate(render_files):
 
-                progress_cb(25 + (50*(len(render_files)/(fi*len(targets)+1))),target_path)
+                progress_cb(25 + (50*(len(render_files)/((fi+1)*len(targets)))))
 
                 # construct the publish path:
                 fields = render_template.get_fields(rf)
