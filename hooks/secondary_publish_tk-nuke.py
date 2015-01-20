@@ -16,6 +16,9 @@ import tank
 from tank import Hook
 from tank import TankError
 
+import time
+import sgtk
+from sgtk.platform.qt import QtCore
 
 class PublishHook(Hook):
     """
@@ -163,7 +166,6 @@ class PublishHook(Hook):
                                                                                        sg_task,
                                                                                        comment,
                                                                                        progress_cb)
-
                         # keep track of our publish data so that we can pick it up later in review
                         render_publishes[ write_node.name() ] = (sg_publish, thumbnail_path)
                        
@@ -315,6 +317,27 @@ class PublishHook(Hook):
         except Exception, e:
              self.parent.log_debug("Submit to Screening Room failed - %s" % e)
 
+    def _publish_render_threaded(self, task, write_node, published_script_path, sg_task, comment, progress_cb):
+        """
+        """
+        # Upload in a new thread and make our own event loop to wait for the
+        # thread to finish.
+        self.parent.log_debug("Launching copy")
+        event_loop = QtCore.QEventLoop()
+        thread = CopyThread(self, task, write_node, published_script_path, sg_task, comment, progress_cb)
+        thread.finished.connect(event_loop.quit)
+        thread.start()
+        event_loop.exec_()
+
+        for e in thread.get_messages():
+            self.parent.log_debug(e)
+
+        # log any errors generated in the thread
+        for e in thread.get_errors():
+            self.parent.log_error(e)
+
+        return thread.get_pub_info()
+
     def _get_node_colorspace(self, node):
         """
         Get the colorspace for the specified nuke node
@@ -362,18 +385,23 @@ class PublishHook(Hook):
         timestamp = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d')
 
         progress_cb(25, "Copying files")
-        for template in targets:
+        # hard_link_to_do = []
+        # hard_append = hard_link_to_do.append
+        for ti, template in enumerate(targets):
             for fi, rf in enumerate(render_files):
-
-                progress_cb(25 + (50*(len(render_files)/((fi+1)*len(targets)))))
 
                 # construct the publish path:
                 fields = render_template.get_fields(rf)
                 fields["TankType"] = tank_type
                 fields["cs_timestamp"] = timestamp
+                fields["cs_file_ext"] = rf.split(".")[-1]
                 target_path = template.apply_fields(fields)
-                self.parent.log_debug("target_path - %s" % target_path)
+                # self.parent.log_debug("target_path - %s" % target_path)
+                adv = 25.0+float(fi+(ti*len(render_files)))/float(len(render_files)*len(targets))*50.0
+                # self.parent.log_debug(int(adv))
+                progress_cb(int(adv),os.path.split(target_path)[1])
                 # copy the file
+                # hard_append((rf, target_path))
                 try:
                     target_folder = os.path.dirname(target_path)
                     self.parent.ensure_folder_exists(target_folder)
@@ -381,7 +409,7 @@ class PublishHook(Hook):
                 except Exception, e:
                     raise TankError("Failed to hard link file from %s to %s - %s" % (rf, target_path, e))
 
-        progress_cb(40, "Publishing to Shotgun")
+        progress_cb(80, "Publishing to Shotgun")
 
         # use the render path to work out the publish 'file' and name:
         render_path_fields = render_template.get_fields(render_path)
@@ -449,8 +477,49 @@ class PublishHook(Hook):
             raise TankError(str(e))
 
 
+class CopyThread(QtCore.QThread):
+    """
+    Simple worker thread that encapsulates uploading to shotgun.
+    Broken out of the main loop so that the UI can remain responsive
+    even though an upload is happening
+    """
+    def __init__(self, app, task, write_node, published_script_path, sg_task, comment, progress_cb):
+        QtCore.QThread.__init__(self)
+        self._app = app
+        self.task =  task
+        self.write_node = write_node
+        self.published_script_path = published_script_path
+        self.sg_task =  sg_task
+        self.comment = comment
+        self.progress_cb = progress_cb
+        self._errors = []
+        self._messages = []
+        self._sg_publish = None
+        self._thumbnail_path = None
 
+    def get_errors(self):
+        """
+        can be called after execution to retrieve a list of errors
+        """
+        return self._errors
+    def get_messages(self):
+        """
+        can be called after execution to retrieve a list of errors
+        """
+        return self._messages
 
+    def get_pub_info(self):
+        return (self._sg_publish, self._thumbnail_path)
+
+    def run(self):
+        """
+        Thread loop
+        """
+        try:
+            self._sg_publish, self._thumbnail_path = self._app._publish_write_node_render(self.task, self.write_node, self.published_script_path, self.sg_task, self.comment, self.progress_cb)
+            self._messages.append("Copy ok")
+        except Exception, e:
+            self._errors.append("Copy failed: %s" % e)
 
 
 

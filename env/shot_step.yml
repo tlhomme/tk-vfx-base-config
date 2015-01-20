@@ -431,7 +431,7 @@ engines:
         hook_primary_pre_publish: primary_pre_publish
         hook_primary_publish: primary_publish
         hook_scan_scene: scan_scene_tk-nuke
-        hook_secondary_pre_publish: default
+        hook_secondary_pre_publish: secondary_pre_publish_tk-nuke
         hook_secondary_publish: secondary_publish_tk-nuke
         hook_thumbnail: default
         location: {name: tk-multi-publish, type: app_store, version: v0.6.6}
@@ -446,10 +446,6 @@ engines:
             Write Nodes, display_name: Publish Renders, icon: icons/publish_nuke_writenode.png,
           name: render, publish_template: null, required: false, scene_item_type: write_node,
           selected: true, tank_type: Rendered Image}
-        - {description: Create quicktime and send to Screening Room, display_group: Shotgun
-            Write Nodes, display_name: Send to Screening Room, icon: icons/publish_nuke_review.png,
-          name: quicktime, publish_template: null, required: false, scene_item_type: write_node,
-          selected: true, tank_type: Quicktime}
         template_work: nuke_shot_work
       tk-multi-reviewsubmission:
         location: {path: /datas/tlhomme/dev/sgtk/tk-multi-reviewsubmission, type: dev}
@@ -549,8 +545,7 @@ engines:
           proxy_render_template: null
           publish_template: nuke_shot_render_pub_mono_jpg
           render_template: nuke_shot_render_mono_jpg
-          settings: {_jpeg_quality: 0.90000000000000002, _jpeg_sub_sampling: '4:4:4',
-            colorspace: sRGB}
+          settings: {_jpeg_quality: 0.9, _jpeg_sub_sampling: '4:4:4', colorspace: sRGB}
           tank_type: Rendered Image
           tile_color: []
     compatibility_dialog_min_version: 9

@@ -140,6 +140,8 @@ keys:
         type: str
     cs_timestamp:
         type: str
+    cs_file_ext:
+        type: str
 # The paths section contains all the the key locations where files are to be stored
 # by Sgtk Apps. Each path is made up of several keys (like {version} or {Sequence}_{Shot}) and
 # these are defined in the keys section above.
@@ -338,7 +340,7 @@ paths:
 
     edit_dnx_folder: '_editorial/dnx/{cs_timestamp}/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.mov'
 
-    nuke_shot_render_dailies: '_presentation/{cs_timestamp}/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.{SEQ}.jpg'
+    nuke_shot_render_dailies: '_presentation/{cs_timestamp}/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.{SEQ}.{cs_file_ext}'
 
     nuke_shot_render_movie_edit: '@shot_root/images/_out_compo/publi/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}/edit/{cs_task_name}-{Sequence}_{Shot}[--{name}]-v{version}.mov'
     # 
